@@ -1,0 +1,55 @@
+name: Build and Deploy to itch.io
+
+on:
+  push:
+    branches: [main]
+
+env:
+  GODOT_VERSION: "4.6"
+  ITCH_GAME: yyyf/ld59
+  ITCH_CHANNEL: html
+
+jobs:
+  export-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Godot
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
+          unzip Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip
+          sudo mv Godot_v${GODOT_VERSION}-stable_linux.x86_64 /usr/local/bin/godot
+          chmod +x /usr/local/bin/godot
+
+      - name: Install export templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          wget -q https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+          unzip Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+          mv templates/* ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable/
+
+      - name: Import project
+        run: |
+          cd godot-project
+          godot --headless --import 2>&1 || true
+          # Editor needs one run to import assets
+
+      - name: Export Web build
+        run: |
+          mkdir -p build/web
+          cd godot-project
+          godot --headless --export-release "Web" ../build/web/index.html
+
+      - name: Install Butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip
+          chmod +x butler
+          ./butler -V
+
+      - name: Upload to itch.io
+        run: ./butler push build/web ${ITCH_GAME}:${ITCH_CHANNEL} --userversion ${GITHUB_SHA::8}
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
