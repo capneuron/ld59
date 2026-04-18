@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
+SceneManager="*uid://2iy8wfgenjka"
+Scenes="*uid://c7fu7rfia3wjs"
 
 [display]
 
@@ -26,7 +28,7 @@ window/size/viewport_height=1080
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
 
 [physics]
 

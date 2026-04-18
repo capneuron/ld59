@@ -18,7 +18,7 @@ const SHAPE_TYPES := {
 	"square": "vibe",
 	"star": "vibe",
 	"heart": "signal",
-	"triangle": "signal",
+	"triangle": "vibe",
 	"circle": "signal",
 }
 
@@ -27,7 +27,7 @@ const SHAPE_DISPLAY := {
 	"square": "Sincere",
 	"star": "Confident",
 	"heart": "Court",
-	"triangle": "Warn",
+	"triangle": "Upgrade",
 	"circle": "Greet",
 }
 

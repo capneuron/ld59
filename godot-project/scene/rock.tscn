@@ -1,0 +1,65 @@
+[gd_scene format=4 uid="uid://jqc8bftn6sjd"]
+
+[ext_resource type="Script" uid="uid://b8bfcp0grancw" path="res://scene/rock.gd" id="1_t7a0u"]
+[ext_resource type="Texture2D" uid="uid://cbundlpcun5c0" path="res://art/rock/rock.png" id="2_t7a0u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o08jy"]
+shading_mode = 0
+albedo_texture = ExtResource("2_t7a0u")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_10kgj"]
+resource_name = "rock"
+albedo_texture = ExtResource("2_t7a0u")
+texture_filter = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_31yyw"]
+_surfaces = [{
+"aabb": AABB(-0.9999, -0.5, -1.25, 1.9995, 1, 2.25),
+"format": 34359742465,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAQADAAIAAQAEAAMAAAAEAAEAAgADAAUABAAFAAMAAAACAAYAAgAFAAYAAAAHAAQABwAAAAgAAAAGAAgABAAHAAkABAAJAAUABwAIAAkABgAFAAkABgAJAAgA"),
+"name": "rock",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 10,
+"vertex_data": PackedByteArray("yeV/PwAAAL/FIEC/W7F/vgAAAL8AAKC/cvl/vwAAAL8AAACAcvk/vwAAAD8AAACAW7F/vgAAAD8AAEC/W7F/vgAAAD8AAIA+W7F/vgAAAL8AAIA/ksv/PgAAAD/FIEC/5fI/PwAAAL8bDQA/yeX/PgAAAD83GoA+")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_t7a0u"]
+resource_name = "rock_mesh"
+_surfaces = [{
+"aabb": AABB(-0.9999, -0.5, -1.25, 1.9995, 1, 2.25),
+"attribute_data": PackedByteArray("AAAIPwAAAD4AAAA/AABgPQAAED8AAAAAAAAIPwAAAD4AABA/AAAAAAAAID8AAGA9AAAIPwAAAD4AACA/AABgPQAAGD8AAAA+AAAgPwAAYD0AABg/AAAAPgAACD8AAAA+AAAgPwAAYD0AAAg/AAAAPgAAAD8AAGA9AAAgPwAAYD0AAAA/AABgPQAAED8AAAAAAAAAPwAAAD4AAAA/AAAAAAAAID8AAAAAAAAAPwAAAD4AACA/AAAAAAAAID8AAAA+AAAAPwAAAD4AAAA/AAAAAAAAID8AAAAAAAAAPwAAAD4AACA/AAAAAAAAID8AAAA+AAAAPwAAAD4AAAA/AAAAAAAAID8AAAAAAAAAPwAAAD4AACA/AAAAAAAAID8AAAA+AAAgPwAAAAAAACA/AAAAPgAAAD8AAAA+AAAgPwAAAAAAAAA/AAAAPgAAAD8AAAAAAAAAPwAAAD4AAAA/AAAAAAAAID8AAAAAAAAAPwAAAD4AACA/AAAAAAAAID8AAAA+"),
+"format": 34359742481,
+"index_count": 48,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcAGAAZABoAGwAcAB0AHgAfACAAIQAiACMAJAAlACYAJwAoACkAKgArACwALQAuAC8A"),
+"material": SubResource("StandardMaterial3D_10kgj"),
+"name": "rock",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 48,
+"vertex_data": PackedByteArray("yeV/PwAAAL/FIEC/W7F/vgAAAL8AAKC/cvl/vwAAAL8AAACAyeV/PwAAAL/FIEC/cvl/vwAAAL8AAACAW7F/vgAAAL8AAIA/yeV/PwAAAL/FIEC/W7F/vgAAAL8AAIA/5fI/PwAAAL8bDQA/W7F/vgAAAD8AAEC/ksv/PgAAAD/FIEC/yeX/PgAAAD83GoA+W7F/vgAAAD8AAEC/yeX/PgAAAD83GoA+W7F/vgAAAD8AAIA+W7F/vgAAAD8AAEC/W7F/vgAAAD8AAIA+cvk/vwAAAD8AAACAW7F/vgAAAL8AAKC/W7F/vgAAAD8AAEC/cvk/vwAAAD8AAACAW7F/vgAAAL8AAKC/cvk/vwAAAD8AAACAcvl/vwAAAL8AAACAcvl/vwAAAL8AAACAcvk/vwAAAD8AAACAW7F/vgAAAD8AAIA+cvl/vwAAAL8AAACAW7F/vgAAAD8AAIA+W7F/vgAAAL8AAIA/W7F/vgAAAL8AAIA/W7F/vgAAAD8AAIA+yeX/PgAAAD83GoA+W7F/vgAAAL8AAIA/yeX/PgAAAD83GoA+5fI/PwAAAL8bDQA/ksv/PgAAAD/FIEC/yeV/PwAAAL/FIEC/5fI/PwAAAL8bDQA/ksv/PgAAAD/FIEC/5fI/PwAAAL8bDQA/yeX/PgAAAD83GoA+yeV/PwAAAL/FIEC/ksv/PgAAAD/FIEC/W7F/vgAAAD8AAEC/yeV/PwAAAL/FIEC/W7F/vgAAAD8AAEC/W7F/vgAAAL8AAKC/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_31yyw")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y2n11"]
+points = PackedVector3Array(0.99960005, -0.5, -0.75070965, -0.24989176, -0.5, -1.25, 0.49952936, 0.5, -0.75070965, 0.4997251, 0.5, 0.25007343, 0.7496625, -0.5, 0.500049, -0.9999, -0.5, -0.00012230873, -0.74996245, 0.5, -0.00012230873, -0.24989176, 0.5, -0.75004894, -0.24989176, 0.5, 0.24985313, -0.24989176, -0.5, 1)
+
+[node name="rock" type="RigidBody3D" unique_id=1026346721]
+gravity_scale = 0.0
+freeze = true
+script = ExtResource("1_t7a0u")
+
+[node name="rock" type="Node3D" parent="." unique_id=843654114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="rock" unique_id=1966464685]
+material_override = SubResource("StandardMaterial3D_o08jy")
+mesh = SubResource("ArrayMesh_t7a0u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2048357690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50563097, 0)
+shape = SubResource("ConvexPolygonShape3D_y2n11")

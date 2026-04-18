@@ -8,13 +8,13 @@ extends Sprite3D
 @export var flash_duration: float = 2.0
 
 ## Map recognized shape names to emoji frame indices.
-## Frames: 0=Note, 1=Heart, 2=Cross, 3=Dots, 4=Angry, 5=Question, 6=Alert
+## Frames: 0=Note, 1=Heart, 2=Cross, 3=Dots, 4=Angry, 5=Question, 6=Upgrade
 const SHAPE_EMOJI := {
 	"heart": 1,
 	"triangle": 6,
 	"circle": 0,
-	"square": 3,
-	"star": 0,
+	"square": 5, # no use now, 5 is for question mark
+	"star": 4,
 }
 
 var target_scale: Vector3 = Vector3.ONE

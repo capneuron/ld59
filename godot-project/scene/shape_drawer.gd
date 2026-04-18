@@ -58,6 +58,10 @@ func draw_shape(shape_name: String, origin := Vector3.ZERO) -> void:
 		_draw_origin = global_position
 	else:
 		_draw_origin = origin
+	# Offset so the first shape point lands at _draw_origin
+	var first := _shape_points[0]
+	_draw_origin.x -= first.x * draw_scale
+	_draw_origin.z -= first.y * draw_scale
 	_draw_origin.y = y_offset
 
 	_current_shape_name = shape_name
@@ -101,7 +105,7 @@ func _process(delta: float) -> void:
 				var dir := target_pos - prev
 				dir.y = 0.0
 				if dir.length_squared() > 0.001:
-					parent.global_rotation.y = atan2(dir.x, dir.z) + PI / 2.0
+					parent.global_rotation.y = atan2(dir.x, dir.z) + PI
 
 		# Check if done
 		if target_index >= _shape_points.size() - 1:

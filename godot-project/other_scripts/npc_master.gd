@@ -62,7 +62,7 @@ func _process(delta: float) -> void:
 		var dir := _player.global_position - _target.global_position
 		dir.y = 0.0
 		if dir.length_squared() > 0.01:
-			var target_y := atan2(dir.x, dir.z) + PI / 2.0
+			var target_y := atan2(dir.x, dir.z) + PI
 			var current_y := _target.global_rotation.y
 			var diff := wrapf(target_y - current_y, -PI, PI)
 			_target.global_rotation.y = current_y + diff * clampf(turn_speed * delta, 0.0, 1.0)

@@ -1,37 +1,38 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://d0vqjf8yxeqe3"]
 
 [ext_resource type="PackedScene" uid="uid://ca0jnhoailalw" path="res://art/topless_tree/topless_tree.gltf" id="1_gltf"]
 [ext_resource type="Texture2D" uid="uid://dctmrvc2040vk" path="res://art/topless_tree/topless_tree.png" id="2_tex"]
-[ext_resource type="Script" path="res://scene/topless_tree.gd" id="3_script"]
+[ext_resource type="Script" uid="uid://btb2mcj0celjw" path="res://scene/topless_tree.gd" id="3_script"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_block"]
+height = 1.2
+radius = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mat"]
 shading_mode = 0
 albedo_texture = ExtResource("2_tex")
 texture_filter = 0
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_block"]
-height = 1.2
-radius = 0.6
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_detect"]
 height = 1.4
 radius = 0.8
 
-[node name="topless_tree" instance=ExtResource("1_gltf")]
+[node name="topless_tree" unique_id=2141783424 instance=ExtResource("1_gltf")]
 script = ExtResource("3_script")
 
-[node name="Mesh" parent="." index="0"]
-material_override = SubResource("StandardMaterial3D_mat")
+[node name="Normal" type="StaticBody3D" parent="." index="0" unique_id=216938806]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Normal" index="0" unique_id=259716324]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CylinderShape3D_block")
 
-[node name="SwipeDetector" type="Area3D" parent="." index="2"]
+[node name="Mesh" parent="." index="1" unique_id=1566356627]
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="SwipeDetector" type="Area3D" parent="." index="2" unique_id=1799185985]
 collision_layer = 0
 collision_mask = 2
-monitoring = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SwipeDetector" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SwipeDetector" index="0" unique_id=521135626]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 shape = SubResource("CylinderShape3D_detect")

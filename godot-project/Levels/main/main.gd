@@ -19,12 +19,15 @@ func _ready() -> void:
 	signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
 
 
+	SceneManager.set_transition_scene(preload("res://scene/UI/TransitionScreen/TransitionScreen.tscn"))
+
 func set_tail_mode(physical: bool) -> void:
 	use_physical_tail = physical
 	var physical_tail := $PhysicalTail
 	var visual_tail := $Player/ginnie/Tail
 
 	if physical:
+		physical_tail.teleport_to_player()
 		physical_tail.visible = true
 		physical_tail.set_physics_process(true)
 		physical_tail.set_process(true)
@@ -49,12 +52,25 @@ func _set_tail_collision(tail_root: Node, enabled: bool) -> void:
 
 # ===== Player Signal Handlers =====
 
+var _default_emoji_scale: Vector3 = Vector3.ZERO
+
 func _on_vibe_changed(vibe_name: String) -> void:
 	print("[Main] Vibe changed: %s" % vibe_name)
+	if vibe_name == "star":
+		set_tail_mode(true)
+	if vibe_name == "triangle" and player_emoji:
+		if _default_emoji_scale == Vector3.ZERO:
+			_default_emoji_scale = player_emoji.target_scale
+		player_emoji.target_scale = Vector3(7, 7, 7)
+		player_emoji.scale = player_emoji.target_scale
 
 
 func _on_vibe_expired() -> void:
 	print("[Main] Vibe expired")
+	set_tail_mode(false)
+	if player_emoji and _default_emoji_scale != Vector3.ZERO:
+		player_emoji.target_scale = _default_emoji_scale
+		player_emoji.scale = _default_emoji_scale
 
 
 func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
@@ -64,7 +80,7 @@ func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
 func _on_shape_recognized(shape_name: String, shape_type: String) -> void:
 	print("[Main] Shape recognized: %s (%s)" % [shape_name, shape_type])
 	if player_emoji:
-		var emoji_frame: int = player_emoji.SHAPE_EMOJI.get(shape_name, 5)
+		var emoji_frame: int = player_emoji.SHAPE_EMOJI.get(shape_name, 5) # default to question mark
 		player_emoji.flash_emoji(emoji_frame, player_emoji.flash_duration)
 
 

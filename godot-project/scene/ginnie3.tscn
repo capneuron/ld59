@@ -10,20 +10,32 @@ shading_mode = 0
 albedo_texture = ExtResource("2_tex")
 texture_filter = 0
 
-[node name="ginnie3" unique_id=892515930 instance=ExtResource("1_gltf")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_col"]
+size = Vector3(1, 0.58, 1.74)
 
-[node name="Mesh" parent="." index="0" unique_id=1287004977]
+[node name="ginnie3" type="RigidBody3D"]
+freeze = true
+gravity_scale = 0.0
+
+[node name="Model" parent="." instance=ExtResource("1_gltf")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="Mesh" parent="Model" index="0"]
 material_override = SubResource("StandardMaterial3D_mat")
 
-[node name="Mesh2" parent="." index="1" unique_id=601927527]
+[node name="Mesh2" parent="Model" index="1"]
 material_override = SubResource("StandardMaterial3D_mat")
 
-[node name="Mesh3" parent="." index="2" unique_id=300539391]
+[node name="Mesh3" parent="Model" index="2"]
 material_override = SubResource("StandardMaterial3D_mat")
 
-[node name="Tail" parent="." index="3" unique_id=1046437612 instance=ExtResource("3_tail")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7563642, 0.40512967, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0.13)
+shape = SubResource("BoxShape3D_col")
+
+[node name="Tail" parent="." instance=ExtResource("3_tail")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40512967, 0.7563642)
 tail_color = Color(1, 0.9529412, 0.9137255, 1)
 
-[node name="Emoji" parent="." index="4" unique_id=746963008 instance=ExtResource("4_emoji")]
+[node name="Emoji" parent="." instance=ExtResource("4_emoji")]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)

@@ -107,6 +107,19 @@ func _ready() -> void:
 		joint.node_b = joint.get_path_to(tail)
 
 
+func teleport_to_player() -> void:
+	if not player:
+		return
+	var base_pos := player.global_position
+	for i in _tails.size():
+		var tail := _tails[i]
+		tail.linear_velocity = Vector3.ZERO
+		tail.angular_velocity = Vector3.ZERO
+		# Stack segments behind the player
+		var offset := Vector3(segment_spacing * 0.5 + segment_spacing * i, 0.0, 0.0)
+		tail.global_position = base_pos + offset
+
+
 func get_tip_speed() -> float:
 	if _tails.is_empty():
 		return 0.0
