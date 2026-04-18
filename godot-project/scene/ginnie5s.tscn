@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://blwcwrky2o618" path="res://art/ginnie5s/ginnie5s.gltf" id="1_gltf"]
 [ext_resource type="Texture2D" uid="uid://vbkux8mlqkpe" path="res://art/ginnie5s/ginnie5s.png" id="2_tex"]
 [ext_resource type="PackedScene" uid="uid://b2ip4ejsejxqd" path="res://scene/visual_tail.tscn" id="3_tail"]
+[ext_resource type="PackedScene" uid="uid://kp3gb1munnnx" path="res://scene/emoji.tscn" id="4_emoji"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mat"]
 shading_mode = 0
@@ -22,3 +23,6 @@ material_override = SubResource("StandardMaterial3D_mat")
 
 [node name="Tail" parent="." index="3" instance=ExtResource("3_tail")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7563642, 0.40512967, 0)
+
+[node name="Emoji" parent="." instance=ExtResource("4_emoji")]
+transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)
