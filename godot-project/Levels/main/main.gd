@@ -5,11 +5,17 @@ extends Node3D
 @export var use_physical_tail: bool = false
 
 
+@onready var signal_manager: Node = $SignalManager
+
+
 func _ready() -> void:
 	set_tail_mode(use_physical_tail)
-	# set_tail_mode(use_physical_tail)
 
-	# $Enemy/ShapeDrawer.draw_shape("heart")
+	signal_manager.vibe_changed.connect(_on_vibe_changed)
+	signal_manager.vibe_expired.connect(_on_vibe_expired)
+	signal_manager.signal_triggered.connect(_on_signal_triggered)
+	signal_manager.shape_recognized.connect(_on_shape_recognized)
+	signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
 
 
 func set_tail_mode(physical: bool) -> void:
@@ -39,6 +45,26 @@ func _set_tail_collision(tail_root: Node, enabled: bool) -> void:
 	for child in tail_root.get_children():
 		if child is RigidBody3D:
 			child.set_deferred("freeze", not enabled)
+
+
+func _on_vibe_changed(vibe_name: String) -> void:
+	print("[Main] Vibe changed: %s" % vibe_name)
+
+
+func _on_vibe_expired() -> void:
+	print("[Main] Vibe expired")
+
+
+func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
+	print("[Main] Signal triggered: %s (vibe: %s)" % [signal_name, vibe_name])
+
+
+func _on_shape_recognized(shape_name: String, shape_type: String) -> void:
+	print("[Main] Shape recognized: %s (%s)" % [shape_name, shape_type])
+
+
+func _on_shape_unrecognized() -> void:
+	print("[Main] Shape unrecognized")
 
 
 func _unhandled_key_input(event: InputEvent) -> void:

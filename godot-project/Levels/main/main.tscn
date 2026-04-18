@@ -16,10 +16,15 @@
 [ext_resource type="Shader" uid="uid://daik7xefva1j" path="res://grass.gdshader" id="8_grass"]
 [ext_resource type="Script" uid="uid://4hhoxd2nvegn" path="res://scene/grass_field.gd" id="11_08cvt"]
 [ext_resource type="PackedScene" path="res://scene/ginnie2.tscn" id="12_0mcpc"]
+[ext_resource type="PackedScene" path="res://scene/ginnie4.tscn" id="12_b7jro"]
 [ext_resource type="PackedScene" uid="uid://dbljast0aqup5" path="res://scene/fence.tscn" id="12_dwcgc"]
 [ext_resource type="Script" uid="uid://csvbnmx5w4cxm" path="res://other_scripts/npc.gd" id="12_gqb1v"]
 [ext_resource type="Script" uid="uid://bva3y83mi7mo1" path="res://other_scripts/camera_manager.gd" id="12_mffks"]
+[ext_resource type="PackedScene" path="res://scene/ginnie3.tscn" id="13_lu6jg"]
+[ext_resource type="PackedScene" path="res://scene/ginnie5s.tscn" id="14_uj5gg"]
 [ext_resource type="Texture2D" uid="uid://bgt2vpqwq6xpm" path="res://art/guide/guide0.png" id="15_3peh0"]
+[ext_resource type="PackedScene" path="res://scene/ginnie6b.tscn" id="15_gdhu6"]
+[ext_resource type="PackedScene" path="res://scene/ginnie7e.tscn" id="16_2smtr"]
 [ext_resource type="Script" uid="uid://eda7hdg4iinm" path="res://other_scripts/float_bobbing.gd" id="16_v0iqm"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_bg1ar"]
 [ext_resource type="PackedScene" uid="uid://cqiq422k83l8y" path="res://scene/tree.tscn" id="22_oq1gk"]
@@ -248,10 +253,25 @@ physical_tail_path = NodePath("../PhysicalTail")
 signal_manager_path = NodePath("../SignalManager")
 player_path = NodePath("../Player")
 
-[node name="F" parent="." unique_id=789694993 instance=ExtResource("12_0mcpc")]
+[node name="ginnie4" parent="." unique_id=1006542862 instance=ExtResource("12_b7jro")]
+transform = Transform3D(-0.7854573, 0, -0.61891586, 0, 1, 0, 0.61891586, 0, -0.7854573, -8.388062, -0.12096977, 33.44784)
+
+[node name="ginnie3" parent="." unique_id=817499718 instance=ExtResource("13_lu6jg")]
+transform = Transform3D(-0.7854573, 0, -0.61891586, 0, 1, 0, 0.61891586, 0, -0.7854573, -8.388062, -0.12096977, 33.44784)
+
+[node name="ginnie5s" parent="." unique_id=493892838 instance=ExtResource("14_uj5gg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10810542, 0, 33.047405)
+
+[node name="ginnie6b" parent="." unique_id=1673703165 instance=ExtResource("15_gdhu6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.453556, 0, 32.244484)
+
+[node name="E" parent="." unique_id=349365936 instance=ExtResource("16_2smtr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.901965, 0, 35.64357)
+
+[node name="M1" parent="." unique_id=789694993 instance=ExtResource("12_0mcpc")]
 transform = Transform3D(-0.7854573, 0, -0.61891586, 0, 1, 0, 0.61891586, 0, -0.7854573, -1.5256081, -0.12096977, 36.806282)
 
-[node name="NPC" type="Node3D" parent="F" unique_id=307566424]
+[node name="NPC" type="Node3D" parent="M1" unique_id=307566424]
 script = ExtResource("12_gqb1v")
 
 [node name="CamaeraManger" type="Node3D" parent="." unique_id=1128930863 node_paths=PackedStringArray("cams", "player")]
