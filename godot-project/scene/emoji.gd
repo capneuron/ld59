@@ -14,7 +14,7 @@ const SHAPE_EMOJI := {
 	"triangle": 6,
 	"circle": 0,
 	"square": 3,
-	"figure8": 0,
+	"star": 0,
 }
 
 var target_scale: Vector3 = Vector3.ONE

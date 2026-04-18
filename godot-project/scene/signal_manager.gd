@@ -16,7 +16,7 @@ signal shape_unrecognized()
 ## Shape name -> type mapping
 const SHAPE_TYPES := {
 	"square": "vibe",
-	"figure8": "vibe",
+	"star": "vibe",
 	"heart": "signal",
 	"triangle": "signal",
 	"circle": "signal",
@@ -25,7 +25,7 @@ const SHAPE_TYPES := {
 ## Shape name -> display name
 const SHAPE_DISPLAY := {
 	"square": "Sincere",
-	"figure8": "Confident",
+	"star": "Confident",
 	"heart": "Court",
 	"triangle": "Warn",
 	"circle": "Greet",

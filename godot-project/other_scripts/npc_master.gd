@@ -1,13 +1,13 @@
 extends Node
 
-## Add as a child of any Node3D. Makes the parent face the player when nearby
-## and react to shape signals (e.g. greet → happy bounce + emoji).
+## NPC Master: faces player when nearby, bounces on greet, then draws a star on the ground.
+## Add as a child of a ginnie Node3D that also has a ShapeDrawer child.
 
 @export var detection_range: float = 15.0
 @export var face_player: bool = true
 @export var turn_speed: float = 5.0
 
-## Bounce parameters (reused from happy_bounce logic)
+## Bounce parameters
 @export var bounce_height: float = 0.4
 @export var bounce_count: int = 3
 @export var bounce_speed: float = 8.0
@@ -16,6 +16,7 @@ extends Node
 var _target: Node3D
 var _player: Node3D
 var _signal_manager: Node
+var _shape_drawer: ShapeDrawer
 var _player_in_range: bool = false
 
 # Bounce state
@@ -24,12 +25,22 @@ var _bounce_time: float = 0.0
 var _bounce_duration: float = 0.0
 var _base_y: float = 0.0
 
+# Post-bounce action
+var _draw_after_bounce: bool = false
+var _pre_draw_position: Vector3 = Vector3.ZERO
+
 
 func _ready() -> void:
 	_target = get_parent() as Node3D
 	_bounce_duration = bounce_count * TAU / bounce_speed
 	_player = get_node_or_null("/root/Main/Player")
 	_signal_manager = get_node_or_null("/root/Main/SignalManager")
+
+	if _target:
+		_shape_drawer = _target.get_node_or_null("ShapeDrawer") as ShapeDrawer
+		if _shape_drawer:
+			_shape_drawer.drawing_finished.connect(_on_drawing_finished)
+
 	if _signal_manager:
 		_signal_manager.signal_triggered.connect(_on_signal_triggered)
 		_signal_manager.shape_recognized.connect(_on_shape_recognized)
@@ -43,12 +54,14 @@ func _process(delta: float) -> void:
 	var distance := _target.global_position.distance_to(_player.global_position)
 	_player_in_range = distance <= detection_range
 
-	# Face player (also during bounce)
-	if face_player and (_player_in_range or _bouncing):
+	# Don't rotate while drawing — ShapeDrawer controls movement
+	var is_drawing := _shape_drawer and _shape_drawer.is_drawing()
+
+	# Face player (also during bounce, but not while drawing)
+	if face_player and (_player_in_range or _bouncing) and not is_drawing:
 		var dir := _player.global_position - _target.global_position
 		dir.y = 0.0
 		if dir.length_squared() > 0.01:
-			# Ginnie model faces +X, not -Z, so offset by -90°
 			var target_y := atan2(dir.x, dir.z) + PI / 2.0
 			var current_y := _target.global_rotation.y
 			var diff := wrapf(target_y - current_y, -PI, PI)
@@ -61,6 +74,9 @@ func _process(delta: float) -> void:
 			_bouncing = false
 			_target.position.y = _base_y
 			_target.scale = Vector3.ONE
+			if _draw_after_bounce:
+				_draw_after_bounce = false
+				_start_drawing_star()
 		else:
 			var progress: float = _bounce_time / _bounce_duration
 			var decay: float = 1.0 - progress
@@ -78,6 +94,20 @@ func _play_bounce() -> void:
 	_bounce_time = 0.0
 
 
+func _start_drawing_star() -> void:
+	if not _shape_drawer or _shape_drawer.is_drawing():
+		return
+	_pre_draw_position = _target.global_position
+	_shape_drawer.draw_shape("star")
+
+
+func _on_drawing_finished(_shape_name: String) -> void:
+	# Return to original position after drawing
+	if _target and _pre_draw_position != Vector3.ZERO:
+		_target.global_position = _pre_draw_position
+		_pre_draw_position = Vector3.ZERO
+
+
 func _get_emoji() -> Node:
 	if not _target:
 		return null
@@ -86,12 +116,12 @@ func _get_emoji() -> Node:
 
 func _on_shape_recognized(shape_name: String, _shape_type: String) -> void:
 	pass
-# 	if not _player_in_range:
-# 		return
-# 	var emoji := _get_emoji()
-# 	if emoji:
-# 		var emoji_frame: int = emoji.SHAPE_EMOJI.get(shape_name, 5)
-# 		emoji.flash_emoji(emoji_frame, emoji.flash_duration)
+	# if not _player_in_range:
+	# 	return
+	# var emoji := _get_emoji()
+	# if emoji:
+	# 	var emoji_frame: int = emoji.SHAPE_EMOJI.get(shape_name, 5)
+	# 	emoji.flash_emoji(emoji_frame, emoji.flash_duration)
 
 
 func _on_shape_unrecognized() -> void:
@@ -99,7 +129,7 @@ func _on_shape_unrecognized() -> void:
 		return
 	var emoji := _get_emoji()
 	if emoji:
-		emoji.flash_emoji(5, 1.0)  # question mark
+		emoji.flash_emoji(5, 1.0)
 
 
 func _on_signal_triggered(_vibe_name: String, signal_name: String) -> void:
@@ -107,6 +137,7 @@ func _on_signal_triggered(_vibe_name: String, signal_name: String) -> void:
 		return
 	if signal_name == "circle":  # Greet
 		_play_bounce()
+		_draw_after_bounce = true
 		var emoji := _get_emoji()
 		if emoji:
 			emoji.flash_emoji(0)  # Note emoji

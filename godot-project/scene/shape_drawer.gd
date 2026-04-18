@@ -46,7 +46,7 @@ func _ready() -> void:
 	add_child(_mesh_instance)
 
 
-## Start drawing a shape. shape_name must be one of: "square", "figure8", "circle", "heart", "triangle"
+## Start drawing a shape. shape_name must be one of: "square", "star", "circle", "heart", "triangle"
 ## Optionally pass an origin position; defaults to this node's global_position.
 func draw_shape(shape_name: String, origin := Vector3.ZERO) -> void:
 	_shape_points = _get_shape_points(shape_name)
@@ -95,13 +95,13 @@ func _process(delta: float) -> void:
 			parent.global_position.x = target_pos.x
 			parent.global_position.z = target_pos.z
 
-			# Face movement direction
+			# Face movement direction (ginnie model faces +X, offset +90°)
 			if _trail_points.size() >= 2:
 				var prev := _trail_points[_trail_points.size() - 2]
 				var dir := target_pos - prev
 				dir.y = 0.0
 				if dir.length_squared() > 0.001:
-					parent.look_at(parent.global_position + dir, Vector3.UP)
+					parent.global_rotation.y = atan2(dir.x, dir.z) + PI / 2.0
 
 		# Check if done
 		if target_index >= _shape_points.size() - 1:
@@ -177,8 +177,8 @@ func _get_shape_points(shape_name: String) -> Array[Vector2]:
 	match shape_name:
 		"square":
 			return _make_square()
-		"figure8":
-			return _make_figure8()
+		"star":
+			return _make_star()
 		"circle":
 			return _make_circle()
 		"heart":
@@ -205,13 +205,20 @@ func _make_square() -> Array[Vector2]:
 	return pts
 
 
-func _make_figure8() -> Array[Vector2]:
+func _make_star() -> Array[Vector2]:
 	var pts: Array[Vector2] = []
-	var steps := 64
-	for i in steps:
-		var t := TAU * float(i) / steps
-		pts.append(Vector2(sin(t) * 0.5, sin(2.0 * t) * 0.25))
-	pts.append(pts[0])
+	var steps := 12
+	var verts: Array[Vector2] = []
+	for i in 5:
+		var angle := TAU * float(i) / 5.0 - PI / 2.0
+		verts.append(Vector2(cos(angle) * 0.5, sin(angle) * 0.5))
+	var order := [0, 2, 4, 1, 3, 0]
+	for seg in range(order.size() - 1):
+		var from := verts[order[seg]]
+		var to := verts[order[seg + 1]]
+		for j in steps:
+			pts.append(from.lerp(to, float(j) / steps))
+	pts.append(verts[order[0]])
 	return pts
 
 

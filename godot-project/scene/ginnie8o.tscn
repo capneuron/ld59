@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://mroeoo2jgllb" path="res://art/ginnie8o/ginnie8o.png" id="2_v0x5e"]
 [ext_resource type="PackedScene" uid="uid://b2ip4ejsejxqd" path="res://scene/visual_tail.tscn" id="3_n0ocv"]
 [ext_resource type="PackedScene" uid="uid://kp3gb1munnnx" path="res://scene/emoji.tscn" id="4_1niyq"]
+[ext_resource type="Script" uid="uid://bjjg70dvdb4ev" path="res://scene/shape_drawer.gd" id="5_lqugo"]
+[ext_resource type="Script" uid="uid://cpguofgvevlp" path="res://other_scripts/npc_master.gd" id="6_1niyq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_expgm"]
 shading_mode = 0
@@ -27,3 +29,11 @@ tail_color = Color(0.8, 0.40784314, 0.25882354, 1)
 
 [node name="Emoji" parent="." index="4" unique_id=296438333 instance=ExtResource("4_1niyq")]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)
+
+[node name="ShapeDrawer" type="Node3D" parent="." index="5" unique_id=1567337419]
+script = ExtResource("5_lqugo")
+draw_speed = 16.0
+draw_scale = 4.0
+
+[node name="NpcMaster" type="Node" parent="." index="6" unique_id=1260433912]
+script = ExtResource("6_1niyq")

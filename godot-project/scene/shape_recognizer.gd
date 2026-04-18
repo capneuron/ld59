@@ -181,7 +181,7 @@ func _path_distance(a: Array[Vector2], b: Array[Vector2]) -> float:
 func _register_defaults() -> void:
 	# Register each template in both directions for better recognition
 	_add_with_reverse("square", _make_square())
-	_add_with_reverse("figure8", _make_figure8())
+	_add_with_reverse("star", _make_star())
 	_add_with_reverse("heart", _make_heart())
 	_add_with_reverse("triangle", _make_triangle())
 	_add_with_reverse("circle", _make_circle())
@@ -214,13 +214,22 @@ func _make_square() -> Array[Vector2]:
 	return pts
 
 
-func _make_figure8() -> Array[Vector2]:
+func _make_star() -> Array[Vector2]:
+	## 5-pointed star drawn as a single stroke (connecting every other vertex)
 	var pts: Array[Vector2] = []
-	var steps := 64
-	for i in steps:
-		var t := TAU * float(i) / steps
-		pts.append(Vector2(sin(t), sin(2.0 * t) * 0.5))
-	pts.append(pts[0])
+	var steps := 12
+	var verts: Array[Vector2] = []
+	for i in 5:
+		var angle := TAU * float(i) / 5.0 - PI / 2.0
+		verts.append(Vector2(cos(angle), sin(angle)))
+	# Draw in star order: 0 → 2 → 4 → 1 → 3 → 0
+	var order := [0, 2, 4, 1, 3, 0]
+	for seg in range(order.size() - 1):
+		var from := verts[order[seg]]
+		var to := verts[order[seg + 1]]
+		for j in steps:
+			pts.append(from.lerp(to, float(j) / steps))
+	pts.append(verts[order[0]])
 	return pts
 
 
