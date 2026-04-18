@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ddvagjuxmkp2o" path="res://scene/player.gd" id="1_hjaqi"]
 [ext_resource type="PackedScene" uid="uid://saeynhxm3lh2" path="res://scene/ginnie.tscn" id="2_fvtld"]
+[ext_resource type="PackedScene" uid="uid://kp3gb1munnnx" path="res://scene/emoji.tscn" id="3_fvtld"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hjaqi"]
 size = Vector3(1, 0.58065796, 1.7432861)
@@ -15,3 +16,6 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1864762146]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28050232, 0.12750244)
 shape = SubResource("BoxShape3D_hjaqi")
+
+[node name="Emoji" parent="." unique_id=296438333 instance=ExtResource("3_fvtld")]
+transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, -2.2680395, 1.8955088, 0)

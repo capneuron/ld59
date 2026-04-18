@@ -156,7 +156,7 @@ shader_parameter/color_levels = 32
 [sub_resource type="PlaneMesh" id="PlaneMesh_gqb1v"]
 size = Vector2(90, 12.76)
 
-[node name="Node3D" type="Node3D" unique_id=939759213]
+[node name="Main" type="Node3D" unique_id=939759213]
 script = ExtResource("1_2f156")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=291897478]
@@ -237,6 +237,7 @@ trail_system = NodePath("../TrailSystem")
 [node name="DebugPanel" parent="." unique_id=1737199023 instance=ExtResource("5_debug")]
 physical_tail_path = NodePath("../PhysicalTail")
 signal_manager_path = NodePath("../SignalManager")
+player_path = NodePath("../Player")
 
 [node name="F" parent="." unique_id=789694993 instance=ExtResource("12_0mcpc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0385075, -0.120967865, 9.175293)

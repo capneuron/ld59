@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://kp3gb1munnnx"]
+
+[ext_resource type="Texture2D" uid="uid://d4jmlajyl8rfm" path="res://art/guide/emoji.png" id="1_tcy6m"]
+[ext_resource type="Script" path="res://scene/emoji.gd" id="2_emoji"]
+
+[node name="Emoji" type="Sprite3D" unique_id=296438333]
+billboard = 1
+texture_filter = 0
+texture = ExtResource("1_tcy6m")
+hframes = 7
+script = ExtResource("2_emoji")
