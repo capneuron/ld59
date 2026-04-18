@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://du1sgfw338lvf"]
+
+[ext_resource type="Script" uid="uid://ddvagjuxmkp2o" path="res://scene/player.gd" id="1_hjaqi"]
+[ext_resource type="PackedScene" uid="uid://saeynhxm3lh2" path="res://scene/ginnie.tscn" id="2_fvtld"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hjaqi"]
+size = Vector3(1, 0.58065796, 1.7432861)
+
+[node name="Player" type="CharacterBody3D" unique_id=1045813614]
+script = ExtResource("1_hjaqi")
+
+[node name="ginnie" parent="." unique_id=1513500766 instance=ExtResource("2_fvtld")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1864762146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28050232, 0.12750244)
+shape = SubResource("BoxShape3D_hjaqi")

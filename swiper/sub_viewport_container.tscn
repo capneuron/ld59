@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cigjv0d77qp52"]
+
+[ext_resource type="Shader" uid="uid://b4gs1llabra6d" path="res://outline.gdshader" id="1_mex5t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cegan"]
+render_priority = 0
+shader = ExtResource("1_mex5t")
+shader_parameter/depth_threshold = 0.05
+shader_parameter/reverse_depth_threshold = 0.25
+shader_parameter/normal_threshold = 0.6
+shader_parameter/darken_amount = 0.2
+shader_parameter/lighten_amount = 1.5
+shader_parameter/normal_edge_bias = Vector3(-1, -1, -1)
+shader_parameter/light_direction = Vector3(0.883849, -0.440387, -0.157702)
+
+[sub_resource type="QuadMesh" id="QuadMesh_825fy"]
+material = SubResource("ShaderMaterial_cegan")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="SubViewportContainer" type="SubViewportContainer" unique_id=291897478]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 6
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1855088751]
+handle_input_locally = false
+size = Vector2i(85, 85)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=1767397823]
+unique_name_in_owner = true
+current = true
+fov = 50.0
+
+[node name="PostProcessing" type="MeshInstance3D" parent="SubViewport/Camera3D" unique_id=900127976]
+unique_name_in_owner = true
+transform = Transform3D(0.494721, -0.0118243, -0.868972, -0.230959, 0.962161, -0.144582, 0.837801, 0.272224, 0.47327, 1.1671, 2.7328, -0.394937)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_825fy")
+skeleton = NodePath("../..")

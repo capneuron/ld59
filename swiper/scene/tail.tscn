@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bnasm8g46s50j"]
+
+[ext_resource type="Script" uid="uid://j1iikfah85m6" path="res://scene/tail.gd" id="1_3uqyl"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1"]
+radius = 0.3
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.9536133
+height = 1.9072266
+
+[node name="Tail" type="RigidBody3D" unique_id=746723661]
+collision_layer = 2
+collision_mask = 1
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+mass = 6.0
+continuous_cd = true
+linear_damp = 8.0
+script = ExtResource("1_3uqyl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=833001312]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=12493316]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2.2303908e-09, -0.05102539)
+shape = SubResource("CapsuleShape3D_1")

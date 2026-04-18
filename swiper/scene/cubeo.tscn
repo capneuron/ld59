@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dikk32jbf071m"]
+
+[ext_resource type="PackedScene" uid="uid://66pudvkfdyjc" path="res://art/cubeo/cubeo.gltf" id="1_0rq5k"]
+[ext_resource type="Texture2D" uid="uid://cadtf7pofyla0" path="res://art/cubeo/cubeo.png" id="2_rvm4h"]
+[ext_resource type="Script" uid="uid://c0ou8hxnaskvm" path="res://scene/cubeo.gd" id="3_mov"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_thjny"]
+shading_mode = 0
+albedo_texture = ExtResource("2_rvm4h")
+texture_filter = 0
+
+[node name="cubeo" unique_id=1815113871 instance=ExtResource("1_0rq5k")]
+script = ExtResource("3_mov")
+
+[node name="Mesh" parent="." index="0" unique_id=1874834320]
+material_overlay = SubResource("StandardMaterial3D_thjny")

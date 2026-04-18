@@ -1,0 +1,255 @@
+[gd_scene format=3 uid="uid://cewcxg0axctoi"]
+
+[ext_resource type="Script" uid="uid://caqllnai51u0h" path="res://Levels/main/main.gd" id="1_2f156"]
+[ext_resource type="Shader" uid="uid://dwl2bn1q0gkqs" path="res://ps1.gdshader" id="1_38ktb"]
+[ext_resource type="PackedScene" uid="uid://du1sgfw338lvf" path="res://scene/player.tscn" id="2_38ktb"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_a1hbh"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_3peh0"]
+[ext_resource type="PackedScene" uid="uid://c1sqytv4bpjxo" path="res://scene/physical_tail.tscn" id="3_ptail"]
+[ext_resource type="PackedScene" uid="uid://drf5dhnewqomi" path="res://scene/enemy.tscn" id="4_gatvu"]
+[ext_resource type="PackedScene" uid="uid://c6iqe40gt3wby" path="res://scene/debug_panel.tscn" id="5_debug"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_v0iqm"]
+[ext_resource type="Script" uid="uid://bjjg70dvdb4ev" path="res://scene/shape_drawer.gd" id="5_v5g2c"]
+[ext_resource type="Script" uid="uid://nnjwsb54n4ih" path="res://scene/trail_system.gd" id="6_trail"]
+[ext_resource type="PackedScene" uid="uid://dyfe2gfeo2po3" path="res://scene/guinea_pig_house.tscn" id="7_jy1lx"]
+[ext_resource type="Script" uid="uid://dnx5gbadex2x3" path="res://scene/signal_manager.gd" id="7_sigmgr"]
+[ext_resource type="Shader" uid="uid://daik7xefva1j" path="res://grass.gdshader" id="8_grass"]
+[ext_resource type="Script" uid="uid://4hhoxd2nvegn" path="res://scene/grass_field.gd" id="11_08cvt"]
+[ext_resource type="PackedScene" uid="uid://dbljast0aqup5" path="res://scene/fence.tscn" id="12_dwcgc"]
+[ext_resource type="Script" uid="uid://bva3y83mi7mo1" path="res://other_scripts/camera_manager.gd" id="12_mffks"]
+[ext_resource type="Texture2D" uid="uid://bgt2vpqwq6xpm" path="res://art/guide/guide0.png" id="15_3peh0"]
+[ext_resource type="Script" uid="uid://eda7hdg4iinm" path="res://other_scripts/float_bobbing.gd" id="16_v0iqm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i5glm"]
+render_priority = 0
+shader = ExtResource("1_38ktb")
+shader_parameter/enable_fog = true
+shader_parameter/fog_color = Color(0, 0, 0, 1)
+shader_parameter/noise_color = Color(0, 0, 0, 1)
+shader_parameter/fog_distance = 100.0
+shader_parameter/fog_fade_range = 50.0
+shader_parameter/enable_noise = true
+shader_parameter/noise_time_fac = 4.0
+shader_parameter/enable_color_limitation = true
+shader_parameter/color_levels = 32
+shader_parameter/enable_dithering = true
+shader_parameter/dither_strength = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_825fy"]
+material = SubResource("ShaderMaterial_i5glm")
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="Resource" id="Resource_mffks"]
+script = ExtResource("3_3peh0")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mffks"]
+size = Vector3(13.891724, 5.2075195, 18.177711)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v0iqm"]
+size = Vector3(13.891724, 5.2075195, 15.801247)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_08cvt"]
+render_priority = 0
+shader = ExtResource("8_grass")
+shader_parameter/ground_color = Vector3(0.2, 0.451, 0.102)
+shader_parameter/shadow_strength = 0.3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i5glm"]
+size = Vector2(200, 200)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_2f156"]
+
+[node name="Node3D" type="Node3D" unique_id=939759213]
+script = ExtResource("1_2f156")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=291897478]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 6
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1855088751]
+handle_input_locally = false
+size = Vector2i(320, 180)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1767397823]
+unique_name_in_owner = true
+transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 10, 10, 0)
+top_level = true
+projection = 1
+current = true
+fov = 50.0
+size = 11.827
+
+[node name="PostProcessing" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D" unique_id=900127976]
+unique_name_in_owner = true
+transform = Transform3D(1.0000007, 0, 0, 0, 0.99999976, 0, 0, 0, 1.0000004, 0, 0, 0)
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_825fy")
+skeleton = NodePath("../..")
+
+[node name="PhantomCameraHost" type="Node" parent="SubViewportContainer/SubViewport/Camera3D" unique_id=1428299165]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_v0iqm")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="Player" parent="." unique_id=1045813614 instance=ExtResource("2_38ktb")]
+move_speed = 120.0
+turn_speed = 30.0
+backward_angle = 155.0
+
+[node name="PhysicalTail" parent="." unique_id=696815448 node_paths=PackedStringArray("player") instance=ExtResource("3_ptail")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -4.1762235e-08, 0.6, 0.9554086)
+visible = false
+player = NodePath("../Player")
+
+[node name="guinea_pig_house" parent="." unique_id=1314881954 instance=ExtResource("7_jy1lx")]
+transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, -2.7680416, -4.7683716e-07, -8.576317)
+
+[node name="Enemy" parent="." unique_id=1729282385 instance=ExtResource("4_gatvu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.97091, 0, 0)
+swipe_speed_threshold = 40.0
+
+[node name="ShapeDrawer" type="Node3D" parent="Enemy" unique_id=379093565]
+script = ExtResource("5_v5g2c")
+draw_speed = 32.0
+draw_scale = 6.0
+metadata/_custom_type_script = "uid://bjjg70dvdb4ev"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=110072992]
+transform = Transform3D(-4.371139e-08, -0.50000006, -0.8660254, 0, -0.8660254, 0.50000006, -1, 2.1855696e-08, 3.7855173e-08, 0, 0, 0)
+shadow_enabled = true
+shadow_bias = 7.644
+shadow_blur = 0.0
+
+[node name="TrailSystem" type="Node3D" parent="." unique_id=188891070 node_paths=PackedStringArray("player")]
+script = ExtResource("6_trail")
+player = NodePath("../Player")
+trail_color = Color(0.7254902, 0.9372549, 0.24705882, 0.7372549)
+
+[node name="SignalManager" type="Node" parent="." unique_id=209754459 node_paths=PackedStringArray("trail_system")]
+script = ExtResource("7_sigmgr")
+trail_system = NodePath("../TrailSystem")
+
+[node name="DebugPanel" parent="." unique_id=1737199023 instance=ExtResource("5_debug")]
+physical_tail_path = NodePath("../PhysicalTail")
+signal_manager_path = NodePath("../SignalManager")
+
+[node name="CamaeraManger" type="Node3D" parent="." unique_id=1128930863 node_paths=PackedStringArray("home_cam", "plaza_cam", "home_area", "plaza_area", "player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556125, -0.1209681, -2.194869)
+script = ExtResource("12_mffks")
+home_cam = NodePath("HomeCam")
+plaza_cam = NodePath("PlazaCam")
+home_area = NodePath("Home")
+plaza_area = NodePath("Plaza")
+player = NodePath("../Player")
+
+[node name="HomeCam" type="Node3D" parent="CamaeraManger" unique_id=1137183336]
+transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.556126, 10.120968, 2.194869)
+script = ExtResource("2_a1hbh")
+priority = 10
+tween_resource = SubResource("Resource_mffks")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="PlazaCam" type="Node3D" parent="CamaeraManger" unique_id=1844906496]
+transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.556126, 10.120968, 25.25256)
+script = ExtResource("2_a1hbh")
+tween_resource = SubResource("Resource_mffks")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Home" type="Area3D" parent="CamaeraManger" unique_id=719102578 node_paths=PackedStringArray("home_cam", "plaza_cam")]
+script = ExtResource("12_mffks")
+home_cam = NodePath("../HomeCam")
+plaza_cam = NodePath("../PlazaCam")
+
+[node name="Collision" type="CollisionShape3D" parent="CamaeraManger/Home" unique_id=1442081365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.445862, 2.1037598, 4.488199)
+shape = SubResource("BoxShape3D_mffks")
+
+[node name="Plaza" type="Area3D" parent="CamaeraManger" unique_id=1173458217 node_paths=PackedStringArray("home_cam", "plaza_cam")]
+script = ExtResource("12_mffks")
+home_cam = NodePath("../HomeCam")
+plaza_cam = NodePath("../PlazaCam")
+
+[node name="Collision" type="CollisionShape3D" parent="CamaeraManger/Plaza" unique_id=974091740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.445862, 2.1037598, 22.32809)
+shape = SubResource("BoxShape3D_v0iqm")
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=175016306]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556125, -0.1209681, -2.194869)
+material_override = SubResource("ShaderMaterial_08cvt")
+mesh = SubResource("PlaneMesh_i5glm")
+
+[node name="Guide0" type="Sprite3D" parent="Ground" unique_id=2002643897]
+transform = Transform3D(5.9795905e-14, -6.2591066, 1.3679711e-06, -2.7359425e-07, 1.3679711e-06, 6.2591066, -6.2591066, -1.1959182e-13, -2.7359425e-07, 6.16781, 0.63162994, 4.1856675)
+texture_filter = 0
+texture = ExtResource("15_3peh0")
+script = ExtResource("16_v0iqm")
+
+[node name="fence" parent="Ground" unique_id=1289475285 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7947264, 0, 5.4663033)
+
+[node name="fence8" parent="Ground" unique_id=1507887346 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7947264, 0, 9.4872875)
+
+[node name="fence9" parent="Ground" unique_id=1201595936 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7947264, 0, 13.48768)
+
+[node name="fence2" parent="Ground" unique_id=744634226 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7947264, 0, 1.5828118)
+
+[node name="fence3" parent="Ground" unique_id=46474407 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7947264, 0, -2.3045468)
+
+[node name="fence4" parent="Ground" unique_id=969384777 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7947264, 0, -6.321439)
+
+[node name="fence10" parent="Ground" unique_id=89851830 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.324417, 0, 5.4663033)
+
+[node name="fence11" parent="Ground" unique_id=1784284027 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.324417, 0, 9.4872875)
+
+[node name="fence12" parent="Ground" unique_id=1313870486 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.324417, 0, 13.48768)
+
+[node name="fence13" parent="Ground" unique_id=1017890890 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.324417, 0, 1.5828118)
+
+[node name="fence14" parent="Ground" unique_id=1954997085 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.324417, 0, -2.3045468)
+
+[node name="fence15" parent="Ground" unique_id=1984459594 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.324417, 0, -6.321439)
+
+[node name="fence5" parent="Ground" unique_id=1070405616 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.2975426, 0, -8.391486)
+
+[node name="fence6" parent="Ground" unique_id=46706743 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.2682, 0, -8.391486)
+
+[node name="fence7" parent="Ground" unique_id=950484023 instance=ExtResource("12_dwcgc")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 13.334496, 0, -8.391486)
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="Ground" unique_id=1109586617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.556125, 0.1209681, 2.194869)
+script = ExtResource("11_08cvt")
+blade_count = 12000
+blade_width = 0.235
+blade_height_max = 0.73
+color_variation = 0.04
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=1484157806]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=1248479366]
+shape = SubResource("WorldBoundaryShape3D_2f156")
+
+[connection signal="shape_closed" from="TrailSystem" to="SignalManager" method="on_shape_closed"]

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dyfe2gfeo2po3"]
+
+[ext_resource type="PackedScene" uid="uid://drl3o4m6eqayp" path="res://art/house/guinea_pig_house.gltf" id="1_2vgh2"]
+[ext_resource type="Texture2D" uid="uid://cbna3xoawcoeo" path="res://art/house/guinea_pig_house.png" id="2_eatnx"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2vgh2"]
+data = PackedVector3Array(-0.5, 0, -1.75, 0.5, 0, -1.75, 1, 0.75, -1.75, -0.5, 0, -1.75, 1, 0.75, -1.75, 0.5, 1.5, -1.75, -0.5, 0, -1.75, 0.5, 1.5, -1.75, -0.5, 1.5, -1.75, -0.5, 0, -1.75, -0.5, 1.5, -1.75, -1, 0.75, -1.75, 0.5, 0, 1.75, -0.5, 0, 1.75, -1, 0.75, 1.75, 0.5, 0, 1.75, -1, 0.75, 1.75, -0.5, 1.5, 1.75, 0.5, 0, 1.75, -0.5, 1.5, 1.75, 0.5, 1.5, 1.75, 0.5, 0, 1.75, 0.5, 1.5, 1.75, 1, 0.75, 1.75, 0.5, 0, -1.75, 0.5, 0, 1.75, 1, 0.75, 1.75, 0.5, 0, -1.75, 1, 0.75, 1.75, 1, 0.75, -1.75, 1, 0.75, -1.75, 1, 0.75, 1.75, 0.5, 1.5, 1.75, 1, 0.75, -1.75, 0.5, 1.5, 1.75, 0.5, 1.5, -1.75, 0.5, 1.5, -1.75, 0.5, 1.5, 1.75, -0.5, 1.5, 1.75, 0.5, 1.5, -1.75, -0.5, 1.5, 1.75, -0.5, 1.5, -1.75, -1, 0.75, 1.75, -1, 0.75, -1.75, -0.5, 1.5, -1.75, -1, 0.75, 1.75, -0.5, 1.5, -1.75, -0.5, 1.5, 1.75, -1, 0.75, -1.75, -1, 0.75, 1.75, -0.5, 0, 1.75, -1, 0.75, -1.75, -0.5, 0, 1.75, -0.5, 0, -1.75, -0.5, 0, -1.75, -0.5, 0, 1.75, 0.5, 0, 1.75, -0.5, 0, -1.75, 0.5, 0, 1.75, 0.5, 0, -1.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4nsn5"]
+shading_mode = 0
+albedo_texture = ExtResource("2_eatnx")
+texture_filter = 0
+
+[node name="guinea_pig_house" unique_id=1314881954 instance=ExtResource("1_2vgh2")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="0" unique_id=733380525]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=919515649]
+shape = SubResource("ConcavePolygonShape3D_2vgh2")
+
+[node name="Mesh" parent="." index="1" unique_id=667995122]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_4nsn5")

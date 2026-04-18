@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://ccs1hdnslm65q"]
+
+[ext_resource type="PackedScene" uid="uid://bvnnufp5ogc1a" path="res://art/grass_cube/grass_cube.gltf" id="1_iwgbd"]
+[ext_resource type="Texture2D" uid="uid://dyh7xh4yblyf2" path="res://art/grass_cube/grass_cube.png" id="2_fgtyt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i8ct5"]
+shading_mode = 0
+albedo_texture = ExtResource("2_fgtyt")
+texture_filter = 0
+
+[node name="grass_cube" unique_id=1636273244 instance=ExtResource("1_iwgbd")]
+
+[node name="Mesh" parent="." index="0" unique_id=862644890]
+material_override = SubResource("StandardMaterial3D_i8ct5")

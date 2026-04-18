@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://saeynhxm3lh2"]
+
+[ext_resource type="PackedScene" uid="uid://bcp14njsi3s2f" path="res://art/ginnie/ginnie.gltf" id="1_1d060"]
+[ext_resource type="Texture2D" uid="uid://raxftuy38c8b" path="res://art/ginnie/ginnie.png" id="2_x7qse"]
+[ext_resource type="PackedScene" uid="uid://b2ip4ejsejxqd" path="res://scene/visual_tail.tscn" id="3_x7qse"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dvprk"]
+shading_mode = 0
+albedo_texture = ExtResource("2_x7qse")
+texture_filter = 0
+
+[node name="ginnie" unique_id=1513500766 instance=ExtResource("1_1d060")]
+
+[node name="Mesh" parent="." index="0" unique_id=405257076]
+material_override = SubResource("StandardMaterial3D_dvprk")
+
+[node name="Mesh2" parent="." index="1" unique_id=558368331]
+material_override = SubResource("StandardMaterial3D_dvprk")
+
+[node name="Mesh3" parent="." index="2" unique_id=1578799903]
+material_override = SubResource("StandardMaterial3D_dvprk")
+
+[node name="Tail" parent="." index="3" unique_id=214682825 instance=ExtResource("3_x7qse")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7563642, 0.40512967, 0)

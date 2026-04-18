@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c6iqe40gt3wby"]
+
+[ext_resource type="Script" path="res://scene/debug_panel.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://drf5dhnewqomi" path="res://scene/enemy.tscn" id="2_enemy"]
+
+[node name="DebugPanel" type="Control" unique_id=1730654500]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_script")
+enemy_scene = ExtResource("2_enemy")

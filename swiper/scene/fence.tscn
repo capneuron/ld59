@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dbljast0aqup5"]
+
+[ext_resource type="PackedScene" uid="uid://cpljan2e2hg4h" path="res://art/fence/fence.gltf" id="1_mg71t"]
+[ext_resource type="Texture2D" uid="uid://bhtc3v0jnqmhg" path="res://art/fence/fence.png" id="2_cky8q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sh047"]
+shading_mode = 0
+albedo_texture = ExtResource("2_cky8q")
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbfni"]
+shading_mode = 0
+albedo_texture = ExtResource("2_cky8q")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mg71t"]
+size = Vector3(0.6854248, 1.6265259, 4.034973)
+
+[node name="fence" unique_id=1289475285 instance=ExtResource("1_mg71t")]
+
+[node name="Mesh" parent="." index="0" unique_id=256314603]
+transform = Transform3D(0.77, 0, 0, 0, 0.77, 0, 0, 0, 0.77, 0, -0.049860746, 0.1350398)
+material_override = SubResource("StandardMaterial3D_sh047")
+
+[node name="Mesh2" parent="." index="1" unique_id=307330397]
+transform = Transform3D(0.77, 0, 0, 0, 0.77, 0, 0, 0, 0.77, 0, -0.049860746, 0.1350398)
+material_override = SubResource("StandardMaterial3D_xbfni")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="2" unique_id=1316670925]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=723961790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1035156e-05, 0.82022095, 0.03626156)
+shape = SubResource("BoxShape3D_mg71t")

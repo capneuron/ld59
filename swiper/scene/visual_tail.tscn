@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b2ip4ejsejxqd"]
+
+[ext_resource type="Script" uid="uid://df68vyy6fedix" path="res://scene/visual_tail.gd" id="1_3uqyl"]
+
+[sub_resource type="Curve" id="Curve_x7qse"]
+_data = [Vector2(0, 0.8071922), 0.0, -0.89929914, 0, 0, Vector2(1, 0.2736693), -0.60261047, 0.0, 0, 0]
+point_count = 2
+
+[node name="Tail" type="Node3D" unique_id=214682825]
+script = ExtResource("1_3uqyl")
+segment_count = 16
+segment_spacing = 0.05
+segment_size = 0.3
+size_curve = SubResource("Curve_x7qse")

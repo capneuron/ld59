@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c1sqytv4bpjxo"]
+
+[ext_resource type="Script" uid="uid://cy817em7mpqeg" path="res://scene/physical_tail.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bnasm8g46s50j" path="res://scene/tail.tscn" id="2_tail"]
+
+[node name="PhysicalTail" type="Node3D" unique_id=2040488397]
+script = ExtResource("1_script")
+tail_scene = ExtResource("2_tail")
+segment_count = 8
+segment_spacing = 0.55
+tip_radius = 1.2
