@@ -239,10 +239,11 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.26
 [node name="fence7" parent="Ground" unique_id=950484023 instance=ExtResource("12_dwcgc")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 13.334496, 0, -8.391486)
 
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="Ground" unique_id=1109586617]
+[node name="HomeGrass" type="MultiMeshInstance3D" parent="Ground" unique_id=1109586617]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.556125, 0.1209681, 2.194869)
 script = ExtResource("11_08cvt")
-blade_count = 12000
+area_size = 120.0
+blade_count = 7200
 blade_width = 0.235
 blade_height_max = 0.73
 color_variation = 0.04
