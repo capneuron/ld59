@@ -1,4 +1,4 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ciphfuwehvma0"]
 
 [ext_resource type="PackedScene" uid="uid://beus74qlkl0t0" path="res://art/ginnie4/ginnie4.gltf" id="1_gltf"]
 [ext_resource type="Texture2D" uid="uid://dq1ul1k8vdbls" path="res://art/ginnie4/ginnie4.png" id="2_tex"]
@@ -10,19 +10,20 @@ shading_mode = 0
 albedo_texture = ExtResource("2_tex")
 texture_filter = 0
 
-[node name="ginnie4" instance=ExtResource("1_gltf")]
+[node name="ginnie4" unique_id=1346237603 instance=ExtResource("1_gltf")]
 
-[node name="Mesh" parent="." index="0"]
+[node name="Mesh" parent="." index="0" unique_id=1153920438]
 material_override = SubResource("StandardMaterial3D_mat")
 
-[node name="Mesh2" parent="." index="1"]
+[node name="Mesh2" parent="." index="1" unique_id=730603720]
 material_override = SubResource("StandardMaterial3D_mat")
 
-[node name="Mesh3" parent="." index="2"]
+[node name="Mesh3" parent="." index="2" unique_id=427287905]
 material_override = SubResource("StandardMaterial3D_mat")
 
-[node name="Tail" parent="." index="3" instance=ExtResource("3_tail")]
+[node name="Tail" parent="." index="3" unique_id=1817263404 instance=ExtResource("3_tail")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7563642, 0.40512967, 0)
+tail_color = Color(1, 0.9529412, 0.9137255, 1)
 
-[node name="Emoji" parent="." instance=ExtResource("4_emoji")]
+[node name="Emoji" parent="." index="4" unique_id=1552494268 instance=ExtResource("4_emoji")]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)

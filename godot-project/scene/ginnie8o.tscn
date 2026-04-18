@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://db5u5p653gesn" path="res://art/ginnie8o/ginnie8o.gltf" id="1_n0ocv"]
 [ext_resource type="Texture2D" uid="uid://mroeoo2jgllb" path="res://art/ginnie8o/ginnie8o.png" id="2_v0x5e"]
-[ext_resource type="PackedScene" uid="uid://bnasm8g46s50j" path="res://scene/tail.tscn" id="3_lqugo"]
+[ext_resource type="PackedScene" uid="uid://b2ip4ejsejxqd" path="res://scene/visual_tail.tscn" id="3_n0ocv"]
 [ext_resource type="PackedScene" uid="uid://kp3gb1munnnx" path="res://scene/emoji.tscn" id="4_1niyq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_expgm"]
@@ -21,8 +21,9 @@ material_override = SubResource("StandardMaterial3D_expgm")
 [node name="Mesh3" parent="." index="2" unique_id=738209443]
 material_override = SubResource("StandardMaterial3D_expgm")
 
-[node name="Tail" parent="." index="3" unique_id=746723661 instance=ExtResource("3_lqugo")]
+[node name="Tail2" parent="." index="3" unique_id=214682825 instance=ExtResource("3_n0ocv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.863992, 0.47636402, 0)
+tail_color = Color(0.8, 0.40784314, 0.25882354, 1)
 
 [node name="Emoji" parent="." index="4" unique_id=296438333 instance=ExtResource("4_1niyq")]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)
