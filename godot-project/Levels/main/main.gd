@@ -7,6 +7,7 @@ extends Node3D
 
 @onready var signal_manager: Node = $SignalManager
 @onready var player_emoji: Node = $Player/Emoji
+@onready var cutscene_bars: Node = $CutsceneBars
 
 
 func _ready() -> void:
@@ -49,6 +50,20 @@ func _set_tail_collision(tail_root: Node, enabled: bool) -> void:
 	for child in tail_root.get_children():
 		if child is RigidBody3D:
 			child.set_deferred("freeze", not enabled)
+
+# ===== Cutscene =====
+
+func start_cutscene() -> void:
+	if cutscene_bars:
+		cutscene_bars.show_bars()
+	$Player.mouse_input_enabled = false
+
+
+func end_cutscene() -> void:
+	if cutscene_bars:
+		cutscene_bars.hide_bars()
+	$Player.mouse_input_enabled = true
+
 
 # ===== Player Signal Handlers =====
 

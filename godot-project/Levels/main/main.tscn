@@ -36,7 +36,9 @@
 [ext_resource type="Shader" uid="uid://cgmei8q8ylgr1" path="res://lake.gdshader" id="25_dsyto"]
 [ext_resource type="Shader" uid="uid://dt1yrh1ol1hm1" path="res://beach.gdshader" id="26_gqb1v"]
 [ext_resource type="Texture2D" uid="uid://bpl8vss1qcuis" path="res://art/guide/guide1.png" id="29_nvg2u"]
+[ext_resource type="Texture2D" uid="uid://hj8snxcdx3b4" path="res://art/guide/guide2.png" id="31_alk55"]
 [ext_resource type="PackedScene" uid="uid://jqc8bftn6sjd" path="res://scene/rock.tscn" id="31_gdhu6"]
+[ext_resource type="PackedScene" path="res://scene/UI/cutscene_bars.tscn" id="32_csbar"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.35, 0.55, 0.85, 1)
@@ -267,6 +269,8 @@ max_particles = 120
 script = ExtResource("7_sigmgr")
 trail_system = NodePath("../TrailSystem")
 
+[node name="CutsceneBars" parent="." unique_id=961036226 instance=ExtResource("32_csbar")]
+
 [node name="DebugPanel" parent="." unique_id=1737199023 instance=ExtResource("5_debug")]
 physical_tail_path = NodePath("../PhysicalTail")
 signal_manager_path = NodePath("../SignalManager")
@@ -285,13 +289,13 @@ draw_speed = 16.0
 draw_scale = 4.0
 
 [node name="O" parent="." unique_id=1412859358 instance=ExtResource("15_b7jro")]
-transform = Transform3D(-0.5969252, 0, 0.8022969, 0, 1, 0, -0.8022969, 0, -0.5969252, 16.891684, 0, 22.056955)
+transform = Transform3D(-0.5969252, 0, 0.8022969, 0, 1, 0, -0.8022969, 0, -0.5969252, 19.910324, 0, 20.322832)
 
 [node name="Swipeable" type="Area3D" parent="O" unique_id=1883711074]
 script = ExtResource("18_swipe")
 
 [node name="F" parent="." unique_id=1673703165 instance=ExtResource("15_gdhu6")]
-transform = Transform3D(0.8272963, 0, -0.5617658, 0, 1, 0, 0.5617658, 0, 0.8272963, 0.19267511, 0, 37.37281)
+transform = Transform3D(0.8272963, 0, -0.5617658, 0, 1, 0, 0.5617658, 0, 0.8272963, -1.9672351, 0, 39.742508)
 script = ExtResource("18_uj5gg")
 
 [node name="NPC" type="Node3D" parent="F" unique_id=576515276]
@@ -442,6 +446,12 @@ transform = Transform3D(5.9795905e-14, -6.2591066, 1.3679711e-06, -2.7359425e-07
 modulate = Color(0, 0, 0, 0.65882355)
 texture_filter = 0
 texture = ExtResource("29_nvg2u")
+
+[node name="Guide2" type="Sprite3D" parent="Ground" unique_id=1611343810]
+transform = Transform3D(5.9795905e-14, -9.364706, 1.367971e-06, -2.7359425e-07, 2.0467214e-06, 6.2591057, -6.2591066, -1.7893006e-13, -2.7359422e-07, 26.170326, 0.020822763, 35.32741)
+modulate = Color(0, 0, 0, 0.65882355)
+texture_filter = 0
+texture = ExtResource("31_alk55")
 
 [node name="home1" type="Node3D" parent="Ground" unique_id=1462391577]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7947264, 0, 5.4663033)
@@ -858,7 +868,7 @@ transform = Transform3D(0.7292314, 0, 0.68426716, 0, 0.83076304, 0, -0.68426716,
 transform = Transform3D(-0.77623343, 0, -0.6304456, 0, 1.3068502, 0, 0.6304456, 0, -0.77623343, 14.463673, 0, 4.146351)
 
 [node name="topless_tree" parent="Ground/Forest1/Trees5" unique_id=290659102 instance=ExtResource("24_xakh1")]
-transform = Transform3D(-0.0200876, 0, 0.9997983, 0, 1, 0, -0.9997983, 0, -0.0200876, 4.3611717, 9.536743e-07, -3.7051258)
+transform = Transform3D(-0.0200876, 0, 0.9997983, 0, 1, 0, -0.9997983, 0, -0.0200876, 6.7666817, 9.536743e-07, -2.484951)
 
 [node name="tree26" parent="Ground/Forest1/Trees5" unique_id=759145890 instance=ExtResource("22_oq1gk")]
 transform = Transform3D(-0.0200876, 0, 0.9997983, 0, 1, 0, -0.9997983, 0, -0.0200876, 11.06459, 0, 6.695346)
