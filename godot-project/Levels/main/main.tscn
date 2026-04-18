@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://eda7hdg4iinm" path="res://other_scripts/float_bobbing.gd" id="16_v0iqm"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_bg1ar"]
 [ext_resource type="PackedScene" uid="uid://cqiq422k83l8y" path="res://scene/tree.tscn" id="22_oq1gk"]
+[ext_resource type="Script" uid="uid://dcbfpvs1xkh0" path="res://scene/trail_scent.gd" id="23_scent"]
 [ext_resource type="PackedScene" path="res://scene/topless_tree.tscn" id="24_xakh1"]
 [ext_resource type="Shader" uid="uid://cgmei8q8ylgr1" path="res://lake.gdshader" id="25_dsyto"]
 [ext_resource type="Shader" uid="uid://dt1yrh1ol1hm1" path="res://beach.gdshader" id="26_gqb1v"]
@@ -229,6 +230,14 @@ shadow_blur = 0.0
 script = ExtResource("6_trail")
 player = NodePath("../Player")
 trail_color = Color(0.7254902, 0.9372549, 0.24705882, 0.7372549)
+
+[node name="TrailScent" type="Node3D" parent="TrailSystem" unique_id=1152697979]
+script = ExtResource("23_scent")
+particle_lifetime = 1.0
+rise_speed = 1.0
+start_scale = 0.2
+particle_color = Color(0.7254902, 0.9372549, 0.24705882, 0.5)
+max_particles = 120
 
 [node name="SignalManager" type="Node" parent="." unique_id=209754459 node_paths=PackedStringArray("trail_system")]
 script = ExtResource("7_sigmgr")
