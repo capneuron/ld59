@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode specular_disabled, cull_disabled;
+render_mode ambient_light_disabled, specular_disabled, cull_disabled;
 
 uniform float shadow_strength : hint_range(0.0, 1.0) = 0.3;
 

@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cqiq422k83l8y"]
+
+[ext_resource type="PackedScene" uid="uid://bd04ilmbufuh" path="res://art/tree/tree.gltf" id="1_gltf"]
+[ext_resource type="Texture2D" uid="uid://dxohoue1j0p3n" path="res://art/tree/tree.png" id="2_tex"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mat"]
+shading_mode = 0
+albedo_texture = ExtResource("2_tex")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lutej"]
+size = Vector3(1.4702148, 12.019836, 1.5004272)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_214j1"]
+radius = 3.765625
+height = 11.240356
+
+[node name="tree" unique_id=866051724 instance=ExtResource("1_gltf")]
+
+[node name="Mesh" parent="." index="0" unique_id=1547490048]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh2" parent="." index="1" unique_id=1058272502]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh3" parent="." index="2" unique_id=552742903]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh4" parent="." index="3" unique_id=1732987888]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh5" parent="." index="4" unique_id=1992689590]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh6" parent="." index="5" unique_id=1100142445]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh7" parent="." index="6" unique_id=785526918]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="7" unique_id=520023128]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1485034033]
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 0.99999976, -0.02807618, 5.9831214, 0.02896115)
+shape = SubResource("BoxShape3D_lutej")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1" unique_id=70819105]
+transform = Transform3D(6.8937176e-09, -4.3164338e-08, -0.99999976, -0.9874852, -0.15770988, 0, -0.15770988, 0.9874852, -4.3711363e-08, 0.027803143, 11.571055, 0.79796284)
+shape = SubResource("CapsuleShape3D_214j1")

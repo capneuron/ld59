@@ -7,6 +7,7 @@ extends Node3D
 @export var stiffness: float = 30.0
 @export var damping: float = 8.0
 @export var gravity: float = 4.0
+@export var tail_color: Color = Color(1.0, 0.64, 0.0)
 
 var _positions: PackedVector3Array
 var _velocities: PackedVector3Array
@@ -17,7 +18,7 @@ var _material: StandardMaterial3D
 func _ready() -> void:
 	_material = StandardMaterial3D.new()
 	_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	_material.albedo_color = Color(1.0, 0.64, 0.0)
+	_material.albedo_color = tail_color
 	_material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 
 	_positions.resize(segment_count)

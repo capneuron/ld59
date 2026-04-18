@@ -1,32 +1,39 @@
 extends Node
 
-@export var home_cam: Node3D
-@export var plaza_cam: Node3D
-@export var home_area: Area3D
-@export var plaza_area: Area3D
+## Auto-discovers Area3D children under each camera node.
+## Export only the camera nodes — their child Area3D is found automatically.
+
+@export var cams: Array[Node3D] = []
 @export var player: CharacterBody3D
 @export var active_priority: int = 20
 @export var inactive_priority: int = 0
 
 var _current_cam: Node3D
+var _cam_areas: Dictionary = {}  # Node3D -> Area3D
 
 
 func _ready() -> void:
-	if home_area:
-		home_area.body_entered.connect(_on_home_entered)
-	if plaza_area:
-		plaza_area.body_entered.connect(_on_plaza_entered)
-	_switch_to(home_cam)
+	for cam in cams:
+		if not cam:
+			continue
+		var area: Area3D = _find_area(cam)
+		if area:
+			_cam_areas[cam] = area
+			area.body_entered.connect(_on_area_entered.bind(cam))
+	if cams.size() > 0 and cams[0]:
+		_switch_to(cams[0])
 
 
-func _on_home_entered(body: Node3D) -> void:
+func _find_area(node: Node3D) -> Area3D:
+	for child in node.get_children():
+		if child is Area3D:
+			return child
+	return null
+
+
+func _on_area_entered(body: Node3D, cam: Node3D) -> void:
 	if _is_player(body):
-		_switch_to(home_cam)
-
-
-func _on_plaza_entered(body: Node3D) -> void:
-	if _is_player(body):
-		_switch_to(plaza_cam)
+		_switch_to(cam)
 
 
 func _switch_to(cam: Node3D) -> void:
@@ -34,10 +41,10 @@ func _switch_to(cam: Node3D) -> void:
 		return
 	_current_cam = cam
 
-	if home_cam:
-		home_cam.set("priority", active_priority if cam == home_cam else inactive_priority)
-	if plaza_cam:
-		plaza_cam.set("priority", active_priority if cam == plaza_cam else inactive_priority)
+	for c in cams:
+		if not c:
+			continue
+		c.set("priority", active_priority if c == cam else inactive_priority)
 
 	if player:
 		player.mouse_input_enabled = false
