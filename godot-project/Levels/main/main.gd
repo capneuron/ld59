@@ -6,6 +6,7 @@ extends Node3D
 
 
 @onready var signal_manager: Node = $SignalManager
+@onready var player_emoji: Node = $Player/Emoji
 
 
 func _ready() -> void:
@@ -46,6 +47,7 @@ func _set_tail_collision(tail_root: Node, enabled: bool) -> void:
 		if child is RigidBody3D:
 			child.set_deferred("freeze", not enabled)
 
+# ===== Player Signal Handlers =====
 
 func _on_vibe_changed(vibe_name: String) -> void:
 	print("[Main] Vibe changed: %s" % vibe_name)
@@ -61,10 +63,15 @@ func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
 
 func _on_shape_recognized(shape_name: String, shape_type: String) -> void:
 	print("[Main] Shape recognized: %s (%s)" % [shape_name, shape_type])
+	if player_emoji:
+		var emoji_frame: int = player_emoji.SHAPE_EMOJI.get(shape_name, 5)
+		player_emoji.flash_emoji(emoji_frame, player_emoji.flash_duration)
 
 
 func _on_shape_unrecognized() -> void:
 	print("[Main] Shape unrecognized")
+	if player_emoji:
+		player_emoji.flash_emoji(5, 1.0)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:

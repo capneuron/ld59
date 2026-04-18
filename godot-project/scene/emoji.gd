@@ -25,7 +25,6 @@ func _ready() -> void:
 	top_level = true
 	target_scale = scale
 	scale = Vector3.ZERO
-	_connect_signal_manager()
 
 
 func _process(_delta: float) -> void:
@@ -84,19 +83,3 @@ func _find_camera() -> Camera3D:
 func _kill_tween() -> void:
 	if _tween and _tween.is_valid():
 		_tween.kill()
-
-
-func _connect_signal_manager() -> void:
-	var signal_manager := get_node_or_null("/root/Main/SignalManager")
-	if signal_manager:
-		signal_manager.shape_recognized.connect(_on_shape_recognized)
-		signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
-
-
-func _on_shape_recognized(shape_name: String, _shape_type: String) -> void:
-	var emoji_frame: int = SHAPE_EMOJI.get(shape_name, 5)  # default to question mark
-	flash_emoji(emoji_frame, flash_duration)
-
-
-func _on_shape_unrecognized() -> void:
-	flash_emoji(5, 1.0)  # question mark

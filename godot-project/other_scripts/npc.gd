@@ -32,6 +32,8 @@ func _ready() -> void:
 	_signal_manager = get_node_or_null("/root/Main/SignalManager")
 	if _signal_manager:
 		_signal_manager.signal_triggered.connect(_on_signal_triggered)
+		_signal_manager.shape_recognized.connect(_on_shape_recognized)
+		_signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
 
 
 func _process(delta: float) -> void:
@@ -80,6 +82,23 @@ func _get_emoji() -> Node:
 	if not _target:
 		return null
 	return _target.get_node_or_null("Emoji")
+
+
+func _on_shape_recognized(shape_name: String, _shape_type: String) -> void:
+	if not _player_in_range:
+		return
+	var emoji := _get_emoji()
+	if emoji:
+		var emoji_frame: int = emoji.SHAPE_EMOJI.get(shape_name, 5)
+		emoji.flash_emoji(emoji_frame, emoji.flash_duration)
+
+
+func _on_shape_unrecognized() -> void:
+	if not _player_in_range:
+		return
+	var emoji := _get_emoji()
+	if emoji:
+		emoji.flash_emoji(5, 1.0)  # question mark
 
 
 func _on_signal_triggered(_vibe_name: String, signal_name: String) -> void:
