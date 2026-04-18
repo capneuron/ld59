@@ -17,8 +17,8 @@
 [ext_resource type="Script" uid="uid://4hhoxd2nvegn" path="res://scene/grass_field.gd" id="11_08cvt"]
 [ext_resource type="PackedScene" path="res://scene/ginnie2.tscn" id="12_0mcpc"]
 [ext_resource type="PackedScene" uid="uid://dbljast0aqup5" path="res://scene/fence.tscn" id="12_dwcgc"]
+[ext_resource type="Script" uid="uid://csvbnmx5w4cxm" path="res://other_scripts/npc.gd" id="12_gqb1v"]
 [ext_resource type="Script" uid="uid://bva3y83mi7mo1" path="res://other_scripts/camera_manager.gd" id="12_mffks"]
-[ext_resource type="Script" uid="uid://7203yqkcbywh" path="res://other_scripts/happy_bounce.gd" id="13_dg0p3"]
 [ext_resource type="Texture2D" uid="uid://bgt2vpqwq6xpm" path="res://art/guide/guide0.png" id="15_3peh0"]
 [ext_resource type="Script" uid="uid://eda7hdg4iinm" path="res://other_scripts/float_bobbing.gd" id="16_v0iqm"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="17_bg1ar"]
@@ -240,10 +240,10 @@ signal_manager_path = NodePath("../SignalManager")
 player_path = NodePath("../Player")
 
 [node name="F" parent="." unique_id=789694993 instance=ExtResource("12_0mcpc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0385075, -0.120967865, 9.175293)
+transform = Transform3D(-0.7854573, 0, -0.61891586, 0, 1, 0, 0.61891586, 0, -0.7854573, -1.5256081, -0.12096977, 36.806282)
 
-[node name="Bounce" type="Node" parent="F" unique_id=1956404876]
-script = ExtResource("13_dg0p3")
+[node name="NPC" type="Node3D" parent="F" unique_id=307566424]
+script = ExtResource("12_gqb1v")
 
 [node name="CamaeraManger" type="Node3D" parent="." unique_id=1128930863 node_paths=PackedStringArray("cams", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556125, -0.1209681, -2.194869)
@@ -1234,9 +1234,6 @@ transform = Transform3D(0.7292314, 0, 0.68426716, 0, 1, 0, -0.68426716, 0, 0.729
 
 [node name="tree4" parent="Ground/Forest2/Trees5" unique_id=1049792440 instance=ExtResource("22_oq1gk")]
 transform = Transform3D(-0.77623343, 0, -0.6304456, 0, 1.2301072, 0, 0.6304456, 0, -0.77623343, 14.463676, 0, 4.1463537)
-
-[node name="topless_tree" parent="Ground/Forest2/Trees5" unique_id=1415180893 instance=ExtResource("24_xakh1")]
-transform = Transform3D(-0.0200876, 0, 0.9997983, 0, 1, 0, -0.9997983, 0, -0.0200876, 4.3611717, 9.536743e-07, -3.7051258)
 
 [node name="tree26" parent="Ground/Forest2/Trees5" unique_id=1439920215 instance=ExtResource("22_oq1gk")]
 transform = Transform3D(-0.0200876, 0, 0.9997983, 0, 1, 0, -0.9997983, 0, -0.0200876, 11.06459, 0, 6.695346)
