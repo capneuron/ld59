@@ -155,7 +155,7 @@ metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="Animation" id="Animation_alk55"]
 resource_name = "FirstMet"
-length = 22.266666
+length = 18.933332
 tracks/0/type = "position_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -359,15 +359,15 @@ tracks/16/keys = {
 }
 tracks/17/type = "value"
 tracks/17/imported = false
-tracks/17/enabled = false
-tracks/17/path = NodePath("../../L:shaking")
+tracks/17/enabled = true
+tracks/17/path = NodePath("../Playground2Cam:priority")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
-"times": PackedFloat32Array(18.233334, 18.733334),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(18.933332),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": [50]
 }
 
 [sub_resource type="Animation" id="Animation_6bvv5"]
@@ -555,14 +555,14 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("../../L:shaking")
+tracks/15/path = NodePath("../Playground2Cam:priority")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vpflu"]
@@ -595,6 +595,8 @@ shader_parameter/color_levels = 32
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_dsyto"]
 size = Vector2(300, 400)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_6bvv5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gqb1v"]
 render_priority = 0
@@ -743,7 +745,7 @@ script = ExtResource("18_swipe")
 boom_on_swipe = true
 destroy_delay = 0.8
 
-[node name="E" parent="." unique_id=349365936 instance=ExtResource("16_2smtr")]
+[node name="E" parent="." unique_id=349365936 groups=["enemy"] instance=ExtResource("16_2smtr")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -12.019724, 0, 16.957788)
 script = ExtResource("22_vpflu")
 
@@ -752,8 +754,14 @@ script = ExtResource("5_v5g2c")
 draw_speed = 36.0
 draw_scale = 4.0
 
-[node name="M1" parent="." unique_id=789694993 instance=ExtResource("12_0mcpc")]
+[node name="Swipeable" type="Area3D" parent="E" unique_id=1791306857]
+script = ExtResource("18_swipe")
+boom_on_swipe = true
+destroy_delay = 0.8
+
+[node name="M1" parent="." unique_id=789694993 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 43.198288)
+freeze_mode = 0
 
 [node name="NPC" type="Node3D" parent="M1" unique_id=307566424]
 script = ExtResource("12_gqb1v")
@@ -763,8 +771,9 @@ script = ExtResource("18_swipe")
 boom_on_swipe = true
 destroy_delay = 0.8
 
-[node name="M2" parent="." unique_id=2147440038 instance=ExtResource("12_0mcpc")]
+[node name="M2" parent="." unique_id=2147440038 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 46.41616)
+freeze_mode = 0
 
 [node name="NPC" type="Node3D" parent="M2" unique_id=2025283408]
 script = ExtResource("12_gqb1v")
@@ -774,8 +783,9 @@ script = ExtResource("18_swipe")
 boom_on_swipe = true
 destroy_delay = 0.8
 
-[node name="M3" parent="." unique_id=1386463968 instance=ExtResource("12_0mcpc")]
+[node name="M3" parent="." unique_id=1386463968 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 50.036915)
+freeze_mode = 0
 
 [node name="NPC" type="Node3D" parent="M3" unique_id=1874217735]
 script = ExtResource("12_gqb1v")
@@ -785,8 +795,9 @@ script = ExtResource("18_swipe")
 boom_on_swipe = true
 destroy_delay = 0.8
 
-[node name="M4" parent="." unique_id=2023504692 instance=ExtResource("12_0mcpc")]
+[node name="M4" parent="." unique_id=2023504692 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.98968387, 0, 0.14326811, 0, 1, 0, -0.14326811, 0, 0.98968387, -11.812319, -0.12096977, 53.2437)
+freeze_mode = 0
 
 [node name="NPC" type="Node3D" parent="M4" unique_id=805289430]
 script = ExtResource("12_gqb1v")
@@ -898,7 +909,7 @@ camera_3d_resource = SubResource("Resource_gqb1v")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="FirstMetCam" type="Node3D" parent="CameraManager" unique_id=1480673969]
-transform = Transform3D(-0.63230765, -0.11650854, 0.76590663, -0.007745326, 0.9895278, 0.14413136, -0.77467847, 0.085203126, -0.62658894, 0.9759145, 11.851472, 22.09938)
+transform = Transform3D(-0.63230765, -0.11650854, 0.76590663, -0.007745326, 0.98952776, 0.14413136, -0.77467847, 0.085203126, -0.62658894, 0.9759145, 11.851472, 22.09938)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_alk55")
 camera_3d_resource = SubResource("Resource_vpflu")
@@ -2033,6 +2044,12 @@ transform = Transform3D(-0.7080935, 0, 0.70611876, 0, 1, 0, -0.70611876, 0, -0.7
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -181.89, 0.05, -12.648)
 material_override = SubResource("ShaderMaterial_wrqsq")
 mesh = SubResource("PlaneMesh_dsyto")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground/Lake" unique_id=1229209878]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Lake/StaticBody3D" unique_id=1157391997]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 147.87541, 2.4767003, 30.715149)
+shape = SubResource("WorldBoundaryShape3D_6bvv5")
 
 [node name="Beach" type="MeshInstance3D" parent="Ground" unique_id=1526876942]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -26.653, 0.1, 33.699)

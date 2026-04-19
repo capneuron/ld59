@@ -23,6 +23,7 @@ var _bouncing: bool = false
 var _bounce_time: float = 0.0
 var _bounce_duration: float = 0.0
 var _base_y: float = 0.0
+var _disabled: bool = false
 
 
 func _ready() -> void:
@@ -36,8 +37,13 @@ func _ready() -> void:
 		_signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
 
 
+func disable() -> void:
+	_disabled = true
+	_bouncing = false
+
+
 func _process(delta: float) -> void:
-	if not _target or not _player:
+	if _disabled or not _target or not _player:
 		return
 
 	var distance := _target.global_position.distance_to(_player.global_position)

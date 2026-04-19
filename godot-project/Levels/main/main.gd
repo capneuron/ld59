@@ -20,6 +20,7 @@ func _ready() -> void:
 	signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
 
 	$CameraManager/CutFirstMet/CutScene.body_entered.connect(_on_cut_first_met_body_entered)
+	_setup_enemy_tracking()
 
 func set_tail_mode(physical: bool) -> void:
 	use_physical_tail = physical
@@ -111,6 +112,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			print("Tail mode: %s" % ("Physical" if use_physical_tail else "Visual"))
 
 var first_met_played: bool = false
+var _enemies_killed: int = 0
+var _enemy_nodes: Array[Node] = []
+
 func _on_cut_first_met_body_entered(body: Node) -> void:
 	if body.name == "Player" and not first_met_played:
 		first_met_played = true
@@ -120,3 +124,19 @@ func _on_cut_first_met_body_entered(body: Node) -> void:
 		$CameraManager.disable_cam("CutFirstMet")
 		$L.turn_on_shaking()
 		end_cutscene()
+
+
+func _setup_enemy_tracking() -> void:
+	for node: Node in get_tree().get_nodes_in_group("enemy"):
+		_enemy_nodes.append(node)
+		var swipeable: Node = node.get_node_or_null("Swipeable")
+		if swipeable:
+			swipeable.swiped.connect(_on_enemy_swiped.bind(node))
+
+
+func _on_enemy_swiped(_hit_velocity: Vector3, enemy: Node) -> void:
+	_enemies_killed += 1
+	print("[Main] Enemy swiped: %s (%d/%d)" % [enemy.name, _enemies_killed, _enemy_nodes.size()])
+	if _enemies_killed >= _enemy_nodes.size():
+		$L.turn_off_shaking()
+		print("[Main] All enemies defeated — L stopped shaking")

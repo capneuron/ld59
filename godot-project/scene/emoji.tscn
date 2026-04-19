@@ -5,6 +5,8 @@
 
 [node name="Emoji" type="Sprite3D" unique_id=296438333]
 billboard = 1
+no_depth_test = true
+render_priority = 1
 texture_filter = 0
 texture = ExtResource("1_tcy6m")
 hframes = 7

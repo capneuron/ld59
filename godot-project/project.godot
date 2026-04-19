@@ -30,6 +30,10 @@ window/size/viewport_height=1080
 
 enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
 
+[global_group]
+
+enemy=""
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

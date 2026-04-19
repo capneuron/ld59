@@ -6,7 +6,7 @@ extends Area3D
 signal swiped(hit_velocity: Vector3)
 signal swiped_first_time(hit_velocity: Vector3)
 
-@export var swipe_speed_threshold: float = 8.0
+@export var swipe_speed_threshold: float = 16.0
 @export var detect_radius: float = 1.5
 @export var detect_height: float = 2.0
 
@@ -81,7 +81,13 @@ func _launch(hit_velocity: Vector3) -> void:
 		swiped_first_time.emit(hit_velocity)
 
 	if not _rb:
+		print("[Swipeable] _rb is null on %s!" % get_parent().name)
 		return
+
+	# Disable sibling NPC script so it stops overriding transform
+	var npc := _rb.get_node_or_null("NPC")
+	if npc and npc.has_method("disable"):
+		npc.disable()
 
 	# Unfreeze — same pattern as enemy.gd
 	_rb.freeze = false
@@ -91,6 +97,7 @@ func _launch(hit_velocity: Vector3) -> void:
 	var hit_dir := hit_velocity.normalized()
 	var impulse := hit_dir * knockback_force + Vector3.UP * knockback_force * 0.5
 	_rb.apply_central_impulse(impulse)
+	print("[Swipeable] Launched %s | freeze=%s grav=%s impulse=%s mass=%s" % [_rb.name, _rb.freeze, _rb.gravity_scale, impulse, _rb.mass])
 
 	# Tumbling torque
 	var torque_axis := hit_dir.cross(Vector3.UP).normalized()
