@@ -273,8 +273,8 @@ func _on_ending_f() -> void:
 	print("[Ending] _on_ending_f called!")
 	_play_bgm("") #stop music
 	start_cutscene()
-	$F/Emoji.flash_emoji(1, 5.0)
-	await get_tree().create_timer(6.0).timeout
+	$F/Emoji.flash_emoji(1, 2.0)
+	await get_tree().create_timer(4.0).timeout
 	$EndingCanvas.show_ending()
 	_play_bgm("ending")
 	$Player.set_process(false)

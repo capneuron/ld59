@@ -64,4 +64,4 @@ func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
 		if vibe_name == "triangle":
 			ending_triggered.emit()
 		else:
-			$Emoji.flash_emoji(3)
+			$Emoji.flash_emoji(2)

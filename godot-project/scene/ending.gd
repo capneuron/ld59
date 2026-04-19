@@ -44,4 +44,8 @@ func show_ending() -> void:
 
 func _on_restart() -> void:
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://Levels/main2/main2.tscn")
+	SceneManager.set_transition_scene(preload("res://scene/UI/Transition.tscn"))
+	var fade_out := SceneManager.create_options(1.0, "crooked_tiles")
+	var fade_in := SceneManager.create_options(1.0, "crooked_tiles")
+	var general := SceneManager.create_general_options(Color.BLACK, 0.5, false, false)
+	await SceneManager.change_scene("main2", fade_out, fade_in, general)

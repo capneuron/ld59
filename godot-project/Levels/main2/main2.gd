@@ -104,8 +104,13 @@ func _show_start_screen() -> void:
 	var start_btn: TextureButton = $StartCanvas/StartButton
 	_setup_start_button_hover(start_btn)
 	start_btn.pressed.connect(func() -> void:
+		SceneManager.set_transition_scene(preload("res://scene/UI/Transition.tscn"))
+		var fade_out := SceneManager.create_options(1.0, "crooked_tiles")
+		var fade_in := SceneManager.create_options(1.0, "crooked_tiles")
+		var general := SceneManager.create_general_options(Color.BLACK, 0.5, false, false)
 		await get_tree().create_timer(0.5).timeout
-		get_tree().change_scene_to_file("res://Levels/main/main.tscn")
+		await SceneManager.change_scene("main", fade_out, fade_in, general)
+
 	)
 
 	var bonus_btn: TextureButton = $StartCanvas/BonusButton
