@@ -20,6 +20,7 @@ func _ready() -> void:
 	signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
 
 	$CameraManager/CutFirstMet/CutScene.body_entered.connect(_on_cut_first_met_body_entered)
+	$L.ending_triggered.connect(_on_ending)
 	_setup_enemy_tracking()
 
 func set_tail_mode(physical: bool) -> void:
@@ -140,3 +141,44 @@ func _on_enemy_swiped(_hit_velocity: Vector3, enemy: Node) -> void:
 	if _enemies_killed >= _enemy_nodes.size():
 		$L.turn_off_shaking()
 		print("[Main] All enemies defeated — L stopped shaking")
+
+var _ending_triggered: bool = false
+func _on_ending() -> void:
+	if _ending_triggered:
+		return
+	_ending_triggered = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	start_cutscene()
+	$CameraManager/EndingCam.set("priority", 500)
+	$Player.hide()
+	$L/Emoji.flash_emoji(3, 5.0)
+	await get_tree().create_timer(6.0).timeout
+	$L/Emoji.flash_emoji(1, 1.5)
+	await get_tree().create_timer(1.5).timeout
+	$EndingCanvas.show()
+	await get_tree().create_timer(5.0).timeout
+	var restart_btn: TextureButton = $EndingCanvas/RestartButton
+	restart_btn.pivot_offset = restart_btn.size / 2.0
+	restart_btn.show()
+	restart_btn.pressed.connect(_on_restart)
+	restart_btn.mouse_entered.connect(func() -> void:
+		var tw := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(restart_btn, "scale", Vector2(1.2, 1.2), 0.15)
+	)
+	restart_btn.mouse_exited.connect(func() -> void:
+		var tw := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(restart_btn, "scale", Vector2(1.0, 1.0), 0.15)
+	)
+	restart_btn.button_down.connect(func() -> void:
+		var tw := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tw.tween_property(restart_btn, "scale", Vector2(0.9, 0.9), 0.08)
+	)
+	restart_btn.button_up.connect(func() -> void:
+		var tw := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(restart_btn, "scale", Vector2(1.2, 1.2), 0.1)
+	)
+
+
+func _on_restart() -> void:
+	get_tree().reload_current_scene()
+

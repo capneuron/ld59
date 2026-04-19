@@ -74,3 +74,8 @@ func disable_cam(cam_name: String) -> void:
 	for cam in cams:
 		if cam and cam.name == cam_name:
 			remove_child(cam)
+
+func use_cam(cam_name: String) -> void:
+	for cam in cams:
+		if cam and cam.name == cam_name:
+			_switch_to(cam)
