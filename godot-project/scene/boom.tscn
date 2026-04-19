@@ -74,4 +74,5 @@ frame_progress = 1.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_boom")
+bus = &"SFX"
 autoplay = true

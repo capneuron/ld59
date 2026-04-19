@@ -2,6 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://cb5f0wf3tq678" path="res://art/guide/Story_Text.png" id="1_3273u"]
 [ext_resource type="Texture2D" uid="uid://cv4t8rtionsux" path="res://art/guide/start.png" id="1_start"]
+[ext_resource type="FontFile" uid="uid://euv8d1jtxqc3" path="res://art/fonts/PixelifySans-VariableFont_wght.ttf" id="3_cmsy7"]
+
+[sub_resource type="Theme" id="Theme_cmsy7"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=735913892]
 process_mode = 3
@@ -30,3 +33,31 @@ offset_top = -109.0
 offset_right = 664.4414
 offset_bottom = 318.0
 texture = ExtResource("1_3273u")
+
+[node name="VolumeContainer" type="VBoxContainer" parent="." unique_id=508469097]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -101.0
+offset_right = 140.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VolumeLabel" type="Label" parent="VolumeContainer" unique_id=612764709]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cmsy7")
+theme_override_font_sizes/font_size = 36
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="VolumeSlider" type="HSlider" parent="VolumeContainer" unique_id=785230753]
+custom_minimum_size = Vector2(280, 30)
+layout_mode = 2
+theme = SubResource("Theme_cmsy7")
+max_value = 1.0
+step = 0.01
+value = 1.0

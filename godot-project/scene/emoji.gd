@@ -26,6 +26,9 @@ func _ready() -> void:
 	top_level = true
 	target_scale = scale
 	scale = Vector3.ZERO
+	$SFX.bus = "SFX"
+	$SFXCross.bus = "SFX"
+	$SFXUpgrade.bus = "SFX"
 
 
 func _process(_delta: float) -> void:

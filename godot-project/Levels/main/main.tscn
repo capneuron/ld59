@@ -47,6 +47,7 @@
 [ext_resource type="AudioStream" uid="uid://c8srgvyfeexib" path="res://audio/guitar.wav" id="bgm_ending"]
 [ext_resource type="AudioStream" uid="uid://b3pnfku178n3q" path="res://audio/plastic_key.wav" id="bgm_main"]
 [ext_resource type="AudioStream" uid="uid://hrxmu8xbmc2r" path="res://audio/whirly.wav" id="bgm_whirly"]
+[ext_resource type="PackedScene" path="res://scene/UI/pause_menu.tscn" id="pause_menu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.35, 0.55, 0.85, 1)
@@ -2242,5 +2243,7 @@ stream = ExtResource("bgm_whirly")
 
 [node name="BGMLove" type="AudioStreamPlayer" parent="." unique_id=929236108]
 stream = ExtResource("47_foa83")
+
+[node name="PauseMenu" parent="." instance=ExtResource("pause_menu")]
 
 [connection signal="shape_closed" from="TrailSystem" to="SignalManager" method="on_shape_closed"]

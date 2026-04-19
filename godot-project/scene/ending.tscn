@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bp8a4w1ggr7ov" path="res://art/guide/title.PNG" id="1_sgciq"]
 [ext_resource type="Texture2D" uid="uid://chsdac4l4b2qv" path="res://art/guide/restart.png" id="2_restart"]
+[ext_resource type="FontFile" uid="uid://euv8d1jtxqc3" path="res://art/fonts/PixelifySans-VariableFont_wght.ttf" id="2_u3snt"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1460590137]
 layer = 100
@@ -36,6 +37,8 @@ offset_right = 31.0
 offset_bottom = -137.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_u3snt")
+theme_override_font_sizes/font_size = 24
 text = "By Beep"
 horizontal_alignment = 1
 

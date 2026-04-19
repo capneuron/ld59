@@ -35,6 +35,12 @@ func _show_start_screen() -> void:
 	$Player.mouse_input_enabled = false
 	$Player.set_physics_process(false)
 	$Player/ginnie/Tail.visible = false
+	$PauseMenu.enabled = false
+	var start_slider: HSlider = $StartCanvas/VolumeContainer/VolumeSlider
+	start_slider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
+	start_slider.value_changed.connect(func(v: float) -> void:
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(v))
+	)
 	var start_btn: TextureButton = $StartCanvas/StartButton
 	start_btn.pivot_offset = start_btn.size / 2.0
 	start_btn.pressed.connect(_on_start)
@@ -63,9 +69,14 @@ func _on_start() -> void:
 	$Player/ginnie/Tail.visible = true
 	$StartCanvas.queue_free()
 	$CameraManager/StartCam.priority = 0
+	$PauseMenu.enabled = true
 
 
 func _setup_bgm_loop() -> void:
+	_bgm_main.bus = "BGM"
+	_bgm_ending.bus = "BGM"
+	_bgm_main.process_mode = Node.PROCESS_MODE_ALWAYS
+	_bgm_ending.process_mode = Node.PROCESS_MODE_ALWAYS
 	_bgm_main.finished.connect(_bgm_main.play)
 	_bgm_ending.finished.connect(_bgm_ending.play)
 
