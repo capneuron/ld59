@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://dss6fe5quckc7"]
+[gd_scene format=3 uid="uid://fhdcemmeqo5o"]
 
-[ext_resource type="Script" path="res://scene/UI/cutscene_bars.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cypqjc7l1v30n" path="res://scene/UI/cutscene_bars.gd" id="1_script"]
 
-[node name="CutsceneBars" type="CanvasLayer"]
+[node name="CutsceneBars" type="CanvasLayer" unique_id=74400377]
 script = ExtResource("1_script")
+bar_height = 100.0

@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://dnx5gbadex2x3" path="res://scene/signal_manager.gd" id="7_sigmgr"]
 [ext_resource type="Shader" uid="uid://daik7xefva1j" path="res://grass.gdshader" id="8_grass"]
 [ext_resource type="Script" uid="uid://4hhoxd2nvegn" path="res://scene/grass_field.gd" id="11_08cvt"]
-[ext_resource type="PackedScene" path="res://scene/ginnie2.tscn" id="12_0mcpc"]
+[ext_resource type="PackedScene" uid="uid://byipyvkdjeqbj" path="res://scene/ginnie2.tscn" id="12_0mcpc"]
 [ext_resource type="PackedScene" uid="uid://dbljast0aqup5" path="res://scene/fence.tscn" id="12_dwcgc"]
 [ext_resource type="Script" uid="uid://csvbnmx5w4cxm" path="res://other_scripts/npc.gd" id="12_gqb1v"]
 [ext_resource type="Script" uid="uid://bva3y83mi7mo1" path="res://other_scripts/camera_manager.gd" id="12_mffks"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://b8mdmkk31hasv" path="res://other_scripts/swipeable.gd" id="18_swipe"]
 [ext_resource type="Script" uid="uid://crd0j2yequmx3" path="res://scene/npc_F.gd" id="18_uj5gg"]
 [ext_resource type="PackedScene" uid="uid://cqiq422k83l8y" path="res://scene/tree.tscn" id="22_oq1gk"]
+[ext_resource type="Script" uid="uid://clan1fjqtjfa8" path="res://scene/npc_E.gd" id="22_vpflu"]
 [ext_resource type="Script" uid="uid://dcbfpvs1xkh0" path="res://scene/trail_scent.gd" id="23_scent"]
 [ext_resource type="PackedScene" uid="uid://d0vqjf8yxeqe3" path="res://scene/topless_tree.tscn" id="24_xakh1"]
 [ext_resource type="Shader" uid="uid://cgmei8q8ylgr1" path="res://lake.gdshader" id="25_dsyto"]
@@ -38,7 +39,8 @@
 [ext_resource type="Texture2D" uid="uid://bpl8vss1qcuis" path="res://art/guide/guide1.png" id="29_nvg2u"]
 [ext_resource type="Texture2D" uid="uid://hj8snxcdx3b4" path="res://art/guide/guide2.png" id="31_alk55"]
 [ext_resource type="PackedScene" uid="uid://jqc8bftn6sjd" path="res://scene/rock.tscn" id="31_gdhu6"]
-[ext_resource type="PackedScene" path="res://scene/UI/cutscene_bars.tscn" id="32_csbar"]
+[ext_resource type="PackedScene" uid="uid://fhdcemmeqo5o" path="res://scene/UI/cutscene_bars.tscn" id="32_csbar"]
+[ext_resource type="Script" uid="uid://c1fx8ctjifl25" path="res://scene/npc_L.gd" id="33_npcl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.35, 0.55, 0.85, 1)
@@ -114,8 +116,8 @@ projection = 1
 size = 20.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gqb1v"]
-size = Vector3(14.630911, 5.2075195, 30.429165)
+[sub_resource type="BoxShape3D" id="BoxShape3D_6bvv5"]
+size = Vector3(12.41725, 5.2075195, 30.429165)
 
 [sub_resource type="Resource" id="Resource_lu6jg"]
 script = ExtResource("3_3peh0")
@@ -128,7 +130,7 @@ size = 13.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gdhu6"]
-size = Vector3(6.4281073, 5.2075195, 24.048567)
+size = Vector3(5.0700107, 5.2075195, 24.048567)
 
 [sub_resource type="Resource" id="Resource_ioh7r"]
 script = ExtResource("3_3peh0")
@@ -139,6 +141,435 @@ script = ExtResource("17_bg1ar")
 fov = 30.0
 size = 27.211
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="Resource" id="Resource_alk55"]
+script = ExtResource("3_3peh0")
+duration = 0.25
+
+[sub_resource type="Resource" id="Resource_vpflu"]
+script = ExtResource("17_bg1ar")
+fov = 11.8
+size = 6.437
+near = 0.001
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
+
+[sub_resource type="Animation" id="Animation_alk55"]
+resource_name = "FirstMet"
+length = 22.266666
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../FirstMetCam")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../FirstMetCam:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.0333333, 4.1666665, 4.233333, 8, 9.7),
+"transitions": PackedFloat32Array(1, 1, 0.00029033376, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.9759145, 11.851472, 22.09938), Vector3(0.976, 3.6, 22.099), Vector3(0.976, 3.5, 22.099), Vector3(-16.89948, 1.8996825, 38.334747), Vector3(-18.206652, 1.899682, 36.24751), Vector3(-18.41964, 1.899682, 35.92909)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../FirstMetCam:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4.133333, 4.233333),
+"transitions": PackedFloat32Array(1, 1.3752031e-05, 1),
+"update": 0,
+"values": [Vector3(-0.14463508, 2.2564774, -0.007827133), Vector3(-0.14463508, 2.2564774, -0.007827133), Vector3(-0.14463508, -0.9687167, -0.007827117)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../FirstMetCam:priority")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 9.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1000, 0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../L:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(9.71, 11, 14, 16.066668),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-15.995997, 0, 29.64756), Vector3(-19.07264, 0, 29.64756), Vector3(-19.07264, 0, 29.64756), Vector3(-31, 0, 29.648)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../E:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(9.72, 10.99, 12, 12.8, 12.933333, 14.466666, 16.066668),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-12.019724, 0, 16.957788), Vector3(-12.019724, 0, 29.691687), Vector3(-12.019724, 0, 29.691687), Vector3(-15.337956, 0, 29.691687), Vector3(-15.337956, 0, 29.691687), Vector3(-15.337956, 0, 29.691687), Vector3(-28.754763, 0, 29.691687)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../E:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(11, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -3.1415925, 0), Vector3(0, 1.5707965, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../L:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(11.01, 12.04, 12.933333, 14, 18.779999, 18.93),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5342492, 0), Vector3(0, -1.6073436, 0), Vector3(0, -1.6073436, 0), Vector3(0, 1.5342491, 0), Vector3(0, 1.5342491, 0), Vector3(0, -1.5725417, 0)]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../../E")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(12.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"first_met_cut"
+}]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../M1:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(15.84, 17.1, 18.1, 18.880001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-11.812319, -0.12096977, 43.198288), Vector3(-11.812319, -0.12096977, 24.437096), Vector3(-11.812319, -0.12096977, 24.437096), Vector3(-30.90796, -0.12096977, 24.706753)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../../M2:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(15.84, 17.1, 18.1, 18.880001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-11.812319, -0.12096977, 46.41616), Vector3(-11.812319, -0.12096977, 27.654968), Vector3(-11.812319, -0.12096977, 27.654968), Vector3(-29.138231, -0.12096977, 27.10779)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../../M3:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(15.84, 17.1, 18.1, 18.880001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-11.812319, -0.12096977, 50.036915), Vector3(-11.812319, -0.12096977, 31.275723), Vector3(-11.812319, -0.12096977, 31.275723), Vector3(-29.204237, -0.12096977, 32.167507)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../../M4:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(15.84, 17.1, 18.1, 18.880001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-11.812319, -0.12096977, 53.2437), Vector3(-11.812319, -0.12096977, 34.482506), Vector3(-11.812319, -0.12096977, 34.482506), Vector3(-31.05868, -0.12096977, 34.16362)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../../M1:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(17.1, 18.1, 18.85, 18.880001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0), Vector3(0, 1.5707964, 0), Vector3(0, 2.9622428, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../../M2:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(17.1, 18.1, 18.85, 18.880001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0), Vector3(0, 1.5707964, 0), Vector3(0, 2.3243947, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../../M3:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(17.1, 18.1, 18.85, 18.880001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0), Vector3(0, 1.5707964, 0), Vector3(0, 0.71729547, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("../../M4:rotation")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(17.1, 18.1, 18.85, 18.880001),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0), Vector3(0, 1.5707964, 0), Vector3(0, 0.07562513, 0)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = false
+tracks/17/path = NodePath("../../L:shaking")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(18.233334, 18.733334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_6bvv5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../FirstMetCam:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.9759145, 11.851472, 22.09938)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../FirstMetCam:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.14463508, 2.2564774, -0.007827133)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../FirstMetCam:priority")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../L:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-15.995997, 0, 29.64756)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../E:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-12.019724, 0, 16.957788)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../E:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -3.1415925, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../L:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5342492, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../M1:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-11.812319, -0.12096977, 43.198288)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../../M2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-11.812319, -0.12096977, 46.41616)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../../M3:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-11.812319, -0.12096977, 50.036915)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../../M4:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-11.812319, -0.12096977, 53.2437)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../../M1:rotation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.14376283, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../../M2:rotation")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.14376283, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../../M3:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.14376283, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../../M4:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.14376283, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../../L:shaking")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vpflu"]
+_data = {
+&"FirstMet": SubResource("Animation_alk55"),
+&"RESET": SubResource("Animation_6bvv5")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_08cvt"]
 render_priority = 0
@@ -277,7 +708,8 @@ signal_manager_path = NodePath("../SignalManager")
 player_path = NodePath("../Player")
 
 [node name="L" parent="." unique_id=817499718 instance=ExtResource("13_lu6jg")]
-transform = Transform3D(-0.99977887, 0, -0.021029837, 0, 1, 0, 0.021029837, 0, -0.99977887, -30.853146, -0.12096977, 28.834412)
+transform = Transform3D(0.036539, 0, 0.9993322, 0, 1, 0, -0.9993322, 0, 0.036539, -15.995997, 0, 29.64756)
+script = ExtResource("33_npcl")
 
 [node name="S" parent="." unique_id=493892838 instance=ExtResource("14_uj5gg")]
 transform = Transform3D(-0.97088826, 0, -0.2395333, 0, 1, 0, 0.2395333, 0, -0.97088826, -3.392701, 9.536743e-07, 52.453705)
@@ -312,10 +744,16 @@ boom_on_swipe = true
 destroy_delay = 0.8
 
 [node name="E" parent="." unique_id=349365936 instance=ExtResource("16_2smtr")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -15.657969, 0, 28.971607)
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -12.019724, 0, 16.957788)
+script = ExtResource("22_vpflu")
+
+[node name="ShapeDrawer" type="Node3D" parent="E" unique_id=1972249699]
+script = ExtResource("5_v5g2c")
+draw_speed = 36.0
+draw_scale = 4.0
 
 [node name="M1" parent="." unique_id=789694993 instance=ExtResource("12_0mcpc")]
-transform = Transform3D(-0.7854573, 0, -0.61891586, 0, 1, 0, 0.61891586, 0, -0.7854573, -15.658151, -0.12096977, 38.45534)
+transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 43.198288)
 
 [node name="NPC" type="Node3D" parent="M1" unique_id=307566424]
 script = ExtResource("12_gqb1v")
@@ -325,13 +763,46 @@ script = ExtResource("18_swipe")
 boom_on_swipe = true
 destroy_delay = 0.8
 
-[node name="CamaeraManger" type="Node3D" parent="." unique_id=1128930863 node_paths=PackedStringArray("cams", "player")]
+[node name="M2" parent="." unique_id=2147440038 instance=ExtResource("12_0mcpc")]
+transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 46.41616)
+
+[node name="NPC" type="Node3D" parent="M2" unique_id=2025283408]
+script = ExtResource("12_gqb1v")
+
+[node name="Swipeable" type="Area3D" parent="M2" unique_id=1387788322]
+script = ExtResource("18_swipe")
+boom_on_swipe = true
+destroy_delay = 0.8
+
+[node name="M3" parent="." unique_id=1386463968 instance=ExtResource("12_0mcpc")]
+transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 50.036915)
+
+[node name="NPC" type="Node3D" parent="M3" unique_id=1874217735]
+script = ExtResource("12_gqb1v")
+
+[node name="Swipeable" type="Area3D" parent="M3" unique_id=87802807]
+script = ExtResource("18_swipe")
+boom_on_swipe = true
+destroy_delay = 0.8
+
+[node name="M4" parent="." unique_id=2023504692 instance=ExtResource("12_0mcpc")]
+transform = Transform3D(0.98968387, 0, 0.14326811, 0, 1, 0, -0.14326811, 0, 0.98968387, -11.812319, -0.12096977, 53.2437)
+
+[node name="NPC" type="Node3D" parent="M4" unique_id=805289430]
+script = ExtResource("12_gqb1v")
+
+[node name="Swipeable" type="Area3D" parent="M4" unique_id=1842108735]
+script = ExtResource("18_swipe")
+boom_on_swipe = true
+destroy_delay = 0.8
+
+[node name="CameraManager" type="Node3D" parent="." unique_id=1128930863 node_paths=PackedStringArray("cams", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556125, -0.1209681, -2.194869)
 script = ExtResource("12_mffks")
-cams = [NodePath("HomeCam"), NodePath("PlazaCam"), NodePath("PlaygroundCam"), NodePath("Home2Cam"), NodePath("CutFirstMet")]
+cams = [NodePath("HomeCam"), NodePath("PlazaCam"), NodePath("PlaygroundCam"), NodePath("Home2Cam"), NodePath("CutFirstMet"), NodePath("Playground2Cam")]
 player = NodePath("../Player")
 
-[node name="Home2Cam" type="Node3D" parent="CamaeraManger" unique_id=615743930]
+[node name="Home2Cam" type="Node3D" parent="CameraManager" unique_id=615743930]
 transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.556126, 10.120968, 56.935734)
 script = ExtResource("2_a1hbh")
 priority = 10
@@ -340,15 +811,14 @@ tween_on_load = false
 camera_3d_resource = SubResource("Resource_bg1ar")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Home" type="Area3D" parent="CamaeraManger/Home2Cam" unique_id=308842069]
+[node name="Home" type="Area3D" parent="CameraManager/Home2Cam" unique_id=308842069]
 transform = Transform3D(-3.576278e-07, -2.980232e-07, -1, -0.7071069, 0.70710665, 4.214692e-08, 0.70710665, 0.7071068, -4.636153e-07, 5.901249, 3.136132, -17.449335)
-script = ExtResource("12_mffks")
 
-[node name="Collision" type="CollisionShape3D" parent="CamaeraManger/Home2Cam/Home" unique_id=1113897716]
+[node name="Collision" type="CollisionShape3D" parent="CameraManager/Home2Cam/Home" unique_id=1113897716]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.445862, 2.1037598, 4.488199)
 shape = SubResource("BoxShape3D_dsyto")
 
-[node name="HomeCam" type="Node3D" parent="CamaeraManger" unique_id=1137183336]
+[node name="HomeCam" type="Node3D" parent="CameraManager" unique_id=1137183336]
 transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.556126, 10.120968, 2.194869)
 script = ExtResource("2_a1hbh")
 priority = 10
@@ -357,80 +827,86 @@ tween_on_load = false
 camera_3d_resource = SubResource("Resource_bg1ar")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Home" type="Area3D" parent="CamaeraManger/HomeCam" unique_id=719102578]
+[node name="Home" type="Area3D" parent="CameraManager/HomeCam" unique_id=719102578]
 transform = Transform3D(-3.5762784e-07, -2.980232e-07, -1, -0.7071069, 0.70710665, 4.214692e-08, 0.70710665, 0.7071068, -4.636153e-07, 2.1948771, 3.1361325, -17.449337)
-script = ExtResource("12_mffks")
 
-[node name="Collision" type="CollisionShape3D" parent="CamaeraManger/HomeCam/Home" unique_id=1442081365]
+[node name="Collision" type="CollisionShape3D" parent="CameraManager/HomeCam/Home" unique_id=1442081365]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.445862, 2.1037598, 4.488199)
 shape = SubResource("BoxShape3D_mffks")
 
-[node name="PlazaCam" type="Node3D" parent="CamaeraManger" unique_id=1844906496]
+[node name="PlazaCam" type="Node3D" parent="CameraManager" unique_id=1844906496]
 transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.556126, 10.120968, 31.335136)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_mffks")
 camera_3d_resource = SubResource("Resource_xakh1")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Plaza" type="Area3D" parent="CamaeraManger/PlazaCam" unique_id=1173458217]
+[node name="Plaza" type="Area3D" parent="CameraManager/PlazaCam" unique_id=1173458217]
 transform = Transform3D(-3.5762784e-07, -2.980232e-07, -1, -0.7071069, 0.70710665, 4.214692e-08, 0.70710665, 0.7071068, -4.636153e-07, 25.252565, 3.1361315, -17.449327)
-script = ExtResource("12_mffks")
 
-[node name="Collision" type="CollisionShape3D" parent="CamaeraManger/PlazaCam/Plaza" unique_id=974091740]
+[node name="Collision" type="CollisionShape3D" parent="CameraManager/PlazaCam/Plaza" unique_id=974091740]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3373346, 2.1037598, 23.866558)
 shape = SubResource("BoxShape3D_bg1ar")
 
-[node name="PlaygroundCam" type="Node3D" parent="CamaeraManger" unique_id=1546639579]
+[node name="PlaygroundCam" type="Node3D" parent="CameraManager" unique_id=1546639579]
 transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 30.34255, 10.120967, 30.5224)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_mffks")
 camera_3d_resource = SubResource("Resource_xakh1")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Plaza" type="Area3D" parent="CamaeraManger/PlaygroundCam" unique_id=775257418]
+[node name="Plaza" type="Area3D" parent="CameraManager/PlaygroundCam" unique_id=775257418]
 transform = Transform3D(-3.5762784e-07, -2.980232e-07, -1, -0.7071069, 0.70710665, 4.214692e-08, 0.70710665, 0.7071068, -4.636153e-07, 25.252565, 3.1361315, -17.449327)
-script = ExtResource("12_mffks")
 
-[node name="Collision" type="CollisionShape3D" parent="CamaeraManger/PlaygroundCam/Plaza" unique_id=467528677]
+[node name="Collision" type="CollisionShape3D" parent="CameraManager/PlaygroundCam/Plaza" unique_id=467528677]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.656809, 2.1037598, 25.660227)
 shape = SubResource("BoxShape3D_xakh1")
 
-[node name="Playground2Cam" type="Node3D" parent="CamaeraManger" unique_id=331446950]
+[node name="Playground2Cam" type="Node3D" parent="CameraManager" unique_id=331446950]
 transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, -11.25337, 10.120967, 32.302803)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_wrqsq")
 camera_3d_resource = SubResource("Resource_b7jro")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="Plaza" type="Area3D" parent="CamaeraManger/Playground2Cam" unique_id=511053509]
+[node name="Plaza" type="Area3D" parent="CameraManager/Playground2Cam" unique_id=511053509]
 transform = Transform3D(-3.5762778e-07, -2.980232e-07, -1, -0.7071069, 0.70710665, 4.214692e-08, 0.70710665, 0.7071068, -4.636153e-07, 27.032965, -4.749894, -9.563305)
-script = ExtResource("12_mffks")
 
-[node name="Collision" type="CollisionShape3D" parent="CamaeraManger/Playground2Cam/Plaza" unique_id=1021647405]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2099724, 2.1037598, 25.660227)
-shape = SubResource("BoxShape3D_gqb1v")
+[node name="Collision" type="CollisionShape3D" parent="CameraManager/Playground2Cam/Plaza" unique_id=1021647405]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.52527237, 2.1037598, 25.660227)
+shape = SubResource("BoxShape3D_6bvv5")
 
-[node name="CutFirstMet" type="Node3D" parent="CamaeraManger" unique_id=1713092]
+[node name="CutFirstMet" type="Node3D" parent="CameraManager" unique_id=1713092]
 transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, -2.6196523, 10.120967, 32.302803)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_lu6jg")
 camera_3d_resource = SubResource("Resource_uj5gg")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
-[node name="CutScene" type="Area3D" parent="CamaeraManger/CutFirstMet" unique_id=1024191567]
+[node name="CutScene" type="Area3D" parent="CameraManager/CutFirstMet" unique_id=1024191567]
 transform = Transform3D(-3.5762778e-07, -2.980232e-07, -1, -0.7071069, 0.70710665, 4.214692e-08, 0.70710665, 0.7071068, -4.636153e-07, 27.032965, -4.749894, -9.563305)
-script = ExtResource("12_mffks")
 
-[node name="Collision" type="CollisionShape3D" parent="CamaeraManger/CutFirstMet/CutScene" unique_id=720299836]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8914299, 2.1037598, 28.850527)
+[node name="Collision" type="CollisionShape3D" parent="CameraManager/CutFirstMet/CutScene" unique_id=720299836]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21238136, 2.1037598, 28.850527)
 shape = SubResource("BoxShape3D_gdhu6")
 
-[node name="Playground3Cam" type="Node3D" parent="CamaeraManger" unique_id=266634441]
+[node name="Playground3Cam" type="Node3D" parent="CameraManager" unique_id=266634441]
 transform = Transform3D(-4.655026e-07, -0.100743845, 0.9949124, -4.7739057e-09, 0.9949124, 0.100743905, -1, 4.2146944e-08, -4.6361538e-07, -6.8087993, 7.4406614, 32.302803)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_ioh7r")
 camera_3d_resource = SubResource("Resource_gqb1v")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="FirstMetCam" type="Node3D" parent="CameraManager" unique_id=1480673969]
+transform = Transform3D(-0.63230765, -0.11650854, 0.76590663, -0.007745326, 0.9895278, 0.14413136, -0.77467847, 0.085203126, -0.62658894, 0.9759145, 11.851472, 22.09938)
+script = ExtResource("2_a1hbh")
+tween_resource = SubResource("Resource_alk55")
+camera_3d_resource = SubResource("Resource_vpflu")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1524900045]
+root_node = NodePath("../CameraManager/CutFirstMet")
+libraries/ = SubResource("AnimationLibrary_vpflu")
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=175016306]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556125, -0.1209681, -2.194869)

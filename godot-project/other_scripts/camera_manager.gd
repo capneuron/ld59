@@ -69,3 +69,8 @@ func _restore_input() -> void:
 
 func _is_player(body: Node3D) -> bool:
 	return body.is_in_group("player") or body.name == "Player"
+
+func disable_cam(cam_name: String) -> void:
+	for cam in cams:
+		if cam and cam.name == cam_name:
+			remove_child(cam)

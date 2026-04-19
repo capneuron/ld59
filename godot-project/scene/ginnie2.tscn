@@ -1,40 +1,26 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://byipyvkdjeqbj"]
 
-[ext_resource type="PackedScene" uid="uid://014nm5d72ba3" path="res://art/ginnie2/ginnie2.gltf" id="1_gltf"]
-[ext_resource type="Texture2D" uid="uid://bbbnfypbubfb1" path="res://art/ginnie2/ginnie2.png" id="2_tex"]
+[ext_resource type="PackedScene" uid="uid://s47lq7ska8j4" path="res://scene/ginnie_2.tscn" id="3_pmfi3"]
 [ext_resource type="PackedScene" uid="uid://b2ip4ejsejxqd" path="res://scene/visual_tail.tscn" id="3_tail"]
 [ext_resource type="PackedScene" uid="uid://kp3gb1munnnx" path="res://scene/emoji.tscn" id="4_emoji"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mat"]
-shading_mode = 0
-albedo_texture = ExtResource("2_tex")
-texture_filter = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_col"]
 size = Vector3(1, 0.58, 1.74)
 
-[node name="ginnie2" type="RigidBody3D"]
-freeze = true
+[node name="ginnie2" type="RigidBody3D" unique_id=650456072]
 gravity_scale = 0.0
+freeze = true
 
-[node name="Model" parent="." instance=ExtResource("1_gltf")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
-
-[node name="Mesh" parent="Model" index="0"]
-material_override = SubResource("StandardMaterial3D_mat")
-
-[node name="Mesh2" parent="Model" index="1"]
-material_override = SubResource("StandardMaterial3D_mat")
-
-[node name="Mesh3" parent="Model" index="2"]
-material_override = SubResource("StandardMaterial3D_mat")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1439806513]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0.13)
 shape = SubResource("BoxShape3D_col")
 
-[node name="Tail" parent="." instance=ExtResource("3_tail")]
+[node name="Tail" parent="." unique_id=1293537468 instance=ExtResource("3_tail")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40512967, 0.7563642)
+tail_color = Color(0.2784314, 0.2, 0.05882353, 1)
 
-[node name="Emoji" parent="." instance=ExtResource("4_emoji")]
+[node name="Emoji" parent="." unique_id=1420285069 instance=ExtResource("4_emoji")]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)
+
+[node name="ginnie2" parent="." unique_id=1984025210 instance=ExtResource("3_pmfi3")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)

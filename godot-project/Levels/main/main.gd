@@ -8,7 +8,7 @@ extends Node3D
 @onready var signal_manager: Node = $SignalManager
 @onready var player_emoji: Node = $Player/Emoji
 @onready var cutscene_bars: Node = $CutsceneBars
-
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
 	set_tail_mode(use_physical_tail)
@@ -19,9 +19,7 @@ func _ready() -> void:
 	signal_manager.shape_recognized.connect(_on_shape_recognized)
 	signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
 
-	$CamaeraManger/CutFirstMet/CutScene.body_entered.connect(_on_cut_first_met_body_entered)
-
-	SceneManager.set_transition_scene(preload("res://scene/UI/TransitionScreen/TransitionScreen.tscn"))
+	$CameraManager/CutFirstMet/CutScene.body_entered.connect(_on_cut_first_met_body_entered)
 
 func set_tail_mode(physical: bool) -> void:
 	use_physical_tail = physical
@@ -112,6 +110,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			set_tail_mode(not use_physical_tail)
 			print("Tail mode: %s" % ("Physical" if use_physical_tail else "Visual"))
 
+var first_met_played: bool = false
 func _on_cut_first_met_body_entered(body: Node) -> void:
-	if body.name == "Player":
+	if body.name == "Player" and not first_met_played:
+		first_met_played = true
 		start_cutscene()
+		animation_player.play("FirstMet")
+		await animation_player.animation_finished
+		$CameraManager.disable_cam("CutFirstMet")
+		$L.shaking = true
+		end_cutscene()
