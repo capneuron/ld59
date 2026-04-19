@@ -18,6 +18,7 @@ const SHAPE_EMOJI := {
 }
 
 var target_scale: Vector3 = Vector3.ONE
+var upgraded: bool = false
 var _tween: Tween
 
 
@@ -61,9 +62,13 @@ func hide_emoji() -> void:
 ## Show emoji for a duration, then auto-hide.
 func flash_emoji(frame_index: int, duration: float = 2.0) -> void:
 	show_emoji(frame_index)
-	# Frame 2 = Cross uses special sound
-	if frame_index == 2:
+	# Frame 3 = Dots: no sound; Frame 2 = Cross: special sound; others: normal (or upgrade)
+	if frame_index == 3:
+		pass
+	elif frame_index == 2:
 		$SFXCross.play()
+	elif upgraded:
+		$SFXUpgrade.play()
 	else:
 		$SFX.play()
 	_kill_tween()

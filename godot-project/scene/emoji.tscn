@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scene/emoji.gd" id="2_emoji"]
 [ext_resource type="AudioStreamWAV" uid="uid://cjltjl7rs41ew" path="res://audio/short_piano1.wav" id="3_sfx"]
 [ext_resource type="AudioStreamWAV" uid="uid://deid2kgk85aod" path="res://audio/short_piano3.wav" id="4_sfx_cross"]
+[ext_resource type="AudioStreamWAV" uid="uid://c73n1cikojrtx" path="res://audio/short_piano2.wav" id="5_sfx_upgrade"]
 
 [node name="Emoji" type="Sprite3D" unique_id=296438333]
 billboard = 1
@@ -19,3 +20,6 @@ stream = ExtResource("3_sfx")
 
 [node name="SFXCross" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_sfx_cross")
+
+[node name="SFXUpgrade" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_sfx_upgrade")

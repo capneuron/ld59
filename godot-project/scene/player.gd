@@ -37,12 +37,12 @@ func _create_marker() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not mouse_input_enabled:
+		return
 	if event is InputEventMouseButton and event.pressed:
 		if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			return
-	if not mouse_input_enabled:
-		return
 	if event is InputEventMouseMotion:
 		var delta_px: Vector2 = event.relative
 		# Convert screen-space mouse offset to world-space XZ offset

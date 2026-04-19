@@ -10,12 +10,12 @@ extends Node3D
 @onready var cutscene_bars: Node = $CutsceneBars
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-var _bgm_main: AudioStreamPlayer
-var _bgm_ending: AudioStreamPlayer
+@onready var _bgm_main: AudioStreamPlayer = $BGMMain
+@onready var _bgm_ending: AudioStreamPlayer = $BGMEnding
 
 func _ready() -> void:
 	set_tail_mode(use_physical_tail)
-	_setup_bgm()
+	_setup_bgm_loop()
 	_play_bgm("main")
 	signal_manager.vibe_changed.connect(_on_vibe_changed)
 	signal_manager.vibe_expired.connect(_on_vibe_expired)
@@ -65,18 +65,7 @@ func _on_start() -> void:
 	$CameraManager/StartCam.priority = 0
 
 
-func _setup_bgm() -> void:
-	_bgm_main = AudioStreamPlayer.new()
-	_bgm_main.stream = preload("res://audio/plastic_key.wav")
-	_bgm_main.bus = "Master"
-	add_child(_bgm_main)
-
-	_bgm_ending = AudioStreamPlayer.new()
-	_bgm_ending.stream = preload("res://audio/guitar.wav")
-	_bgm_ending.bus = "Master"
-	add_child(_bgm_ending)
-
-	# Loop both BGMs
+func _setup_bgm_loop() -> void:
 	_bgm_main.finished.connect(_bgm_main.play)
 	_bgm_ending.finished.connect(_bgm_ending.play)
 
@@ -140,6 +129,8 @@ func _on_vibe_changed(vibe_name: String) -> void:
 	print("[Main] Vibe changed: %s" % vibe_name)
 	if vibe_name == "star":
 		set_tail_mode(true)
+	if player_emoji:
+		player_emoji.upgraded = (vibe_name == "triangle")
 	if vibe_name == "triangle" and player_emoji:
 		if _default_emoji_scale == Vector3.ZERO:
 			_default_emoji_scale = player_emoji.target_scale
@@ -150,6 +141,8 @@ func _on_vibe_changed(vibe_name: String) -> void:
 func _on_vibe_expired() -> void:
 	print("[Main] Vibe expired")
 	set_tail_mode(false)
+	if player_emoji:
+		player_emoji.upgraded = false
 	if player_emoji and _default_emoji_scale != Vector3.ZERO:
 		player_emoji.target_scale = _default_emoji_scale
 		player_emoji.scale = _default_emoji_scale

@@ -43,6 +43,10 @@
 [ext_resource type="PackedScene" uid="uid://jqc8bftn6sjd" path="res://scene/rock.tscn" id="31_gdhu6"]
 [ext_resource type="PackedScene" uid="uid://fhdcemmeqo5o" path="res://scene/UI/cutscene_bars.tscn" id="32_csbar"]
 [ext_resource type="Script" uid="uid://c1fx8ctjifl25" path="res://scene/npc_L.gd" id="33_npcl"]
+[ext_resource type="AudioStream" uid="uid://dc6c4phitktl2" path="res://audio/love.wav" id="47_foa83"]
+[ext_resource type="AudioStream" uid="uid://c8srgvyfeexib" path="res://audio/guitar.wav" id="bgm_ending"]
+[ext_resource type="AudioStream" uid="uid://b3pnfku178n3q" path="res://audio/plastic_key.wav" id="bgm_main"]
+[ext_resource type="AudioStream" uid="uid://hrxmu8xbmc2r" path="res://audio/whirly.wav" id="bgm_whirly"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.35, 0.55, 0.85, 1)
@@ -378,6 +382,42 @@ tracks/17/keys = {
 "update": 1,
 "values": [50]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("../../BGMWhirly:playing")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 9.933333, 18.866667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("../../BGMMain:playing")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 9.933333, 18.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("../../BGMLove:playing")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(2.7, 8.366667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_6bvv5"]
 length = 0.001
@@ -597,6 +637,42 @@ tracks/17/keys = {
 "update": 0,
 "values": [Vector3(0, -2.3561945, 0)]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("../../BGMWhirly:playing")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("../../BGMMain:playing")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("../../BGMLove:playing")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_altuj"]
 resource_name = "ending"
@@ -756,7 +832,7 @@ turn_speed = 30.0
 backward_angle = 155.0
 
 [node name="PhysicalTail" parent="." unique_id=696815448 node_paths=PackedStringArray("player") instance=ExtResource("3_ptail")]
-transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.7071067, 4.0726304, 0.6, -8.988191)
+transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.7071067, 4.0329375, 0.6, -1.4879359)
 visible = false
 player = NodePath("../Player")
 
@@ -1008,7 +1084,7 @@ camera_3d_resource = SubResource("Resource_gqb1v")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="FirstMetCam" type="Node3D" parent="CameraManager" unique_id=1480673969]
-transform = Transform3D(-0.63230765, -0.11650849, 0.76590663, -0.007745326, 0.98952734, 0.14413136, -0.77467847, 0.08520309, -0.62658894, 0.9759145, 11.851472, 22.09938)
+transform = Transform3D(-0.63230765, -0.116508484, 0.76590663, -0.007745326, 0.9895273, 0.14413136, -0.77467847, 0.08520308, -0.62658894, 0.9759145, 11.851472, 22.09938)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_alk55")
 camera_3d_resource = SubResource("Resource_vpflu")
@@ -2154,5 +2230,17 @@ shape = SubResource("WorldBoundaryShape3D_6bvv5")
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -26.653, 0.1, 33.699)
 material_override = SubResource("ShaderMaterial_gqb1v")
 mesh = SubResource("PlaneMesh_gqb1v")
+
+[node name="BGMMain" type="AudioStreamPlayer" parent="." unique_id=1246701811]
+stream = ExtResource("bgm_main")
+
+[node name="BGMEnding" type="AudioStreamPlayer" parent="." unique_id=684855419]
+stream = ExtResource("bgm_ending")
+
+[node name="BGMWhirly" type="AudioStreamPlayer" parent="." unique_id=1619292041]
+stream = ExtResource("bgm_whirly")
+
+[node name="BGMLove" type="AudioStreamPlayer" parent="." unique_id=929236108]
+stream = ExtResource("47_foa83")
 
 [connection signal="shape_closed" from="TrailSystem" to="SignalManager" method="on_shape_closed"]
