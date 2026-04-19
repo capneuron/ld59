@@ -86,7 +86,7 @@ duration = 0.5
 [sub_resource type="Resource" id="Resource_rmuxq"]
 script = ExtResource("17_bg1ar")
 projection = 1
-size = 3.4
+size = 2.6959999999999997
 near = 0.001
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
@@ -728,11 +728,11 @@ environment = SubResource("Environment_sky")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1767397823]
 unique_name_in_owner = true
-transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.481005, 10, -1.9057095)
+transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.481005, 10.08241, -1.7974368)
 top_level = true
 projection = 1
 current = true
-size = 3.4
+size = 2.696
 near = 0.001
 
 [node name="PostProcessing" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D" unique_id=900127976]
@@ -756,7 +756,7 @@ turn_speed = 30.0
 backward_angle = 155.0
 
 [node name="PhysicalTail" parent="." unique_id=696815448 node_paths=PackedStringArray("player") instance=ExtResource("3_ptail")]
-transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.7071067, 4.0726304, 0.6, -1.4725053)
+transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.7071067, 4.0726304, 0.6, -8.988191)
 visible = false
 player = NodePath("../Player")
 
@@ -905,7 +905,7 @@ cams = [NodePath("HomeCam"), NodePath("PlazaCam"), NodePath("PlaygroundCam"), No
 player = NodePath("../Player")
 
 [node name="StartCam" type="Node3D" parent="CameraManager" unique_id=1441828440]
-transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 19.03713, 10.120968, 0.28915954)
+transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 19.03713, 10.203378, 0.3974322)
 script = ExtResource("2_a1hbh")
 priority = 100
 tween_resource = SubResource("Resource_mffks")
@@ -1008,7 +1008,7 @@ camera_3d_resource = SubResource("Resource_gqb1v")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="FirstMetCam" type="Node3D" parent="CameraManager" unique_id=1480673969]
-transform = Transform3D(-0.63230765, -0.116508506, 0.76590663, -0.007745326, 0.98952746, 0.14413136, -0.77467847, 0.085203096, -0.62658894, 0.9759145, 11.851472, 22.09938)
+transform = Transform3D(-0.63230765, -0.11650849, 0.76590663, -0.007745326, 0.98952734, 0.14413136, -0.77467847, 0.08520309, -0.62658894, 0.9759145, 11.851472, 22.09938)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_alk55")
 camera_3d_resource = SubResource("Resource_vpflu")

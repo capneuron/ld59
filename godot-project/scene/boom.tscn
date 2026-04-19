@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://blotvhi54blg2"]
 
 [ext_resource type="Texture2D" uid="uid://c010kfcedy1su" path="res://art/boom/boom.png" id="1_xeb3x"]
+[ext_resource type="AudioStreamWAV" uid="uid://bfd6o1qkr576n" path="res://audio/boom.wav" id="2_boom"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x5bjn"]
 atlas = ExtResource("1_xeb3x")
@@ -70,3 +71,7 @@ animation = &"boom"
 autoplay = "boom"
 frame = 6
 frame_progress = 1.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_boom")
+autoplay = true

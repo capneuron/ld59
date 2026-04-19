@@ -61,6 +61,11 @@ func hide_emoji() -> void:
 ## Show emoji for a duration, then auto-hide.
 func flash_emoji(frame_index: int, duration: float = 2.0) -> void:
 	show_emoji(frame_index)
+	# Frame 2 = Cross uses special sound
+	if frame_index == 2:
+		$SFXCross.play()
+	else:
+		$SFX.play()
 	_kill_tween()
 	_tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	_tween.tween_property(self, "scale", target_scale, anim_duration).from(Vector3.ZERO)

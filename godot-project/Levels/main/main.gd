@@ -10,9 +10,13 @@ extends Node3D
 @onready var cutscene_bars: Node = $CutsceneBars
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var _bgm_main: AudioStreamPlayer
+var _bgm_ending: AudioStreamPlayer
+
 func _ready() -> void:
 	set_tail_mode(use_physical_tail)
-
+	_setup_bgm()
+	_play_bgm("main")
 	signal_manager.vibe_changed.connect(_on_vibe_changed)
 	signal_manager.vibe_expired.connect(_on_vibe_expired)
 	signal_manager.signal_triggered.connect(_on_signal_triggered)
@@ -29,9 +33,9 @@ func _ready() -> void:
 func _show_start_screen() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	$Player.mouse_input_enabled = false
-	get_tree().paused = true
+	$Player.set_physics_process(false)
+	$Player/ginnie/Tail.visible = false
 	var start_btn: TextureButton = $StartCanvas/StartButton
-	start_btn.process_mode = Node.PROCESS_MODE_ALWAYS
 	start_btn.pivot_offset = start_btn.size / 2.0
 	start_btn.pressed.connect(_on_start)
 	start_btn.mouse_entered.connect(func() -> void:
@@ -55,9 +59,35 @@ func _show_start_screen() -> void:
 func _on_start() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$Player.mouse_input_enabled = true
+	$Player.set_physics_process(true)
+	$Player/ginnie/Tail.visible = true
 	$StartCanvas.queue_free()
 	$CameraManager/StartCam.priority = 0
-	get_tree().paused = false
+
+
+func _setup_bgm() -> void:
+	_bgm_main = AudioStreamPlayer.new()
+	_bgm_main.stream = preload("res://audio/plastic_key.wav")
+	_bgm_main.bus = "Master"
+	add_child(_bgm_main)
+
+	_bgm_ending = AudioStreamPlayer.new()
+	_bgm_ending.stream = preload("res://audio/guitar.wav")
+	_bgm_ending.bus = "Master"
+	add_child(_bgm_ending)
+
+	# Loop both BGMs
+	_bgm_main.finished.connect(_bgm_main.play)
+	_bgm_ending.finished.connect(_bgm_ending.play)
+
+
+func _play_bgm(which: String) -> void:
+	_bgm_main.stop()
+	_bgm_ending.stop()
+	if which == "main":
+		_bgm_main.play()
+	elif which == "ending":
+		_bgm_ending.play()
 
 func set_tail_mode(physical: bool) -> void:
 	use_physical_tail = physical
@@ -185,6 +215,7 @@ func _on_ending() -> void:
 		return
 	_ending_triggered = true
 	print("[Ending] _on_ending called!")
+	_play_bgm("ending")
 	$SubViewportContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	start_cutscene()
 	$CameraManager/EndingCam.set("priority", 500)
@@ -207,6 +238,7 @@ func _on_ending_f() -> void:
 		return
 	_ending_triggered = true
 	print("[Ending] _on_ending_f called!")
+	_play_bgm("ending")
 	start_cutscene()
 	$F/Emoji.flash_emoji(1, 5.0)
 	await get_tree().create_timer(6.0).timeout
