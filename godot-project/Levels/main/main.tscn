@@ -2218,6 +2218,8 @@ stream = ExtResource("bgm_main")
 [node name="BGMEnding" type="AudioStreamPlayer" parent="." unique_id=684855419]
 stream = ExtResource("bgm_ending")
 
+[node name="SFXButton" type="AudioStreamPlayer" parent="." unique_id=684855421]
+
 [node name="BGMWhirly" type="AudioStreamPlayer" parent="." unique_id=1619292041]
 stream = ExtResource("bgm_whirly")
 

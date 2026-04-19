@@ -7,6 +7,8 @@ extends Node3D
 @export var spawn_interval_min: float = 1.5
 @export var spawn_speedup: float = 0.95
 @export var enemy_move_speed: float = 4.0
+@export var enemy_speed_max: float = 12.0
+@export var enemy_speed_ramp: float = 120.0  ## seconds to reach max speed
 
 @onready var signal_manager: Node = $SignalManager
 @onready var player_emoji: Node = $Player/Emoji
@@ -14,6 +16,7 @@ extends Node3D
 
 @onready var _bgm_main: AudioStreamPlayer = $BGMMain
 @onready var _bgm_ending: AudioStreamPlayer = $BGMEnding
+@onready var _sfx_button: AudioStreamPlayer = $SFXButton
 
 var _enemy_scene: PackedScene = preload("res://scene/ginnie2.tscn")
 var _swipeable_script: Script = preload("res://other_scripts/swipeable.gd")
@@ -38,7 +41,6 @@ var _spawn_positions: Array[Vector3] = [
 func _ready() -> void:
 	set_tail_mode(use_physical_tail)
 	_setup_bgm()
-	_play_bgm("main")
 
 	signal_manager.vibe_changed.connect(_on_vibe_changed)
 	signal_manager.vibe_expired.connect(_on_vibe_expired)
@@ -102,6 +104,7 @@ func _show_start_screen() -> void:
 	var start_btn: TextureButton = $StartCanvas/StartButton
 	_setup_start_button_hover(start_btn)
 	start_btn.pressed.connect(func() -> void:
+		await get_tree().create_timer(0.5).timeout
 		get_tree().change_scene_to_file("res://Levels/main/main.tscn")
 	)
 
@@ -121,6 +124,7 @@ func _setup_start_button_hover(btn: TextureButton) -> void:
 		tw.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.15)
 	)
 	btn.button_down.connect(func() -> void:
+		_sfx_button.play()
 		var tw := btn.create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(btn, "scale", Vector2(0.9, 0.9), 0.08)
 	)
@@ -144,6 +148,8 @@ func _on_start() -> void:
 	_game_started = true
 	_timer_label.visible = true
 
+	await get_tree().create_timer(0.5).timeout
+	_play_bgm("main")
 
 func _process(delta: float) -> void:
 	if not _game_started or _game_over:
@@ -151,12 +157,15 @@ func _process(delta: float) -> void:
 
 	_elapsed_time += delta
 	_timer_label.text = "%.1fs" % _elapsed_time
+	# ====== TODO: _update_sunset()
 
-	# Spawn enemies
+	# Spawn enemies — count increases over time
 	_spawn_timer += delta
 	if _spawn_timer >= _current_interval:
 		_spawn_timer = 0.0
-		_spawn_enemy()
+		var spawn_count: int = 1 + int(_elapsed_time / 30.0)  # +1 every 30s
+		for n in spawn_count:
+			_spawn_enemy()
 		_current_interval = maxf(_current_interval * spawn_speedup, spawn_interval_min)
 
 	# Check if any enemy reached L
@@ -200,10 +209,12 @@ func _check_enemies_reached_l() -> void:
 			_game_over = true
 			_on_game_over()
 			return
-		# Move enemy toward L
+		# Move enemy toward L — speed ramps over time
+		var speed_t: float = clampf(_elapsed_time / enemy_speed_ramp, 0.0, 1.0)
+		var current_speed: float = lerpf(enemy_move_speed, enemy_speed_max, speed_t)
 		var dir: Vector3 = (l_pos - enemy.global_position).normalized()
 		dir.y = 0.0
-		enemy.position += dir * enemy_move_speed * get_process_delta_time()
+		enemy.position += dir * current_speed * get_process_delta_time()
 		# Face movement direction
 		if dir.length_squared() > 0.01:
 			var target_y := atan2(dir.x, dir.z) + PI
@@ -216,6 +227,38 @@ func _on_game_over() -> void:
 	$Player.set_process(false)
 	$Player.set_physics_process(false)
 	$Player.set_process_unhandled_input(false)
+
+
+# ===== Sunset ===== NOT IN USE
+
+## Sunset transition duration in seconds
+@export var sunset_duration: float = 120.0
+
+# Day colors
+const _SKY_TOP_DAY := Color(0.35, 0.55, 0.85)
+const _SKY_HORIZON_DAY := Color(0.65, 0.78, 0.9)
+const _LIGHT_COLOR_DAY := Color(1.0, 1.0, 1.0)
+const _LIGHT_ENERGY_DAY := 1.0
+# Sunset colors
+const _SKY_TOP_SUNSET := Color(0.15, 0.1, 0.35)
+const _SKY_HORIZON_SUNSET := Color(0.95, 0.4, 0.15)
+const _LIGHT_COLOR_SUNSET := Color(1.0, 0.55, 0.25)
+const _LIGHT_ENERGY_SUNSET := 0.7
+
+func _update_sunset() -> void:
+	var t: float = clampf(_elapsed_time / sunset_duration, 0.0, 1.0)
+	# Ease-in for a slow start, accelerating toward the end
+	t = t * t
+
+	var sky_mat: ProceduralSkyMaterial = $SubViewportContainer/SubViewport/WorldEnvironment.environment.sky.sky_material
+	sky_mat.sky_top_color = _SKY_TOP_DAY.lerp(_SKY_TOP_SUNSET, t)
+	sky_mat.sky_horizon_color = _SKY_HORIZON_DAY.lerp(_SKY_HORIZON_SUNSET, t)
+	sky_mat.ground_bottom_color = _SKY_TOP_DAY.lerp(_SKY_TOP_SUNSET, t)
+	sky_mat.ground_horizon_color = _SKY_HORIZON_DAY.lerp(_SKY_HORIZON_SUNSET, t)
+
+	var light: DirectionalLight3D = $DirectionalLight3D
+	light.light_color = _LIGHT_COLOR_DAY.lerp(_LIGHT_COLOR_SUNSET, t)
+	light.light_energy = lerpf(_LIGHT_ENERGY_DAY, _LIGHT_ENERGY_SUNSET, t)
 
 
 # ===== Tail mode =====
@@ -259,6 +302,9 @@ func _setup_bgm() -> void:
 	_bgm_ending.process_mode = Node.PROCESS_MODE_ALWAYS
 	_bgm_main.finished.connect(_bgm_main.play)
 	_bgm_ending.finished.connect(_bgm_ending.play)
+	
+	_sfx_button.bus = "SFX"
+	_sfx_button.stream = preload("res://audio/short_piano5.wav")
 
 
 func _play_bgm(which: String) -> void:

@@ -103,11 +103,22 @@ func _find_camera() -> Camera3D:
 	var cam := get_viewport().get_camera_3d()
 	if cam:
 		return cam
-	var sub_vp := get_node_or_null("/root/Main/SubViewportContainer/SubViewport")
-	if sub_vp:
-		return sub_vp.get_camera_3d()
+	var current_scene := get_tree().current_scene
+	if current_scene:
+		var sub_vp := _find_subviewport(current_scene)
+		if sub_vp:
+			return sub_vp.get_camera_3d()
 	return null
 
+func _find_subviewport(node: Node) -> SubViewport:
+	if node is SubViewport:
+		return node
+	for child in node.get_children():
+		if child is Node:
+			var result := _find_subviewport(child)
+			if result:
+				return result
+	return null
 
 func _kill_tween() -> void:
 	if _tween and _tween.is_valid():

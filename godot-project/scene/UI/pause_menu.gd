@@ -9,6 +9,7 @@ var _is_open: bool = false
 @onready var _close_btn: TextureButton = $Panel/VBoxContainer/ButtonRow/CloseButton
 @onready var _exit_btn: TextureButton = $Panel/VBoxContainer/ButtonRow/ExitButton
 @onready var _quit_btn: Button = $Panel/VBoxContainer/QuitButton
+@onready var _sfx_button: AudioStreamPlayer = $SFXButton
 
 var _bgm_bus: int
 var _sfx_bus: int
@@ -30,7 +31,10 @@ func _ready() -> void:
 	_close_btn.pressed.connect(close_menu)
 	_setup_button_hover(_exit_btn)
 	_exit_btn.pressed.connect(_on_exit)
-	_quit_btn.pressed.connect(_on_quit)
+	_quit_btn.pressed.connect(func() -> void: _sfx_button.play(); _on_quit())
+	
+	_sfx_button.bus = "SFX"
+	_sfx_button.stream = preload("res://audio/short_piano5.wav")
 
 
 func enable_exit(scene_path: String) -> void:
@@ -49,6 +53,7 @@ func _setup_button_hover(btn: TextureButton) -> void:
 		tw.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.15)
 	)
 	btn.button_down.connect(func() -> void:
+		_sfx_button.play()
 		var tw := btn.create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(btn, "scale", Vector2(0.9, 0.9), 0.08)
 	)

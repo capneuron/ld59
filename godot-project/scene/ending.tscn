@@ -59,3 +59,5 @@ offset_bottom = -193.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("4_nmv26")
+
+[node name="SFXButton" type="AudioStreamPlayer" parent="." unique_id=684855423]

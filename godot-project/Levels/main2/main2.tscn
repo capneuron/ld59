@@ -25,15 +25,13 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="28_shc4j"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="29_viole"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="30_gptix"]
+[ext_resource type="AudioStream" uid="uid://cnomurj1ekky6" path="res://audio/ld59 battle.wav" id="31_1bee0"]
 [ext_resource type="Shader" uid="uid://daik7xefva1j" path="res://grass.gdshader" id="31_mvy4d"]
+[ext_resource type="AudioStream" uid="uid://dp3jqyo8ufgox" path="res://audio/ld59battle2.wav" id="32_lyi3h"]
 [ext_resource type="Script" uid="uid://4hhoxd2nvegn" path="res://scene/grass_field.gd" id="38_5b74c"]
 [ext_resource type="PackedScene" uid="uid://cqiq422k83l8y" path="res://scene/tree.tscn" id="40_w81w7"]
 [ext_resource type="Shader" uid="uid://cgmei8q8ylgr1" path="res://lake.gdshader" id="42_1n2yy"]
 [ext_resource type="Shader" uid="uid://dt1yrh1ol1hm1" path="res://beach.gdshader" id="43_o6ro4"]
-[ext_resource type="AudioStream" uid="uid://b3pnfku178n3q" path="res://audio/plastic_key.wav" id="44_qacje"]
-[ext_resource type="AudioStream" uid="uid://c8srgvyfeexib" path="res://audio/guitar.wav" id="45_rwol4"]
-[ext_resource type="AudioStream" uid="uid://hrxmu8xbmc2r" path="res://audio/whirly.wav" id="46_0lajf"]
-[ext_resource type="AudioStream" uid="uid://dc6c4phitktl2" path="res://audio/love.wav" id="47_ff6fy"]
 [ext_resource type="PackedScene" uid="uid://dbh5c74dvi3ve" path="res://scene/ending.tscn" id="48_38hay"]
 [ext_resource type="PackedScene" uid="uid://ov37yu8ugbmo" path="res://scene/UI/pause_menu.tscn" id="49_groa8"]
 
@@ -897,16 +895,12 @@ material_override = SubResource("ShaderMaterial_gqb1v")
 mesh = SubResource("PlaneMesh_gqb1v")
 
 [node name="BGMMain" type="AudioStreamPlayer" parent="." unique_id=1246701811]
-stream = ExtResource("44_qacje")
+stream = ExtResource("31_1bee0")
 
 [node name="BGMEnding" type="AudioStreamPlayer" parent="." unique_id=684855419]
-stream = ExtResource("45_rwol4")
+stream = ExtResource("32_lyi3h")
 
-[node name="BGMWhirly" type="AudioStreamPlayer" parent="." unique_id=1619292041]
-stream = ExtResource("46_0lajf")
-
-[node name="BGMLove" type="AudioStreamPlayer" parent="." unique_id=929236108]
-stream = ExtResource("47_ff6fy")
+[node name="SFXButton" type="AudioStreamPlayer" parent="." unique_id=684855420]
 
 [node name="EndingCanvas" parent="." unique_id=1460590137 instance=ExtResource("48_38hay")]
 visible = false

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cnomurj1ekky6"
+path="res://.godot/imported/ld59 battle.wav-24e3e18adbd685b0341d1b8f85c960bd.sample"
+
+[deps]
+
+source_file="res://audio/ld59 battle.wav"
+dest_files=["res://.godot/imported/ld59 battle.wav-24e3e18adbd685b0341d1b8f85c960bd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

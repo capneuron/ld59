@@ -12,6 +12,7 @@ extends Node3D
 
 @onready var _bgm_main: AudioStreamPlayer = $BGMMain
 @onready var _bgm_ending: AudioStreamPlayer = $BGMEnding
+@onready var _sfx_button: AudioStreamPlayer = $SFXButton
 
 func _ready() -> void:
 	set_tail_mode(use_physical_tail)
@@ -53,6 +54,7 @@ func _show_start_screen() -> void:
 		tw.tween_property(start_btn, "scale", Vector2(1.0, 1.0), 0.15)
 	)
 	start_btn.button_down.connect(func() -> void:
+		_sfx_button.play()
 		var tw := start_btn.create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_property(start_btn, "scale", Vector2(0.9, 0.9), 0.08)
 	)
@@ -79,6 +81,9 @@ func _setup_bgm_loop() -> void:
 	_bgm_ending.process_mode = Node.PROCESS_MODE_ALWAYS
 	_bgm_main.finished.connect(_bgm_main.play)
 	_bgm_ending.finished.connect(_bgm_ending.play)
+	
+	_sfx_button.bus = "SFX"
+	_sfx_button.stream = preload("res://audio/short_piano5.wav")
 
 
 func _play_bgm(which: String) -> void:
