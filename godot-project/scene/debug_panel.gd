@@ -23,21 +23,22 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_process(false)
 	set_process_unhandled_key_input(false)
+	
 	return
 
-	if physical_tail_path:
-		_physical_tail = get_node(physical_tail_path)
+	# if physical_tail_path:
+	# 	_physical_tail = get_node(physical_tail_path)
 
-	if signal_manager_path:
-		_signal_manager = get_node(signal_manager_path)
-		_signal_manager.shape_recognized.connect(_on_shape_recognized)
-		_signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
+	# if signal_manager_path:
+	# 	_signal_manager = get_node(signal_manager_path)
+	# 	_signal_manager.shape_recognized.connect(_on_shape_recognized)
+	# 	_signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
 
-	if player_path:
-		_player = get_node(player_path)
+	# if player_path:
+	# 	_player = get_node(player_path)
 
-	_build_hud()
-	_build_panel()
+	# _build_hud()
+	# _build_panel()
 
 
 func _build_hud() -> void:
