@@ -21,6 +21,7 @@ func _ready() -> void:
 
 	$CameraManager/CutFirstMet/CutScene.body_entered.connect(_on_cut_first_met_body_entered)
 	$L.ending_triggered.connect(_on_ending)
+	$F.ending_triggered.connect(_on_ending_f)
 	_setup_enemy_tracking()
 	_show_start_screen()
 
@@ -200,6 +201,23 @@ func _on_ending() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	_on_restart()
 	
+
+func _on_ending_f() -> void:
+	if _ending_triggered:
+		return
+	_ending_triggered = true
+	print("[Ending] _on_ending_f called!")
+	start_cutscene()
+	$F/Emoji.flash_emoji(1, 5.0)
+	await get_tree().create_timer(6.0).timeout
+	$EndingCanvas.show()
+	$Player.set_process(false)
+	$Player.set_physics_process(false)
+	$Player.set_process_unhandled_input(false)
+	await get_tree().create_timer(5.0).timeout
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_on_restart()
+
 
 func _on_restart() -> void:
 	get_tree().reload_current_scene()
