@@ -47,6 +47,7 @@
 [ext_resource type="AudioStream" uid="uid://c8srgvyfeexib" path="res://audio/guitar.wav" id="bgm_ending"]
 [ext_resource type="AudioStream" uid="uid://b3pnfku178n3q" path="res://audio/plastic_key.wav" id="bgm_main"]
 [ext_resource type="AudioStream" uid="uid://hrxmu8xbmc2r" path="res://audio/whirly.wav" id="bgm_whirly"]
+[ext_resource type="Script" uid="uid://cdhlmfsbb16xy" path="res://scene/npc_M.gd" id="npc_m"]
 [ext_resource type="PackedScene" uid="uid://ov37yu8ugbmo" path="res://scene/UI/pause_menu.tscn" id="pause_menu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
@@ -803,6 +804,7 @@ environment = SubResource("Environment_sky")
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1767397823]
 unique_name_in_owner = true
 transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.481005, 10.08241, -1.7974368)
+top_level = true
 projection = 1
 current = true
 size = 2.696
@@ -927,9 +929,7 @@ destroy_delay = 3.0
 [node name="M1" parent="." unique_id=789694993 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 43.198288)
 freeze_mode = 0
-
-[node name="NPC" type="Node3D" parent="M1" unique_id=307566424]
-script = ExtResource("12_gqb1v")
+script = ExtResource("npc_m")
 
 [node name="Swipeable" type="Area3D" parent="M1" unique_id=1294255834]
 script = ExtResource("18_swipe")
@@ -939,9 +939,7 @@ destroy_delay = 3.0
 [node name="M2" parent="." unique_id=2147440038 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 46.41616)
 freeze_mode = 0
-
-[node name="NPC" type="Node3D" parent="M2" unique_id=2025283408]
-script = ExtResource("12_gqb1v")
+script = ExtResource("npc_m")
 
 [node name="Swipeable" type="Area3D" parent="M2" unique_id=1387788322]
 script = ExtResource("18_swipe")
@@ -951,9 +949,7 @@ destroy_delay = 3.0
 [node name="M3" parent="." unique_id=1386463968 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 50.036915)
 freeze_mode = 0
-
-[node name="NPC" type="Node3D" parent="M3" unique_id=1874217735]
-script = ExtResource("12_gqb1v")
+script = ExtResource("npc_m")
 
 [node name="Swipeable" type="Area3D" parent="M3" unique_id=87802807]
 script = ExtResource("18_swipe")
@@ -963,9 +959,7 @@ destroy_delay = 3.0
 [node name="M4" parent="." unique_id=2023504692 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.98968387, 0, 0.14326811, 0, 1, 0, -0.14326811, 0, 0.98968387, -11.812319, -0.12096977, 53.2437)
 freeze_mode = 0
-
-[node name="NPC" type="Node3D" parent="M4" unique_id=805289430]
-script = ExtResource("12_gqb1v")
+script = ExtResource("npc_m")
 
 [node name="Swipeable" type="Area3D" parent="M4" unique_id=1842108735]
 script = ExtResource("18_swipe")
@@ -1082,7 +1076,7 @@ camera_3d_resource = SubResource("Resource_gqb1v")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="FirstMetCam" type="Node3D" parent="CameraManager" unique_id=1480673969]
-transform = Transform3D(-0.63230765, -0.11650848, 0.76590663, -0.007745326, 0.9895272, 0.14413136, -0.77467847, 0.085203074, -0.62658894, 0.9759145, 11.851472, 22.09938)
+transform = Transform3D(-0.63230765, -0.11650847, 0.76590663, -0.007745326, 0.98952717, 0.14413136, -0.77467847, 0.085203074, -0.62658894, 0.9759145, 11.851472, 22.09938)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_alk55")
 camera_3d_resource = SubResource("Resource_vpflu")
