@@ -15,6 +15,13 @@ signal swiped_first_time(hit_velocity: Vector3)
 @export var torque_force: float = 8.0
 @export var recover_time: float = 3.0
 
+## Spawn boom effect on swipe
+@export var boom_on_swipe: bool = false
+## Destroy parent after swipe (-1 = don't destroy)
+@export var destroy_delay: float = -1.0
+
+var _boom_scene: PackedScene = preload("res://scene/boom.tscn")
+
 var _rb: RigidBody3D
 var _launched: bool = false
 var _ever_swiped: bool = false
@@ -41,6 +48,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if not _launched:
+		return
+	if destroy_delay >= 0.0:
 		return
 	_recover_timer -= delta
 	if _recover_timer <= 0.0:
@@ -88,3 +97,28 @@ func _launch(hit_velocity: Vector3) -> void:
 	if torque_axis.length_squared() < 0.01:
 		torque_axis = Vector3.RIGHT
 	_rb.apply_torque_impulse(torque_axis * torque_force)
+
+	if boom_on_swipe:
+		_spawn_boom()
+	if destroy_delay >= 0.0:
+		_destroy_after_delay()
+
+
+func _spawn_boom() -> void:
+	if not _rb:
+		return
+	var pos := _rb.global_position
+	var boom := _boom_scene.instantiate()
+	_rb.get_parent().add_child(boom)
+	boom.global_position = pos
+	var sprite: AnimatedSprite3D = boom.get_node("AnimatedSprite3D")
+	sprite.animation_finished.connect(boom.queue_free)
+
+
+func _destroy_after_delay() -> void:
+	if not _rb:
+		return
+	get_tree().create_timer(destroy_delay).timeout.connect(func():
+		if is_instance_valid(_rb):
+			_rb.queue_free()
+	)

@@ -308,6 +308,8 @@ draw_scale = 4.0
 
 [node name="Swipeable" type="Area3D" parent="F" unique_id=1532756218]
 script = ExtResource("18_swipe")
+boom_on_swipe = true
+destroy_delay = 0.8
 
 [node name="E" parent="." unique_id=349365936 instance=ExtResource("16_2smtr")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -15.657969, 0, 28.971607)
@@ -320,6 +322,8 @@ script = ExtResource("12_gqb1v")
 
 [node name="Swipeable" type="Area3D" parent="M1" unique_id=1294255834]
 script = ExtResource("18_swipe")
+boom_on_swipe = true
+destroy_delay = 0.8
 
 [node name="CamaeraManger" type="Node3D" parent="." unique_id=1128930863 node_paths=PackedStringArray("cams", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556125, -0.1209681, -2.194869)
@@ -576,42 +580,49 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7950468, 0, 1.1702156)
 
 [node name="Swipeable" type="Area3D" parent="Ground/Rocks/rock" unique_id=1214003544]
 script = ExtResource("18_swipe")
+boom_on_swipe = true
 
 [node name="rock9" parent="Ground/Rocks" unique_id=1026346721 instance=ExtResource("31_gdhu6")]
 transform = Transform3D(0.098833434, 0, 0.995104, 0, 1, 0, -0.995104, 0, 0.098833434, 0.520982, 0, 3.7976036)
 
 [node name="Swipeable" type="Area3D" parent="Ground/Rocks/rock9" unique_id=1021648616]
 script = ExtResource("18_swipe")
+boom_on_swipe = true
 
 [node name="rock6" parent="Ground/Rocks" unique_id=805842758 instance=ExtResource("31_gdhu6")]
 transform = Transform3D(0.8863006, 0, -0.46311042, 0, 1, 0, 0.46311042, 0, 0.8863006, -1.2765543, 0, 2.8321686)
 
 [node name="Swipeable" type="Area3D" parent="Ground/Rocks/rock6" unique_id=494543041]
 script = ExtResource("18_swipe")
+boom_on_swipe = true
 
 [node name="rock7" parent="Ground/Rocks" unique_id=612995711 instance=ExtResource("31_gdhu6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4905782, 0, 3.884552)
 
 [node name="Swipeable" type="Area3D" parent="Ground/Rocks/rock7" unique_id=1243934267]
 script = ExtResource("18_swipe")
+boom_on_swipe = true
 
 [node name="rock3" parent="Ground/Rocks" unique_id=1941534402 instance=ExtResource("31_gdhu6")]
 transform = Transform3D(0.40546075, 0, 0.91411245, 0, 1, 0, -0.91411245, 0, 0.40546075, 2.1878316, 0, 1.9269524)
 
 [node name="Swipeable" type="Area3D" parent="Ground/Rocks/rock3" unique_id=426656859]
 script = ExtResource("18_swipe")
+boom_on_swipe = true
 
 [node name="rock8" parent="Ground/Rocks" unique_id=1206847335 instance=ExtResource("31_gdhu6")]
 transform = Transform3D(-0.08321251, 0.763441, -0.6404947, -0.035221662, -0.64457536, -0.7637288, -0.99590915, -0.040992543, 0.080526456, 1.4804908, 0.7040198, 5.302578)
 
 [node name="Swipeable" type="Area3D" parent="Ground/Rocks/rock8" unique_id=1367876004]
 script = ExtResource("18_swipe")
+boom_on_swipe = true
 
 [node name="rock2" parent="Ground/Rocks" unique_id=1674835424 instance=ExtResource("31_gdhu6")]
 transform = Transform3D(0.7662239, 2.2967063e-08, 0.64257365, -0.5415852, -0.5381678, 0.64580244, 0.34581247, -0.84283775, -0.41235697, 0.67515457, 0.85015965, 1.9695511)
 
 [node name="Swipeable" type="Area3D" parent="Ground/Rocks/rock2" unique_id=943640320]
 script = ExtResource("18_swipe")
+boom_on_swipe = true
 
 [node name="Forest1" type="Node3D" parent="Ground" unique_id=1367847020]
 

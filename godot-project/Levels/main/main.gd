@@ -19,6 +19,7 @@ func _ready() -> void:
 	signal_manager.shape_recognized.connect(_on_shape_recognized)
 	signal_manager.shape_unrecognized.connect(_on_shape_unrecognized)
 
+	$CamaeraManger/CutFirstMet/CutScene.body_entered.connect(_on_cut_first_met_body_entered)
 
 	SceneManager.set_transition_scene(preload("res://scene/UI/TransitionScreen/TransitionScreen.tscn"))
 
@@ -110,3 +111,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		if event.keycode == KEY_T:
 			set_tail_mode(not use_physical_tail)
 			print("Tail mode: %s" % ("Physical" if use_physical_tail else "Visual"))
+
+func _on_cut_first_met_body_entered(body: Node) -> void:
+	if body.name == "Player":
+		start_cutscene()

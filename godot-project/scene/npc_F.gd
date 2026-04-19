@@ -3,7 +3,7 @@ extends RigidBody3D
 ## NPC F: when the player gets close, draws a circle on the ground.
 
 @export var detection_range: float = 12.0
-@export var draw_cooldown: float = 10.0
+@export var draw_cooldown: float = 25.0
 
 var _player: Node3D
 var _shape_drawer: ShapeDrawer
