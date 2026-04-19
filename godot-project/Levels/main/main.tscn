@@ -1008,7 +1008,7 @@ camera_3d_resource = SubResource("Resource_gqb1v")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="FirstMetCam" type="Node3D" parent="CameraManager" unique_id=1480673969]
-transform = Transform3D(-0.63230765, -0.11650851, 0.76590663, -0.007745326, 0.9895275, 0.14413136, -0.77467847, 0.0852031, -0.62658894, 0.9759145, 11.851472, 22.09938)
+transform = Transform3D(-0.63230765, -0.116508506, 0.76590663, -0.007745326, 0.98952746, 0.14413136, -0.77467847, 0.085203096, -0.62658894, 0.9759145, 11.851472, 22.09938)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_alk55")
 camera_3d_resource = SubResource("Resource_vpflu")
@@ -1025,7 +1025,7 @@ mesh = SubResource("PlaneMesh_i5glm")
 metadata/_edit_lock_ = true
 
 [node name="Guide0" type="Sprite3D" parent="Ground" unique_id=2002643897]
-transform = Transform3D(5.9795905e-14, -6.2591066, 1.3679711e-06, -2.7359425e-07, 1.3679711e-06, 6.2591066, -6.2591066, -1.1959182e-13, -2.7359425e-07, 6.9272175, 0.63162994, 2.8332667)
+transform = Transform3D(5.9795905e-14, -7.407489, 1.367971e-06, -2.7359425e-07, 1.618958e-06, 6.259106, -6.2591066, -1.415338e-13, -2.7359422e-07, 6.9272175, 0.63162994, 2.8332667)
 texture_filter = 0
 texture = ExtResource("15_3peh0")
 script = ExtResource("16_v0iqm")
