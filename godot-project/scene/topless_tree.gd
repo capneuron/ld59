@@ -11,6 +11,7 @@ signal hit
 
 var _base_scale: Vector3
 var _tween: Tween
+var _boom_scene: PackedScene = preload("res://scene/boom.tscn")
 
 
 func _ready() -> void:
@@ -33,5 +34,11 @@ func _on_hit() -> void:
 	var stretched := Vector3(_base_scale.x, _base_scale.y * stretch_scale, _base_scale.z)
 	_tween.tween_property(self, "scale", stretched, stretch_duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	_tween.tween_property(self, "scale", _base_scale, recover_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_ELASTIC)
+
+	var boom := _boom_scene.instantiate()
+	get_parent().add_child(boom)
+	boom.global_position = global_position + Vector3(0, 1.0, 0)
+	var sprite: AnimatedSprite3D = boom.get_node("AnimatedSprite3D")
+	sprite.animation_finished.connect(boom.queue_free)
 
 	hit.emit()

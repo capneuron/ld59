@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://du1sgfw338lvf" path="res://scene/player.tscn" id="2_38ktb"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_a1hbh"]
 [ext_resource type="PackedScene" uid="uid://dbh5c74dvi3ve" path="res://scene/ending.tscn" id="2_altuj"]
+[ext_resource type="PackedScene" uid="uid://dadkbyg04pins" path="res://scene/start_screen.tscn" id="2_start"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_3peh0"]
 [ext_resource type="PackedScene" uid="uid://c1sqytv4bpjxo" path="res://scene/physical_tail.tscn" id="3_ptail"]
 [ext_resource type="PackedScene" uid="uid://drf5dhnewqomi" path="res://scene/enemy.tscn" id="4_gatvu"]
@@ -81,6 +82,13 @@ size = Vector2(2, 2)
 [sub_resource type="Resource" id="Resource_mffks"]
 script = ExtResource("3_3peh0")
 duration = 0.5
+
+[sub_resource type="Resource" id="Resource_rmuxq"]
+script = ExtResource("17_bg1ar")
+projection = 1
+size = 3.4
+near = 0.001
+metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
 [sub_resource type="Resource" id="Resource_bg1ar"]
 script = ExtResource("17_bg1ar")
@@ -695,6 +703,8 @@ size = Vector2(90, 12.76)
 [node name="Main" type="Node3D" unique_id=939759213]
 script = ExtResource("1_2f156")
 
+[node name="StartCanvas" parent="." unique_id=265812769 instance=ExtResource("2_start")]
+
 [node name="EndingCanvas" parent="." unique_id=1460590137 instance=ExtResource("2_altuj")]
 visible = false
 
@@ -718,11 +728,12 @@ environment = SubResource("Environment_sky")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1767397823]
 unique_name_in_owner = true
-transform = Transform3D(-4.655026e-07, -0.100743845, 0.9949124, -4.7739057e-09, 0.9949124, 0.100743905, -1, 4.2146944e-08, -4.6361538e-07, -11.364924, 4.0810223, 29.697056)
+transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.481005, 10, -1.9057095)
 top_level = true
+projection = 1
 current = true
-fov = 19.3
-size = 27.211
+size = 3.4
+near = 0.001
 
 [node name="PostProcessing" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D" unique_id=900127976]
 unique_name_in_owner = true
@@ -893,10 +904,18 @@ script = ExtResource("12_mffks")
 cams = [NodePath("HomeCam"), NodePath("PlazaCam"), NodePath("PlaygroundCam"), NodePath("Home2Cam"), NodePath("CutFirstMet"), NodePath("Playground2Cam")]
 player = NodePath("../Player")
 
+[node name="StartCam" type="Node3D" parent="CameraManager" unique_id=1441828440]
+transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 19.03713, 10.120968, 0.28915954)
+script = ExtResource("2_a1hbh")
+priority = 100
+tween_resource = SubResource("Resource_mffks")
+tween_on_load = false
+camera_3d_resource = SubResource("Resource_rmuxq")
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
 [node name="Home2Cam" type="Node3D" parent="CameraManager" unique_id=615743930]
 transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.556126, 10.120968, 56.935734)
 script = ExtResource("2_a1hbh")
-priority = 10
 tween_resource = SubResource("Resource_mffks")
 tween_on_load = false
 camera_3d_resource = SubResource("Resource_bg1ar")
@@ -984,13 +1003,12 @@ shape = SubResource("BoxShape3D_gdhu6")
 [node name="EndingCam" type="Node3D" parent="CameraManager" unique_id=266634441]
 transform = Transform3D(-4.655026e-07, -0.100743845, 0.9949124, -4.7739057e-09, 0.9949124, 0.100743905, -1, 4.2146944e-08, -4.6361538e-07, -6.8087993, 4.20199, 31.891926)
 script = ExtResource("2_a1hbh")
-priority_override = true
 tween_resource = SubResource("Resource_ioh7r")
 camera_3d_resource = SubResource("Resource_gqb1v")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="FirstMetCam" type="Node3D" parent="CameraManager" unique_id=1480673969]
-transform = Transform3D(-0.63230765, -0.11650853, 0.76590663, -0.007745326, 0.98952764, 0.14413136, -0.77467847, 0.08520311, -0.62658894, 0.9759145, 11.851472, 22.09938)
+transform = Transform3D(-0.63230765, -0.11650851, 0.76590663, -0.007745326, 0.9895275, 0.14413136, -0.77467847, 0.0852031, -0.62658894, 0.9759145, 11.851472, 22.09938)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_alk55")
 camera_3d_resource = SubResource("Resource_vpflu")

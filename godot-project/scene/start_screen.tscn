@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dadkbyg04pins"]
+
+[ext_resource type="Texture2D" uid="uid://cb5f0wf3tq678" path="res://art/guide/Story_Text.png" id="1_3273u"]
+[ext_resource type="Texture2D" uid="uid://cv4t8rtionsux" path="res://art/guide/start.png" id="1_start"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=735913892]
+process_mode = 3
+layer = 10
+
+[node name="StartButton" type="TextureButton" parent="." unique_id=1124635773]
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -613.0
+offset_right = 141.0
+offset_bottom = -485.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("1_start")
+
+[node name="TextureRect" type="TextureRect" parent="StartButton" unique_id=1654967768]
+texture_filter = 1
+layout_mode = 0
+offset_left = 99.0
+offset_top = -109.0
+offset_right = 664.4414
+offset_bottom = 318.0
+texture = ExtResource("1_3273u")

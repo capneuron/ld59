@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://chsdac4l4b2qv" path="res://art/guide/restart.png" id="2_restart"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1460590137]
+layer = 100
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=74054820]
 anchors_preset = 15
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=459642529]
@@ -19,9 +21,10 @@ offset_left = 457.0
 offset_top = 171.0
 offset_right = 1491.2148
 offset_bottom = 952.0
+mouse_filter = 2
 texture = ExtResource("1_sgciq")
 
-[node name="RestartButton" type="TextureButton" parent="."]
+[node name="RestartButton" type="TextureButton" parent="." unique_id=754894387]
 visible = false
 texture_filter = 1
 anchors_preset = 7
@@ -30,10 +33,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -64.0
-offset_top = -180.0
+offset_top = -321.0
 offset_right = 64.0
-offset_bottom = -52.0
+offset_bottom = -193.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("2_restart")
-stretch_mode = 2

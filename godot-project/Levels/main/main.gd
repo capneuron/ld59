@@ -22,6 +22,41 @@ func _ready() -> void:
 	$CameraManager/CutFirstMet/CutScene.body_entered.connect(_on_cut_first_met_body_entered)
 	$L.ending_triggered.connect(_on_ending)
 	_setup_enemy_tracking()
+	_show_start_screen()
+
+
+func _show_start_screen() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	$Player.mouse_input_enabled = false
+	get_tree().paused = true
+	var start_btn: TextureButton = $StartCanvas/StartButton
+	start_btn.process_mode = Node.PROCESS_MODE_ALWAYS
+	start_btn.pivot_offset = start_btn.size / 2.0
+	start_btn.pressed.connect(_on_start)
+	start_btn.mouse_entered.connect(func() -> void:
+		var tw := start_btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(start_btn, "scale", Vector2(1.2, 1.2), 0.15)
+	)
+	start_btn.mouse_exited.connect(func() -> void:
+		var tw := start_btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(start_btn, "scale", Vector2(1.0, 1.0), 0.15)
+	)
+	start_btn.button_down.connect(func() -> void:
+		var tw := start_btn.create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tw.tween_property(start_btn, "scale", Vector2(0.9, 0.9), 0.08)
+	)
+	start_btn.button_up.connect(func() -> void:
+		var tw := start_btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(start_btn, "scale", Vector2(1.2, 1.2), 0.1)
+	)
+
+
+func _on_start() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	$Player.mouse_input_enabled = true
+	$StartCanvas.queue_free()
+	$CameraManager/StartCam.priority = 0
+	get_tree().paused = false
 
 func set_tail_mode(physical: bool) -> void:
 	use_physical_tail = physical
@@ -140,6 +175,7 @@ func _on_enemy_swiped(_hit_velocity: Vector3, enemy: Node) -> void:
 	print("[Main] Enemy swiped: %s (%d/%d)" % [enemy.name, _enemies_killed, _enemy_nodes.size()])
 	if _enemies_killed >= _enemy_nodes.size():
 		$L.turn_off_shaking()
+		$L.enable_ending()
 		print("[Main] All enemies defeated — L stopped shaking")
 
 var _ending_triggered: bool = false
@@ -147,7 +183,8 @@ func _on_ending() -> void:
 	if _ending_triggered:
 		return
 	_ending_triggered = true
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	print("[Ending] _on_ending called!")
+	$SubViewportContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	start_cutscene()
 	$CameraManager/EndingCam.set("priority", 500)
 	$Player.hide()
@@ -156,29 +193,13 @@ func _on_ending() -> void:
 	$L/Emoji.flash_emoji(1, 1.5)
 	await get_tree().create_timer(1.5).timeout
 	$EndingCanvas.show()
+	$Player.set_process(false)
+	$Player.set_physics_process(false)
+	$Player.set_process_unhandled_input(false)
 	await get_tree().create_timer(5.0).timeout
-	var restart_btn: TextureButton = $EndingCanvas/RestartButton
-	restart_btn.pivot_offset = restart_btn.size / 2.0
-	restart_btn.show()
-	restart_btn.pressed.connect(_on_restart)
-	restart_btn.mouse_entered.connect(func() -> void:
-		var tw := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		tw.tween_property(restart_btn, "scale", Vector2(1.2, 1.2), 0.15)
-	)
-	restart_btn.mouse_exited.connect(func() -> void:
-		var tw := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		tw.tween_property(restart_btn, "scale", Vector2(1.0, 1.0), 0.15)
-	)
-	restart_btn.button_down.connect(func() -> void:
-		var tw := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		tw.tween_property(restart_btn, "scale", Vector2(0.9, 0.9), 0.08)
-	)
-	restart_btn.button_up.connect(func() -> void:
-		var tw := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		tw.tween_property(restart_btn, "scale", Vector2(1.2, 1.2), 0.1)
-	)
-
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_on_restart()
+	
 
 func _on_restart() -> void:
 	get_tree().reload_current_scene()
-

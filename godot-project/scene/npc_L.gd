@@ -13,6 +13,7 @@ var _base_position: Vector3 = Vector3.ZERO
 var _shake_time: float = 0.0
 var _player: Node3D
 var _signal_manager: Node
+var _ending_enabled: bool = false
 
 
 func _ready() -> void:
@@ -37,13 +38,21 @@ func _process(delta: float) -> void:
 		_shake_time += delta
 		position.x = _base_position.x + sin(_shake_time * shake_speed) * shake_amount
 
+func enable_ending() -> void:
+	_ending_enabled = true
 
 func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
-	if vibe_name != "triangle" or signal_name != "heart":
-		return
 	if not _player:
+		print("[NPC_L] no player")
 		return
 	var distance := global_position.distance_to(_player.global_position)
+	print("[NPC_L] signal=%s vibe=%s dist=%.1f enabled=%s" % [signal_name, vibe_name, distance, _ending_enabled])
 	if distance > detection_range:
 		return
-	ending_triggered.emit()
+	if _ending_enabled:
+		if signal_name == "heart":
+			if vibe_name == "triangle":
+				print("[NPC_L] >>> ENDING TRIGGERED <<<")
+				ending_triggered.emit()
+			else:
+				$Emoji.flash_emoji(3)
