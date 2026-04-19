@@ -41,7 +41,7 @@ var _spawn_positions: Array[Vector3] = [
 func _ready() -> void:
 	set_tail_mode(use_physical_tail)
 	_setup_bgm()
-
+	_setup_lover()
 	signal_manager.vibe_changed.connect(_on_vibe_changed)
 	signal_manager.vibe_expired.connect(_on_vibe_expired)
 	signal_manager.signal_triggered.connect(_on_signal_triggered)
@@ -363,6 +363,11 @@ func _spawn_extra_tail() -> void:
 	_extra_tail.teleport_to_player()
 	_set_tail_collision(_extra_tail, true)
 
+func _setup_lover() -> void:
+	var lover: Node3D = $L
+	if Global.get_param("lover") == "F":
+		lover.visible = false
+		$F.visible = true
 
 func _remove_extra_tail() -> void:
 	if _extra_tail:

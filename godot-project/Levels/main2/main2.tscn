@@ -12,11 +12,10 @@
 [ext_resource type="Script" uid="uid://dnx5gbadex2x3" path="res://scene/signal_manager.gd" id="11_ix1v8"]
 [ext_resource type="PackedScene" uid="uid://fhdcemmeqo5o" path="res://scene/UI/cutscene_bars.tscn" id="12_ytge2"]
 [ext_resource type="PackedScene" uid="uid://c6iqe40gt3wby" path="res://scene/debug_panel.tscn" id="13_xi1xb"]
+[ext_resource type="PackedScene" path="res://scene/ginnie_6b.tscn" id="14_n05ei"]
 [ext_resource type="PackedScene" uid="uid://c7hrxl83gsg7m" path="res://scene/ginnie3.tscn" id="14_t06ac"]
 [ext_resource type="Script" uid="uid://c1fx8ctjifl25" path="res://scene/npc_L.gd" id="15_uqb4w"]
 [ext_resource type="Script" uid="uid://b8mdmkk31hasv" path="res://other_scripts/swipeable.gd" id="19_tb6v7"]
-[ext_resource type="PackedScene" uid="uid://re7v5bopn5ug" path="res://scene/ginnie6b.tscn" id="20_s4uiu"]
-[ext_resource type="Script" uid="uid://crd0j2yequmx3" path="res://scene/npc_F.gd" id="21_3f20u"]
 [ext_resource type="PackedScene" path="res://scene/ginnie7e.tscn" id="23_gjl3f"]
 [ext_resource type="Script" uid="uid://clan1fjqtjfa8" path="res://scene/npc_E.gd" id="24_5ab26"]
 [ext_resource type="PackedScene" uid="uid://byipyvkdjeqbj" path="res://scene/ginnie2.tscn" id="25_vt7q3"]
@@ -223,10 +222,9 @@ player_path = NodePath("../Player")
 transform = Transform3D(0.9211922, 0, -0.38910776, 0, 1, 0, 0.38910776, 0, 0.9211922, -32.21562, 0, 29.604763)
 script = ExtResource("15_uqb4w")
 
-[node name="F" parent="." unique_id=1673703165 instance=ExtResource("20_s4uiu")]
-transform = Transform3D(0.9317547, 0, -0.36308873, 0, 1, 0, 0.36308873, 0, 0.9317547, -32.189167, 0, 29.535547)
+[node name="F" parent="." unique_id=506982275 instance=ExtResource("14_n05ei")]
+transform = Transform3D(-0.36308876, 0, -0.9317547, 0, 1, 0, 0.9317547, 0, -0.36308876, -32.189167, 0, 29.535547)
 visible = false
-script = ExtResource("21_3f20u")
 
 [node name="E" parent="." unique_id=349365936 groups=["enemy"] instance=ExtResource("23_gjl3f")]
 transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -12.019724, 0, 16.957788)

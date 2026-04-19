@@ -249,6 +249,7 @@ func _on_ending() -> void:
 	if _ending_triggered:
 		return
 	_ending_triggered = true
+	Global.set_param("lover", "L")
 	print("[Ending] _on_ending called!")
 	_play_bgm("") #stop music
 	$SubViewportContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -270,6 +271,7 @@ func _on_ending_f() -> void:
 	if _ending_triggered:
 		return
 	_ending_triggered = true
+	Global.set_param("lover", "F")
 	print("[Ending] _on_ending_f called!")
 	_play_bgm("") #stop music
 	start_cutscene()
