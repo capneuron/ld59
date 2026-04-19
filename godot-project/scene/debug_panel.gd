@@ -18,6 +18,13 @@ var _recognition_fade := 0.0
 
 
 func _ready() -> void:
+	# Debug panel disabled — early return to skip all setup
+	visible = false
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	set_process(false)
+	set_process_unhandled_key_input(false)
+	return
+
 	if physical_tail_path:
 		_physical_tail = get_node(physical_tail_path)
 
@@ -28,9 +35,6 @@ func _ready() -> void:
 
 	if player_path:
 		_player = get_node(player_path)
-
-	visible = false
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	_build_hud()
 	_build_panel()
