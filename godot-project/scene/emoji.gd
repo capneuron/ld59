@@ -17,9 +17,14 @@ const SHAPE_EMOJI := {
 	"star": 4,
 }
 
+## Chorus detection: if multiple emoji 0 fire within this window, play piano4 instead
+static var _last_note_time: float = -999.0
+static var _chorus_window: float = 1.5
+
 var target_scale: Vector3 = Vector3.ONE
 var upgraded: bool = false
 var _tween: Tween
+var _sfx_chorus_stream: AudioStream = preload("res://audio/short_piano4.wav")
 
 
 func _ready() -> void:
@@ -29,6 +34,8 @@ func _ready() -> void:
 	$SFX.bus = "SFX"
 	$SFXCross.bus = "SFX"
 	$SFXUpgrade.bus = "SFX"
+	$SFXChorus.bus = "SFX"
+	$SFXChorus.stream = _sfx_chorus_stream
 
 
 func _process(_delta: float) -> void:
@@ -70,6 +77,15 @@ func flash_emoji(frame_index: int, duration: float = 2.0) -> void:
 		pass
 	elif frame_index == 2:
 		$SFXCross.play()
+	elif frame_index == 0:
+		var now := Time.get_ticks_msec() / 1000.0
+		if now - _last_note_time < _chorus_window:
+			$SFXChorus.play()
+		elif upgraded:
+			$SFXUpgrade.play()
+		else:
+			$SFX.play()
+		_last_note_time = now
 	elif upgraded:
 		$SFXUpgrade.play()
 	else:

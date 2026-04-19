@@ -23,3 +23,6 @@ stream = ExtResource("4_sfx_cross")
 
 [node name="SFXUpgrade" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_sfx_upgrade")
+
+[node name="SFXChorus" type="AudioStreamPlayer" parent="."]
+stream = null
