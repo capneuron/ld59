@@ -4,12 +4,22 @@ extends RigidBody3D
 ## Connects to all rocks under Rocks node — when all are swiped, draws a triangle.
 
 @export var detection_range: float = 12.0
+@export var turn_speed: float = 5.0
+@export var bounce_height: float = 0.4
+@export var bounce_count: int = 3
+@export var bounce_speed: float = 8.0
 
 var _player: Node3D
 var _signal_manager: Node
 var _shape_drawer: ShapeDrawer
 var _player_in_range: bool = false
 var _triggered: bool = false
+var _facing_player: bool = false
+var _bouncing: bool = false
+var _bounce_time: float = 0.0
+var _bounce_duration: float = 0.0
+var _base_y: float = 0.0
+var _original_rotation_y: float = 0.0
 
 var _total_rocks: int = 0
 var _swiped_rocks: int = 0
@@ -60,7 +70,11 @@ func _on_drawing_finished(_shape_name: String) -> void:
 	$Emoji.flash_emoji(6)
 
 
-func _process(_delta: float) -> void:
+func _ready_bounce() -> void:
+	_bounce_duration = bounce_count * TAU / bounce_speed
+
+
+func _process(delta: float) -> void:
 	if not _player:
 		return
 
@@ -72,11 +86,48 @@ func _process(_delta: float) -> void:
 	elif not _player_in_range:
 		_triggered = false
 
+	# Face player
+	if _facing_player and _player_in_range:
+		var dir := _player.global_position - global_position
+		dir.y = 0.0
+		if dir.length_squared() > 0.01:
+			var target_y := atan2(dir.x, dir.z) + PI
+			var current_y := global_rotation.y
+			var diff := wrapf(target_y - current_y, -PI, PI)
+			global_rotation.y = current_y + diff * clampf(turn_speed * delta, 0.0, 1.0)
+
+	# Bounce
+	if _bouncing:
+		_bounce_time += delta
+		if _bounce_time >= _bounce_duration:
+			_bouncing = false
+			_facing_player = false
+			position.y = _base_y
+			var tw := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+			tw.tween_property(self, "global_rotation:y", _original_rotation_y, 0.5)
+		else:
+			var progress: float = _bounce_time / _bounce_duration
+			var decay: float = 1.0 - progress
+			position.y = _base_y + abs(sin(_bounce_time * bounce_speed)) * bounce_height * decay
+
+
+func _play_bounce() -> void:
+	if _bouncing:
+		return
+	_base_y = position.y
+	_bouncing = true
+	_bounce_time = 0.0
+	_bounce_duration = bounce_count * TAU / bounce_speed
+
 
 func _on_signal_triggered(_vibe_name: String, signal_name: String) -> void:
 	if not _player_in_range:
 		return
-	pass
+	if signal_name == "circle":
+		_original_rotation_y = global_rotation.y
+		_facing_player = true
+		_play_bounce()
+		$Emoji.flash_emoji(0)
 
 
 func _on_shape_recognized(shape_name: String, _shape_type: String) -> void:

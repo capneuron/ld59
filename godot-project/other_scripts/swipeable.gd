@@ -127,5 +127,6 @@ func _destroy_after_delay() -> void:
 		return
 	get_tree().create_timer(destroy_delay).timeout.connect(func():
 		if is_instance_valid(_rb):
+			_spawn_boom()
 			_rb.queue_free()
 	)

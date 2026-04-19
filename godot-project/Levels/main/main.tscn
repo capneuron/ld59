@@ -848,7 +848,7 @@ draw_scale = 4.0
 [node name="Swipeable" type="Area3D" parent="E" unique_id=1791306857]
 script = ExtResource("18_swipe")
 boom_on_swipe = true
-destroy_delay = 0.8
+destroy_delay = 3.0
 
 [node name="M1" parent="." unique_id=789694993 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 43.198288)
@@ -860,7 +860,7 @@ script = ExtResource("12_gqb1v")
 [node name="Swipeable" type="Area3D" parent="M1" unique_id=1294255834]
 script = ExtResource("18_swipe")
 boom_on_swipe = true
-destroy_delay = 0.8
+destroy_delay = 3.0
 
 [node name="M2" parent="." unique_id=2147440038 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 46.41616)
@@ -872,7 +872,7 @@ script = ExtResource("12_gqb1v")
 [node name="Swipeable" type="Area3D" parent="M2" unique_id=1387788322]
 script = ExtResource("18_swipe")
 boom_on_swipe = true
-destroy_delay = 0.8
+destroy_delay = 3.0
 
 [node name="M3" parent="." unique_id=1386463968 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.9896839, 0, 0.14326812, 0, 1, 0, -0.14326812, 0, 0.9896839, -11.812319, -0.12096977, 50.036915)
@@ -884,7 +884,7 @@ script = ExtResource("12_gqb1v")
 [node name="Swipeable" type="Area3D" parent="M3" unique_id=87802807]
 script = ExtResource("18_swipe")
 boom_on_swipe = true
-destroy_delay = 0.8
+destroy_delay = 3.0
 
 [node name="M4" parent="." unique_id=2023504692 groups=["enemy"] instance=ExtResource("12_0mcpc")]
 transform = Transform3D(0.98968387, 0, 0.14326811, 0, 1, 0, -0.14326811, 0, 0.98968387, -11.812319, -0.12096977, 53.2437)
@@ -896,7 +896,7 @@ script = ExtResource("12_gqb1v")
 [node name="Swipeable" type="Area3D" parent="M4" unique_id=1842108735]
 script = ExtResource("18_swipe")
 boom_on_swipe = true
-destroy_delay = 0.8
+destroy_delay = 3.0
 
 [node name="CameraManager" type="Node3D" parent="." unique_id=1128930863 node_paths=PackedStringArray("cams", "player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556125, -0.1209681, -2.194869)

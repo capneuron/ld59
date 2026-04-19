@@ -24,6 +24,21 @@ offset_bottom = 952.0
 mouse_filter = 2
 texture = ExtResource("1_sgciq")
 
+[node name="Label" type="Label" parent="." unique_id=1621425314]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -31.0
+offset_top = -160.0
+offset_right = 31.0
+offset_bottom = -137.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "By Beep"
+horizontal_alignment = 1
+
 [node name="RestartButton" type="TextureButton" parent="." unique_id=754894387]
 visible = false
 texture_filter = 1
