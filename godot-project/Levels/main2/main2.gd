@@ -27,7 +27,7 @@ var _elapsed_time: float = 0.0
 var _spawn_timer: float = 0.0
 var _current_interval: float = 4.0
 var _l_node: Node3D
-var _timer_label: Label
+@onready var _timer_label: Label = $TimerCanvas/TimerLabel
 
 ## Spawn positions (from M1-M4 in scene)
 var _spawn_positions: Array[Vector3] = [
@@ -57,38 +57,11 @@ func _ready() -> void:
 		if node:
 			node.queue_free()
 
-	_create_timer_label()
+	_timer_label.visible = false
 	_show_start_screen()
 
 
-func _create_timer_label() -> void:
-	_timer_label = Label.new()
-	_timer_label.anchors_preset = Control.PRESET_CENTER_TOP
-	_timer_label.anchor_left = 0.5
-	_timer_label.anchor_right = 0.5
-	_timer_label.anchor_top = 0.0
-	_timer_label.offset_left = -100.0
-	_timer_label.offset_right = 100.0
-	_timer_label.offset_top = 20.0
-	_timer_label.offset_bottom = 60.0
-	_timer_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_timer_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	var settings := LabelSettings.new()
-	settings.font_size = 36
-	settings.font_color = Color.WHITE
-	settings.outline_size = 4
-	settings.outline_color = Color.BLACK
-	_timer_label.label_settings = settings
-	_timer_label.text = "0.0s"
-	_timer_label.visible = false
-
-	# Add to a CanvasLayer so it renders on top
-	var canvas := CanvasLayer.new()
-	canvas.layer = 10
-	canvas.process_mode = Node.PROCESS_MODE_ALWAYS
-	add_child(canvas)
-	canvas.add_child(_timer_label)
-
+# no longer created dynamically; referenced from scene tree
 
 func _show_start_screen() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cifxwbj77lmer" path="res://Levels/main2/main2.gd" id="1_y6puj"]
 [ext_resource type="PackedScene" uid="uid://cmso5ttmaxyys" path="res://scene/start_2_canvas.tscn" id="2_v2cj5"]
+[ext_resource type="FontFile" uid="uid://euv8d1jtxqc3" path="res://art/fonts/PixelifySans-VariableFont_wght.ttf" id="3_1bee0"]
 [ext_resource type="Shader" uid="uid://dwl2bn1q0gkqs" path="res://ps1.gdshader" id="3_r3mgx"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_p10rf"]
 [ext_resource type="PackedScene" uid="uid://du1sgfw338lvf" path="res://scene/player.tscn" id="5_iegrm"]
@@ -134,6 +135,24 @@ size = Vector2(90, 12.76)
 script = ExtResource("1_y6puj")
 
 [node name="StartCanvas" parent="." unique_id=1143820697 instance=ExtResource("2_v2cj5")]
+
+[node name="TimerCanvas" type="CanvasLayer" parent="." unique_id=1234567890]
+process_mode = 3
+layer = 110
+
+[node name="TimerLabel" type="Label" parent="TimerCanvas" unique_id=1234567891]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("3_1bee0")
+theme_override_font_sizes/font_size = 48
+text = "0.0s"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=291897478]
 texture_filter = 1
