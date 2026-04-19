@@ -1,14 +1,8 @@
 [gd_scene format=3 uid="uid://bwk74psw0lht0"]
 
-[ext_resource type="PackedScene" uid="uid://blwcwrky2o618" path="res://art/ginnie5s/ginnie5s.gltf" id="1_gltf"]
-[ext_resource type="Texture2D" uid="uid://vbkux8mlqkpe" path="res://art/ginnie5s/ginnie5s.png" id="2_tex"]
+[ext_resource type="PackedScene" path="res://scene/ginnie_5s.tscn" id="3_model"]
 [ext_resource type="PackedScene" uid="uid://b2ip4ejsejxqd" path="res://scene/visual_tail.tscn" id="3_tail"]
 [ext_resource type="PackedScene" uid="uid://kp3gb1munnnx" path="res://scene/emoji.tscn" id="4_emoji"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mat"]
-shading_mode = 0
-albedo_texture = ExtResource("2_tex")
-texture_filter = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_col"]
 size = Vector3(1, 0.58, 1.74)
@@ -16,18 +10,6 @@ size = Vector3(1, 0.58, 1.74)
 [node name="ginnie5s" type="RigidBody3D"]
 freeze = true
 gravity_scale = 0.0
-
-[node name="Model" parent="." instance=ExtResource("1_gltf")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
-
-[node name="Mesh" parent="Model" index="0"]
-material_override = SubResource("StandardMaterial3D_mat")
-
-[node name="Mesh2" parent="Model" index="1"]
-material_override = SubResource("StandardMaterial3D_mat")
-
-[node name="Mesh3" parent="Model" index="2"]
-material_override = SubResource("StandardMaterial3D_mat")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0.13)
@@ -39,3 +21,6 @@ tail_color = Color(0.11372549, 0.09803922, 0.09411765, 1)
 
 [node name="Emoji" parent="." instance=ExtResource("4_emoji")]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)
+
+[node name="ginnie5s" parent="." instance=ExtResource("3_model")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)

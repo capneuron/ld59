@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://dsikjbrm4qex6" path="res://art/guinea3/ginnie3.gltf" id="1_gltf"]
+[ext_resource type="Texture2D" uid="uid://d2qedrixbvn72" path="res://art/guinea3/ginnie3.png" id="2_tex"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mat"]
+shading_mode = 0
+albedo_texture = ExtResource("2_tex")
+texture_filter = 0
+
+[node name="ginnie3" instance=ExtResource("1_gltf")]
+
+[node name="Mesh" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh2" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh3" parent="." index="2"]
+material_override = SubResource("StandardMaterial3D_mat")

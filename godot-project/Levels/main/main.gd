@@ -118,5 +118,5 @@ func _on_cut_first_met_body_entered(body: Node) -> void:
 		animation_player.play("FirstMet")
 		await animation_player.animation_finished
 		$CameraManager.disable_cam("CutFirstMet")
-		$L.shaking = true
+		$L.turn_on_shaking()
 		end_cutscene()

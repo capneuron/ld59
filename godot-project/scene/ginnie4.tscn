@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ciphfuwehvma0"]
 
-[ext_resource type="PackedScene" uid="uid://beus74qlkl0t0" path="res://art/ginnie4/ginnie4.gltf" id="1_gltf"]
+[ext_resource type="PackedScene" path="res://scene/ginnie_4.tscn" id="3_model"]
 [ext_resource type="PackedScene" uid="uid://b2ip4ejsejxqd" path="res://scene/visual_tail.tscn" id="3_tail"]
 [ext_resource type="PackedScene" uid="uid://kp3gb1munnnx" path="res://scene/emoji.tscn" id="4_emoji"]
 
@@ -10,9 +10,6 @@ size = Vector3(1, 0.58, 1.74)
 [node name="ginnie4" type="RigidBody3D" unique_id=863320251]
 gravity_scale = 0.0
 freeze = true
-
-[node name="Model" parent="." unique_id=1570532406 instance=ExtResource("1_gltf")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=414379579]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0.13)
@@ -24,3 +21,6 @@ tail_color = Color(1, 0.9529412, 0.9137255, 1)
 
 [node name="Emoji" parent="." unique_id=285854955 instance=ExtResource("4_emoji")]
 transform = Transform3D(4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 0, 0, 0)
+
+[node name="ginnie4" parent="." instance=ExtResource("3_model")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)

@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://d05o8kn7cu8va" path="res://art/ginnie6b/ginnie6b.gltf" id="1_gltf"]
+[ext_resource type="Texture2D" uid="uid://4dacb2pg6b8p" path="res://art/ginnie6b/ginnie6b.png" id="2_tex"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mat"]
+shading_mode = 0
+albedo_texture = ExtResource("2_tex")
+texture_filter = 0
+
+[node name="ginnie6b" instance=ExtResource("1_gltf")]
+
+[node name="Mesh" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh2" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_mat")
+
+[node name="Mesh3" parent="." index="2"]
+material_override = SubResource("StandardMaterial3D_mat")
