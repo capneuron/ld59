@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dq1ul1k8vdbls"
-path.s3tc="res://.godot/imported/ginnie4.png-894c3a0f164c772cf8017dddd9129fcd.s3tc.ctex"
+path="res://.godot/imported/ginnie4.png-894c3a0f164c772cf8017dddd9129fcd.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://art/ginnie4/ginnie4.png"
-dest_files=["res://.godot/imported/ginnie4.png-894c3a0f164c772cf8017dddd9129fcd.s3tc.ctex"]
+dest_files=["res://.godot/imported/ginnie4.png-894c3a0f164c772cf8017dddd9129fcd.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
