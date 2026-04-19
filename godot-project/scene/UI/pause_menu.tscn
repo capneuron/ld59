@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dwo5eg6h0qu0p" path="res://scene/UI/pause_menu.gd" id="1_script"]
 [ext_resource type="Shader" uid="uid://ca0txmuk5dmhp" path="res://scene/UI/blur.gdshader" id="2_blur"]
 [ext_resource type="Texture2D" uid="uid://chsdac4l4b2qv" path="res://art/guide/restart.png" id="3_close"]
+[ext_resource type="Texture2D" uid="uid://cblpfvnippn6t" path="res://art/guide/exit.png" id="4_exit"]
 [ext_resource type="FontFile" uid="uid://euv8d1jtxqc3" path="res://art/fonts/PixelifySans-VariableFont_wght.ttf" id="3_ovs80"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_blur"]
@@ -90,11 +91,23 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="CloseButton" type="TextureButton" parent="Panel/VBoxContainer" unique_id=242628160]
+[node name="ButtonRow" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 30
+
+[node name="CloseButton" type="TextureButton" parent="Panel/VBoxContainer/ButtonRow" unique_id=242628160]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("3_close")
+
+[node name="ExitButton" type="TextureButton" parent="Panel/VBoxContainer/ButtonRow"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("4_exit")
 
 [node name="QuitButton" type="Button" parent="Panel/VBoxContainer" unique_id=1765665554]
 visible = false

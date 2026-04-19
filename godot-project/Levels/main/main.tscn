@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://dadkbyg04pins" path="res://scene/start_screen.tscn" id="2_start"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_3peh0"]
 [ext_resource type="PackedScene" uid="uid://c1sqytv4bpjxo" path="res://scene/physical_tail.tscn" id="3_ptail"]
-[ext_resource type="PackedScene" uid="uid://drf5dhnewqomi" path="res://scene/enemy.tscn" id="4_gatvu"]
 [ext_resource type="PackedScene" uid="uid://c6iqe40gt3wby" path="res://scene/debug_panel.tscn" id="5_debug"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_v0iqm"]
 [ext_resource type="Script" uid="uid://bjjg70dvdb4ev" path="res://scene/shape_drawer.gd" id="5_v5g2c"]
@@ -835,16 +834,6 @@ transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.707
 visible = false
 player = NodePath("../Player")
 
-[node name="Enemy" parent="." unique_id=1729282385 instance=ExtResource("4_gatvu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.97091, 0, 0)
-swipe_speed_threshold = 40.0
-
-[node name="ShapeDrawer" type="Node3D" parent="Enemy" unique_id=379093565]
-script = ExtResource("5_v5g2c")
-draw_speed = 32.0
-draw_scale = 6.0
-metadata/_custom_type_script = "uid://bjjg70dvdb4ev"
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=110072992]
 transform = Transform3D(-4.371139e-08, -0.50000006, -0.8660254, 0, -0.8660254, 0.50000006, -1, 2.1855696e-08, 3.7855173e-08, 0, 0, 0)
 shadow_enabled = true
@@ -1076,7 +1065,7 @@ camera_3d_resource = SubResource("Resource_gqb1v")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="FirstMetCam" type="Node3D" parent="CameraManager" unique_id=1480673969]
-transform = Transform3D(-0.63230765, -0.11650847, 0.76590663, -0.007745326, 0.98952717, 0.14413136, -0.77467847, 0.085203074, -0.62658894, 0.9759145, 11.851472, 22.09938)
+transform = Transform3D(-0.63230765, -0.11650846, 0.76590663, -0.007745326, 0.9895271, 0.14413136, -0.77467847, 0.08520307, -0.62658894, 0.9759145, 11.851472, 22.09938)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_alk55")
 camera_3d_resource = SubResource("Resource_vpflu")

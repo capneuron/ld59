@@ -6,11 +6,15 @@ var _is_open: bool = false
 @onready var _panel: ColorRect = $Panel
 @onready var _bgm_slider: HSlider = $Panel/VBoxContainer/BGMRow/BGMSlider
 @onready var _sfx_slider: HSlider = $Panel/VBoxContainer/SFXRow/SFXSlider
-@onready var _close_btn: TextureButton = $Panel/VBoxContainer/CloseButton
+@onready var _close_btn: TextureButton = $Panel/VBoxContainer/ButtonRow/CloseButton
+@onready var _exit_btn: TextureButton = $Panel/VBoxContainer/ButtonRow/ExitButton
 @onready var _quit_btn: Button = $Panel/VBoxContainer/QuitButton
 
 var _bgm_bus: int
 var _sfx_bus: int
+
+## Set this to a scene path to enable the exit button
+var exit_scene: String = ""
 
 
 func _ready() -> void:
@@ -22,25 +26,36 @@ func _ready() -> void:
 	_sfx_slider.value = db_to_linear(AudioServer.get_bus_volume_db(_sfx_bus))
 	_bgm_slider.value_changed.connect(_on_bgm_volume_changed)
 	_sfx_slider.value_changed.connect(_on_sfx_volume_changed)
-	_close_btn.pivot_offset = _close_btn.size / 2.0
+	_setup_button_hover(_close_btn)
 	_close_btn.pressed.connect(close_menu)
-	_close_btn.mouse_entered.connect(func() -> void:
-		var tw := _close_btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		tw.tween_property(_close_btn, "scale", Vector2(1.2, 1.2), 0.15)
-	)
-	_close_btn.mouse_exited.connect(func() -> void:
-		var tw := _close_btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		tw.tween_property(_close_btn, "scale", Vector2(1.0, 1.0), 0.15)
-	)
-	_close_btn.button_down.connect(func() -> void:
-		var tw := _close_btn.create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		tw.tween_property(_close_btn, "scale", Vector2(0.9, 0.9), 0.08)
-	)
-	_close_btn.button_up.connect(func() -> void:
-		var tw := _close_btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		tw.tween_property(_close_btn, "scale", Vector2(1.2, 1.2), 0.1)
-	)
+	_setup_button_hover(_exit_btn)
+	_exit_btn.pressed.connect(_on_exit)
 	_quit_btn.pressed.connect(_on_quit)
+
+
+func enable_exit(scene_path: String) -> void:
+	exit_scene = scene_path
+	_exit_btn.visible = true
+
+
+func _setup_button_hover(btn: TextureButton) -> void:
+	btn.pivot_offset = btn.size / 2.0
+	btn.mouse_entered.connect(func() -> void:
+		var tw := btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(btn, "scale", Vector2(1.2, 1.2), 0.15)
+	)
+	btn.mouse_exited.connect(func() -> void:
+		var tw := btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(btn, "scale", Vector2(1.0, 1.0), 0.15)
+	)
+	btn.button_down.connect(func() -> void:
+		var tw := btn.create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tw.tween_property(btn, "scale", Vector2(0.9, 0.9), 0.08)
+	)
+	btn.button_up.connect(func() -> void:
+		var tw := btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(btn, "scale", Vector2(1.2, 1.2), 0.1)
+	)
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -73,6 +88,11 @@ func _on_bgm_volume_changed(value: float) -> void:
 
 func _on_sfx_volume_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(_sfx_bus, linear_to_db(value))
+
+
+func _on_exit() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file(exit_scene)
 
 
 func _on_quit() -> void:

@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://dbh5c74dvi3ve"]
 
 [ext_resource type="Texture2D" uid="uid://bp8a4w1ggr7ov" path="res://art/guide/title.PNG" id="1_sgciq"]
-[ext_resource type="Texture2D" uid="uid://chsdac4l4b2qv" path="res://art/guide/restart.png" id="2_restart"]
 [ext_resource type="FontFile" uid="uid://euv8d1jtxqc3" path="res://art/fonts/PixelifySans-VariableFont_wght.ttf" id="2_u3snt"]
-
-[ext_resource type="Script" path="res://scene/ending.gd" id="3_ending"]
+[ext_resource type="Script" uid="uid://cajkdjijjjtny" path="res://scene/ending.gd" id="3_ending"]
+[ext_resource type="Texture2D" uid="uid://cv4t8rtionsux" path="res://art/guide/start.png" id="4_nmv26"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1460590137]
 process_mode = 3
@@ -59,4 +58,4 @@ offset_right = 64.0
 offset_bottom = -193.0
 grow_horizontal = 2
 grow_vertical = 0
-texture_normal = ExtResource("2_restart")
+texture_normal = ExtResource("4_nmv26")
