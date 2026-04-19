@@ -28,6 +28,7 @@ var _spawn_timer: float = 0.0
 var _current_interval: float = 4.0
 var _l_node: Node3D
 @onready var _timer_label: Label = $TimerCanvas/TimerLabel
+var _last_knockback_time: float = 0.0
 
 ## Spawn positions (from M1-M4 in scene)
 var _spawn_positions: Array[Vector3] = [
@@ -146,8 +147,29 @@ func _process(delta: float) -> void:
 			_spawn_enemy()
 		_current_interval = maxf(_current_interval * spawn_speedup, spawn_interval_min)
 
+	# Knockback player if too close to enemies
+	_check_player_knockback()
+
 	# Check if any enemy reached L
 	_check_enemies_reached_l()
+
+
+func _check_player_knockback() -> void:
+	if _elapsed_time - _last_knockback_time < 1.0:
+		return
+	var player_pos = $Player.global_position
+	for node in get_tree().get_nodes_in_group("wave_enemy"):
+		if not is_instance_valid(node):
+			continue
+		var enemy: RigidBody3D = node
+		var dist = enemy.global_position.distance_to(player_pos)
+		if dist <= 2.5:  # knockback radius
+			_last_knockback_time = _elapsed_time
+			var dir = (player_pos - enemy.global_position).normalized()
+			dir.y = 0.0
+			$Player._target_position = player_pos + dir * 8.0  # knockback distance
+			enemy.get_node("Emoji").flash_emoji(4)
+			break  # only one knockback per frame
 
 
 func _spawn_enemy() -> void:

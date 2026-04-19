@@ -27,6 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://cnomurj1ekky6" path="res://audio/ld59 battle.wav" id="31_1bee0"]
 [ext_resource type="Shader" uid="uid://daik7xefva1j" path="res://grass.gdshader" id="31_mvy4d"]
 [ext_resource type="AudioStream" uid="uid://dp3jqyo8ufgox" path="res://audio/ld59battle2.wav" id="32_lyi3h"]
+[ext_resource type="PackedScene" uid="uid://jqc8bftn6sjd" path="res://scene/rock.tscn" id="34_lyi3h"]
 [ext_resource type="Script" uid="uid://4hhoxd2nvegn" path="res://scene/grass_field.gd" id="38_5b74c"]
 [ext_resource type="PackedScene" uid="uid://cqiq422k83l8y" path="res://scene/tree.tscn" id="40_w81w7"]
 [ext_resource type="Shader" uid="uid://cgmei8q8ylgr1" path="res://lake.gdshader" id="42_1n2yy"]
@@ -909,5 +910,12 @@ stream = ExtResource("32_lyi3h")
 visible = false
 
 [node name="PauseMenu" parent="." unique_id=1245401376 instance=ExtResource("49_groa8")]
+
+[node name="rock2" parent="." unique_id=1026346721 instance=ExtResource("34_lyi3h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7950468, 0, 1.1702156)
+
+[node name="Swipeable" type="Area3D" parent="rock2" unique_id=287460263]
+script = ExtResource("19_tb6v7")
+boom_on_swipe = true
 
 [connection signal="shape_closed" from="TrailSystem" to="SignalManager" method="on_shape_closed"]
