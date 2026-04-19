@@ -135,11 +135,16 @@ func end_cutscene() -> void:
 # ===== Player Signal Handlers =====
 
 var _default_emoji_scale: Vector3 = Vector3.ZERO
+var _extra_tail: Node3D = null
+var _physical_tail_scene: PackedScene = preload("res://scene/physical_tail.tscn")
 
 func _on_vibe_changed(vibe_name: String) -> void:
 	print("[Main] Vibe changed: %s" % vibe_name)
+	var was_upgraded: bool = player_emoji and player_emoji.upgraded
 	if vibe_name == "star":
 		set_tail_mode(true)
+		if was_upgraded:
+			_spawn_extra_tail()
 	if player_emoji:
 		player_emoji.upgraded = (vibe_name == "triangle")
 	if vibe_name == "triangle" and player_emoji:
@@ -151,12 +156,33 @@ func _on_vibe_changed(vibe_name: String) -> void:
 
 func _on_vibe_expired() -> void:
 	print("[Main] Vibe expired")
+	_remove_extra_tail()
 	set_tail_mode(false)
 	if player_emoji:
 		player_emoji.upgraded = false
 	if player_emoji and _default_emoji_scale != Vector3.ZERO:
 		player_emoji.target_scale = _default_emoji_scale
 		player_emoji.scale = _default_emoji_scale
+
+
+func _spawn_extra_tail() -> void:
+	if _extra_tail:
+		return
+	_extra_tail = _physical_tail_scene.instantiate()
+	_extra_tail.player = $Player
+	# Position must match player BEFORE add_child, because _ready() creates
+	# PinJoint3D constraints relative to this node's origin.
+	_extra_tail.position = $Player.global_position
+	_extra_tail.tube_color = $PhysicalTail.tube_color.darkened(0.2)
+	add_child(_extra_tail)
+	_extra_tail.teleport_to_player()
+	_set_tail_collision(_extra_tail, true)
+
+
+func _remove_extra_tail() -> void:
+	if _extra_tail:
+		_extra_tail.queue_free()
+		_extra_tail = null
 
 
 func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
