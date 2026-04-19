@@ -1,0 +1,43 @@
+extends CanvasLayer
+
+@onready var _restart_btn: TextureButton = $RestartButton
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	visible = false
+	_restart_btn.pivot_offset = _restart_btn.size / 2.0
+	_restart_btn.pressed.connect(_on_restart)
+	_restart_btn.mouse_entered.connect(func() -> void:
+		var tw := _restart_btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(_restart_btn, "scale", Vector2(1.2, 1.2), 0.15)
+	)
+	_restart_btn.mouse_exited.connect(func() -> void:
+		var tw := _restart_btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(_restart_btn, "scale", Vector2(1.0, 1.0), 0.15)
+	)
+	_restart_btn.button_down.connect(func() -> void:
+		var tw := _restart_btn.create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		tw.tween_property(_restart_btn, "scale", Vector2(0.9, 0.9), 0.08)
+	)
+	_restart_btn.button_up.connect(func() -> void:
+		var tw := _restart_btn.create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		tw.tween_property(_restart_btn, "scale", Vector2(1.2, 1.2), 0.1)
+	)
+
+
+func show_ending() -> void:
+	visible = true
+	_restart_btn.visible = false
+	get_tree().paused = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	var tw := _restart_btn.create_tween()
+	tw.tween_interval(3.0)
+	tw.tween_callback(func() -> void: 
+		_restart_btn.visible = true
+	)
+
+
+func _on_restart() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()

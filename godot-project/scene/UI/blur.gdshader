@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
 uniform float blur_amount : hint_range(0.0, 5.0) = 2.0;
 uniform vec4 tint_color : source_color = vec4(0.0, 0.0, 0.0, 0.4);
 
@@ -10,7 +11,7 @@ void fragment() {
 	for (int x = -3; x <= 3; x++) {
 		for (int y = -3; y <= 3; y++) {
 			float w = exp(-float(x * x + y * y) / (2.0 * blur_amount * blur_amount));
-			col += textureLod(SCREEN_TEXTURE, SCREEN_UV + vec2(float(x), float(y)) * ps * blur_amount, 0.0) * w;
+			col += textureLod(screen_texture, SCREEN_UV + vec2(float(x), float(y)) * ps * blur_amount, 0.0) * w;
 			total += w;
 		}
 	}

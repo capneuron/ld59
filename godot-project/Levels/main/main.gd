@@ -219,7 +219,7 @@ func _on_ending() -> void:
 		return
 	_ending_triggered = true
 	print("[Ending] _on_ending called!")
-	_play_bgm("ending")
+	_play_bgm("") #stop music
 	$SubViewportContainer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	start_cutscene()
 	$CameraManager/EndingCam.set("priority", 500)
@@ -228,32 +228,24 @@ func _on_ending() -> void:
 	await get_tree().create_timer(6.0).timeout
 	$L/Emoji.flash_emoji(1, 1.5)
 	await get_tree().create_timer(1.5).timeout
-	$EndingCanvas.show()
+	$EndingCanvas.show_ending()
+	_play_bgm("ending")
 	$Player.set_process(false)
 	$Player.set_physics_process(false)
 	$Player.set_process_unhandled_input(false)
-	await get_tree().create_timer(5.0).timeout
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	_on_restart()
-	
+
 
 func _on_ending_f() -> void:
 	if _ending_triggered:
 		return
 	_ending_triggered = true
 	print("[Ending] _on_ending_f called!")
-	_play_bgm("ending")
+	_play_bgm("") #stop music
 	start_cutscene()
 	$F/Emoji.flash_emoji(1, 5.0)
 	await get_tree().create_timer(6.0).timeout
-	$EndingCanvas.show()
+	$EndingCanvas.show_ending()
+	_play_bgm("ending")
 	$Player.set_process(false)
 	$Player.set_physics_process(false)
 	$Player.set_process_unhandled_input(false)
-	await get_tree().create_timer(5.0).timeout
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	_on_restart()
-
-
-func _on_restart() -> void:
-	get_tree().reload_current_scene()

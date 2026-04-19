@@ -47,7 +47,7 @@
 [ext_resource type="AudioStream" uid="uid://c8srgvyfeexib" path="res://audio/guitar.wav" id="bgm_ending"]
 [ext_resource type="AudioStream" uid="uid://b3pnfku178n3q" path="res://audio/plastic_key.wav" id="bgm_main"]
 [ext_resource type="AudioStream" uid="uid://hrxmu8xbmc2r" path="res://audio/whirly.wav" id="bgm_whirly"]
-[ext_resource type="PackedScene" path="res://scene/UI/pause_menu.tscn" id="pause_menu"]
+[ext_resource type="PackedScene" uid="uid://ov37yu8ugbmo" path="res://scene/UI/pause_menu.tscn" id="pause_menu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.35, 0.55, 0.85, 1)
@@ -782,9 +782,6 @@ script = ExtResource("1_2f156")
 
 [node name="StartCanvas" parent="." unique_id=265812769 instance=ExtResource("2_start")]
 
-[node name="EndingCanvas" parent="." unique_id=1460590137 instance=ExtResource("2_altuj")]
-visible = false
-
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=291897478]
 texture_filter = 1
 anchors_preset = 15
@@ -806,7 +803,6 @@ environment = SubResource("Environment_sky")
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1767397823]
 unique_name_in_owner = true
 transform = Transform3D(-3.5762787e-07, -0.7071069, 0.7071067, -2.9802322e-07, 0.7071067, 0.70710695, -1, 4.2146922e-08, -4.6361535e-07, 14.481005, 10.08241, -1.7974368)
-top_level = true
 projection = 1
 current = true
 size = 2.696
@@ -1086,7 +1082,7 @@ camera_3d_resource = SubResource("Resource_gqb1v")
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="FirstMetCam" type="Node3D" parent="CameraManager" unique_id=1480673969]
-transform = Transform3D(-0.63230765, -0.116508484, 0.76590663, -0.007745326, 0.9895273, 0.14413136, -0.77467847, 0.08520308, -0.62658894, 0.9759145, 11.851472, 22.09938)
+transform = Transform3D(-0.63230765, -0.11650848, 0.76590663, -0.007745326, 0.9895272, 0.14413136, -0.77467847, 0.085203074, -0.62658894, 0.9759145, 11.851472, 22.09938)
 script = ExtResource("2_a1hbh")
 tween_resource = SubResource("Resource_alk55")
 camera_3d_resource = SubResource("Resource_vpflu")
@@ -2245,6 +2241,9 @@ stream = ExtResource("bgm_whirly")
 [node name="BGMLove" type="AudioStreamPlayer" parent="." unique_id=929236108]
 stream = ExtResource("47_foa83")
 
-[node name="PauseMenu" parent="." instance=ExtResource("pause_menu")]
+[node name="EndingCanvas" parent="." unique_id=1460590137 instance=ExtResource("2_altuj")]
+visible = false
+
+[node name="PauseMenu" parent="." unique_id=1245401376 instance=ExtResource("pause_menu")]
 
 [connection signal="shape_closed" from="TrailSystem" to="SignalManager" method="on_shape_closed"]

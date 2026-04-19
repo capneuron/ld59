@@ -4,8 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://chsdac4l4b2qv" path="res://art/guide/restart.png" id="2_restart"]
 [ext_resource type="FontFile" uid="uid://euv8d1jtxqc3" path="res://art/fonts/PixelifySans-VariableFont_wght.ttf" id="2_u3snt"]
 
+[ext_resource type="Script" path="res://scene/ending.gd" id="3_ending"]
+
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1460590137]
+process_mode = 3
 layer = 100
+script = ExtResource("3_ending")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=74054820]
 anchors_preset = 15
@@ -43,7 +47,6 @@ text = "By Beep"
 horizontal_alignment = 1
 
 [node name="RestartButton" type="TextureButton" parent="." unique_id=754894387]
-visible = false
 texture_filter = 1
 anchors_preset = 7
 anchor_left = 0.5
