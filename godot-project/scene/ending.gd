@@ -44,4 +44,4 @@ func show_ending() -> void:
 
 func _on_restart() -> void:
 	get_tree().paused = false
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://Levels/main2/main2.tscn")
