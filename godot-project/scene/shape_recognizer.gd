@@ -183,6 +183,7 @@ func _register_defaults() -> void:
 	_add_with_reverse("square", _make_square())
 	_add_with_reverse("star", _make_star())
 	_add_with_reverse("heart", _make_heart())
+	_add_with_reverse("heart", _make_heart_from_bottom())
 	_add_with_reverse("triangle", _make_triangle())
 	_add_with_reverse("circle", _make_circle())
 
@@ -248,6 +249,21 @@ func _make_heart() -> Array[Vector2]:
 	var steps := 64
 	for i in steps:
 		var t := TAU * float(i) / steps
+		var x := 16.0 * pow(sin(t), 3)
+		var y := 13.0 * cos(t) - 5.0 * cos(2.0 * t) - 2.0 * cos(3.0 * t) - cos(4.0 * t)
+		pts.append(Vector2(-y / 17.0, x / 17.0))
+	pts.append(pts[0])
+	return pts
+
+
+func _make_heart_from_bottom() -> Array[Vector2]:
+	## Same heart shape but starting from the bottom point
+	var pts: Array[Vector2] = []
+	var steps := 64
+	var half := steps / 2
+	for i in steps:
+		var idx := (i + half) % steps
+		var t := TAU * float(idx) / steps
 		var x := 16.0 * pow(sin(t), 3)
 		var y := 13.0 * cos(t) - 5.0 * cos(2.0 * t) - 2.0 * cos(3.0 * t) - cos(4.0 * t)
 		pts.append(Vector2(-y / 17.0, x / 17.0))
