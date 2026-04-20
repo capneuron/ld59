@@ -65,6 +65,10 @@ func _ready() -> void:
 		if node:
 			node.queue_free()
 
+	# Hide and freeze template rock so it doesn't fall
+	rock_scene.freeze = true
+	rock_scene.visible = false
+
 	_timer_label.visible = false
 	_show_start_screen()
 
@@ -131,7 +135,7 @@ func _on_start() -> void:
 	$Playground2Cam.priority = 10
 
 	$PauseMenu.enabled = true
-	$PauseMenu.enable_exit("res://Levels/main/main.tscn")
+	$PauseMenu.enable_exit("res://Levels/main2/main2.tscn")
 	_game_started = true
 	_timer_label.visible = true
 
@@ -225,6 +229,13 @@ func _check_enemies_reached_l() -> void:
 			continue
 		var enemy: RigidBody3D = node as RigidBody3D
 		if not enemy or not enemy.freeze:
+			continue
+		if enemy.is_in_group("stunned"):
+			# Face the player while stunned
+			var to_player: Vector3 = $Player.global_position - enemy.global_position
+			to_player.y = 0.0
+			if to_player.length_squared() > 0.01:
+				enemy.global_rotation.y = atan2(to_player.x, to_player.z) + PI
 			continue
 		var dist: float = enemy.global_position.distance_to(l_pos)
 		if dist <= 2.0:
@@ -341,26 +352,29 @@ func _play_bgm(which: String) -> void:
 # ===== Signal handlers =====
 
 var _default_emoji_scale: Vector3 = Vector3.ZERO
-var _extra_tail: Node3D = null
+var _extra_tails: Array[Node3D] = []
+const _MAX_EXTRA_TAILS: int = 10
 var _physical_tail_scene: PackedScene = preload("res://scene/physical_tail.tscn")
 
 func _on_vibe_changed(vibe_name: String) -> void:
-	var was_upgraded: bool = player_emoji and player_emoji.upgraded
 	if vibe_name == "star":
 		set_tail_mode(true)
-		if was_upgraded:
+	if vibe_name == "triangle":
+		if use_physical_tail:
 			_spawn_extra_tail()
-	if player_emoji:
-		player_emoji.upgraded = (vibe_name == "triangle")
-	if vibe_name == "triangle" and player_emoji:
-		if _default_emoji_scale == Vector3.ZERO:
-			_default_emoji_scale = player_emoji.target_scale
-		player_emoji.target_scale = Vector3(7, 7, 7)
-		player_emoji.scale = player_emoji.target_scale
+		if player_emoji:
+			player_emoji.upgraded = true
+			if _default_emoji_scale == Vector3.ZERO:
+				_default_emoji_scale = player_emoji.target_scale
+			player_emoji.target_scale = Vector3(7, 7, 7)
+			player_emoji.scale = player_emoji.target_scale
+	else:
+		if player_emoji:
+			player_emoji.upgraded = false
 
 
 func _on_vibe_expired() -> void:
-	_remove_extra_tail()
+	_remove_all_extra_tails()
 	set_tail_mode(false)
 	if player_emoji:
 		player_emoji.upgraded = false
@@ -370,15 +384,17 @@ func _on_vibe_expired() -> void:
 
 
 func _spawn_extra_tail() -> void:
-	if _extra_tail:
+	if _extra_tails.size() >= _MAX_EXTRA_TAILS:
 		return
-	_extra_tail = _physical_tail_scene.instantiate()
-	_extra_tail.player = $Player
-	_extra_tail.position = $Player.global_position
-	_extra_tail.tube_color = $PhysicalTail.tube_color.darkened(0.2)
-	add_child(_extra_tail)
-	_extra_tail.teleport_to_player()
-	_set_tail_collision(_extra_tail, true)
+	var tail: Node3D = _physical_tail_scene.instantiate()
+	tail.player = $Player
+	tail.position = $Player.global_position
+	var darken: float = 0.1 + 0.05 * _extra_tails.size()
+	tail.tube_color = $PhysicalTail.tube_color.darkened(darken)
+	add_child(tail)
+	tail.teleport_to_player()
+	_set_tail_collision(tail, true)
+	_extra_tails.append(tail)
 
 func launch_rock(target_pos: Vector3) -> void:
 	# Spawn target indicator at landing position
@@ -401,28 +417,24 @@ func launch_rock(target_pos: Vector3) -> void:
 		# Launch rock with ballistic trajectory to land at target_pos
 		var rock_instance: RigidBody3D = rock_scene.duplicate() as RigidBody3D
 		rock_instance.freeze = true
+		rock_instance.visible = true
 		add_child(rock_instance)
 		rock_instance.global_position = rock_launcher.global_position
+		rock_instance.linear_velocity = Vector3.ZERO
+		rock_instance.angular_velocity = Vector3.ZERO
 
 		var start: Vector3 = rock_instance.global_position
 		var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8) * rock_instance.gravity_scale
 		var land_pos: Vector3 = Vector3(target_pos.x, 0.0, target_pos.z)
 
 		# Calculate initial velocity for ballistic arc
+		# Use fixed flight time, solve for required velocity
+		var flight_time: float = 0.8
 		var displacement: Vector3 = land_pos - start
 		var dx: Vector3 = Vector3(displacement.x, 0.0, displacement.z)
-		var horizontal_dist: float = dx.length()
-		var dy: float = displacement.y  # negative (falling down)
-
-		# Choose flight time based on a nice arc height
-		var peak_height: float = 10.0  # how high above launch point
-		# Time to rise to peak from launch: v_y = sqrt(2 * g * peak_height)
-		var vy: float = sqrt(2.0 * gravity * peak_height)
-		# Total flight time: solve dy = vy*t - 0.5*g*t^2
-		# t = (vy + sqrt(vy^2 + 2*g*abs(dy))) / g  (taking the positive root for falling below)
-		var flight_time: float = (vy + sqrt(vy * vy + 2.0 * gravity * absf(dy))) / gravity
-
-		var vx: Vector3 = dx / flight_time if flight_time > 0.0 else Vector3.ZERO
+		# vx = dx / t, vy = (dy + 0.5*g*t^2) / t
+		var vx: Vector3 = dx / flight_time
+		var vy: float = (displacement.y + 0.5 * gravity * flight_time * flight_time) / flight_time
 		var launch_velocity: Vector3 = vx + Vector3.UP * vy
 
 		rock_instance.freeze = false
@@ -435,12 +447,17 @@ func launch_rock(target_pos: Vector3) -> void:
 
 func _on_rock_landed(body: Node, rock: RigidBody3D) -> void:
 	print("Rock landed on: ", body.name)
-	if body == $Player:
+	# Always check distance to player on any collision
+	var dist: float = rock.global_position.distance_to($Player.global_position)
+	print("Rock dist to player: ", dist)
+	if dist <= 3.5:
 		_game_over = true
 		_on_game_over()
-	# Disconnect after first contact so the rock can't trigger game over later
-	if rock.body_entered.is_connected(_on_rock_landed):
-		rock.body_entered.disconnect(_on_rock_landed)
+		return
+	# Only disconnect on ground hit, keep listening if hit something else
+	if body is StaticBody3D:
+		if rock.body_entered.is_connected(_on_rock_landed):
+			rock.body_entered.disconnect(_on_rock_landed)
 
 
 func _setup_lover() -> void:
@@ -451,10 +468,11 @@ func _setup_lover() -> void:
 	else:
 		_lover_node = $L
 
-func _remove_extra_tail() -> void:
-	if _extra_tail:
-		_extra_tail.queue_free()
-		_extra_tail = null
+func _remove_all_extra_tails() -> void:
+	for tail in _extra_tails:
+		if is_instance_valid(tail):
+			tail.queue_free()
+	_extra_tails.clear()
 
 
 func _update_lover_facing() -> void:
@@ -481,16 +499,44 @@ func _bounce_lover() -> void:
 
 
 func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
-	if not _lover_node or not is_instance_valid(_lover_node):
-		return
-	var lover_emoji: Node = _lover_node.get_node_or_null("Emoji")
-	if not lover_emoji:
-		return
-	if signal_name == "heart":
-		lover_emoji.flash_emoji(1)  # heart emoji
-	elif signal_name == "circle":
-		lover_emoji.flash_emoji(0)  # note emoji
-		_bounce_lover()
+	# Lover reaction
+	if _lover_node and is_instance_valid(_lover_node):
+		var lover_emoji: Node = _lover_node.get_node_or_null("Emoji")
+		if lover_emoji:
+			if signal_name == "heart":
+				lover_emoji.flash_emoji(1)  # heart emoji
+			elif signal_name == "circle":
+				lover_emoji.flash_emoji(0)  # note emoji
+				_bounce_lover()
+
+	# Enemy reaction
+	if signal_name == "circle":
+		_enemies_react_to_greet()
+
+
+func _enemies_react_to_greet() -> void:
+	for node in get_tree().get_nodes_in_group("wave_enemy"):
+		if not is_instance_valid(node):
+			continue
+		var enemy: RigidBody3D = node as RigidBody3D
+		if not enemy or not enemy.freeze or enemy.is_in_group("stunned"):
+			continue
+		enemy.add_to_group("stunned")
+		# Face the player and hold facing during stun
+		var player_pos: Vector3 = $Player.global_position
+		var dir: Vector3 = player_pos - enemy.global_position
+		dir.y = 0.0
+		if dir.length_squared() > 0.01:
+			var face_y := atan2(dir.x, dir.z) + PI
+			enemy.global_rotation.y = face_y
+		# Show question mark immediately, resume after 0.5s
+		var emoji: Node = enemy.get_node_or_null("Emoji")
+		if emoji:
+			emoji.flash_emoji(5)  # question mark
+		get_tree().create_timer(0.5).timeout.connect(func() -> void:
+			if is_instance_valid(enemy):
+				enemy.remove_from_group("stunned")
+		)
 
 
 func _on_shape_recognized(shape_name: String, shape_type: String) -> void:
