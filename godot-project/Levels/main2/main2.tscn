@@ -1056,6 +1056,6 @@ script = ExtResource("19_tb6v7")
 boom_on_swipe = true
 
 [node name="RockLauncher" type="Marker3D" parent="." unique_id=1521515940]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.18686, 42.255547, 55.753876)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.951088, 42.255547, 58.002243)
 
 [connection signal="shape_closed" from="TrailSystem" to="SignalManager" method="on_shape_closed"]

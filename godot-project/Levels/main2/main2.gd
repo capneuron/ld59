@@ -19,7 +19,7 @@ extends Node3D
 @onready var _sfx_button: AudioStreamPlayer = $SFXButton
 
 @onready var rock_launcher: Node = $RockLauncher
-@onready var rock_scene: RigidBody3D =  $Rock
+var rock_packed: PackedScene = preload("res://scene/rock.tscn")
 @onready var target_scene: Node3D = $Target
 
 var _enemy_scene: PackedScene = preload("res://scene/ginnie2.tscn")
@@ -65,9 +65,8 @@ func _ready() -> void:
 		if node:
 			node.queue_free()
 
-	# Hide and freeze template rock so it doesn't fall
-	rock_scene.freeze = true
-	rock_scene.visible = false
+	# Remove template rock from scene tree
+	$Rock.queue_free()
 
 	_timer_label.visible = false
 	_show_start_screen()
@@ -415,13 +414,12 @@ func launch_rock(target_pos: Vector3) -> void:
 			return
 
 		# Launch rock with ballistic trajectory to land at target_pos
-		var rock_instance: RigidBody3D = rock_scene.duplicate() as RigidBody3D
+		var rock_instance: RigidBody3D = rock_packed.instantiate() as RigidBody3D
 		rock_instance.freeze = true
-		rock_instance.visible = true
+		rock_instance.contact_monitor = true
+		rock_instance.max_contacts_reported = 3
 		add_child(rock_instance)
 		rock_instance.global_position = rock_launcher.global_position
-		rock_instance.linear_velocity = Vector3.ZERO
-		rock_instance.angular_velocity = Vector3.ZERO
 
 		var start: Vector3 = rock_instance.global_position
 		var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8) * rock_instance.gravity_scale
@@ -438,7 +436,9 @@ func launch_rock(target_pos: Vector3) -> void:
 		var launch_velocity: Vector3 = vx + Vector3.UP * vy
 
 		rock_instance.freeze = false
-		rock_instance.linear_velocity = launch_velocity
+		# Use impulse instead of linear_velocity for reliable launch
+		rock_instance.apply_central_impulse(launch_velocity * rock_instance.mass)
+		print("Rock launch: start=%s target=%s vel=%s gravity=%.1f" % [start, land_pos, launch_velocity, gravity])
 
 		# Connect to detect landing
 		rock_instance.body_entered.connect(_on_rock_landed.bind(rock_instance))
