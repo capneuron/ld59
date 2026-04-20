@@ -12,6 +12,9 @@ var _camera: Camera3D
 var _target_position: Vector3
 var _facing_direction := Vector3.FORWARD
 var _marker: MeshInstance3D
+var _bounce_vel: Vector3 = Vector3.ZERO
+var _is_bouncing: bool = false
+const _BOUNCE_GRAVITY: float = 25.0
 
 
 func _ready() -> void:
@@ -57,10 +60,28 @@ func _unhandled_input(event: InputEvent) -> void:
 		_target_position.y = 0.0
 
 
+func bounce(horizontal_dir: Vector3, horizontal_speed: float = 10.0, vertical_speed: float = 12.0) -> void:
+	_is_bouncing = true
+	var flat_dir := Vector3(horizontal_dir.x, 0.0, horizontal_dir.z).normalized()
+	_bounce_vel = flat_dir * horizontal_speed + Vector3.UP * vertical_speed
+
+
 func _physics_process(delta: float) -> void:
 	# Update marker position
 	if _marker:
 		_marker.global_position = _target_position + Vector3(0.0, 0.02, 0.0)
+
+	# During bounce: use parabolic arc velocity, ignore normal movement
+	if _is_bouncing:
+		_bounce_vel.y -= _BOUNCE_GRAVITY * delta
+		velocity = _bounce_vel
+		move_and_slide()
+		if global_position.y <= 0.0:
+			global_position.y = 0.0
+			_bounce_vel = Vector3.ZERO
+			_is_bouncing = false
+			_target_position = global_position
+		return
 
 	var current := global_position
 	var direction := _target_position - current

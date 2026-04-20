@@ -50,8 +50,7 @@ func _process(delta: float) -> void:
 			dir = dir.normalized()
 		else:
 			dir = Vector3.FORWARD
-		_player._target_position = _player.global_position + dir * knockback_force
-		_player._target_position.y = 0.0
+		_player.bounce(dir, knockback_force)
 		$Emoji.flash_emoji(4)
 
 	# Face player

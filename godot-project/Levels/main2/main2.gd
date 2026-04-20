@@ -18,6 +18,10 @@ extends Node3D
 @onready var _bgm_ending: AudioStreamPlayer = $BGMEnding
 @onready var _sfx_button: AudioStreamPlayer = $SFXButton
 
+@onready var rock_launcher: Node = $RockLauncher
+@onready var rock_scene: RigidBody3D =  $Rock
+@onready var target_scene: Node3D = $Target
+
 var _enemy_scene: PackedScene = preload("res://scene/ginnie2.tscn")
 var _swipeable_script: Script = preload("res://other_scripts/swipeable.gd")
 
@@ -27,10 +31,13 @@ var _elapsed_time: float = 0.0
 var _spawn_timer: float = 0.0
 var _current_interval: float = 4.0
 var _l_node: Node3D
+var _lover_node: Node3D
 @onready var _timer_label: Label = $TimerCanvas/TimerLabel
 var _last_knockback_time: float = 0.0
-
-## Spawn positions (from M1-M4 in scene)
+var _rock_timer: float = 0.0
+var _rock_interval: float = 5.0
+var _rock_delay: float = 10.0
+var _rock_started: bool = false
 var _spawn_positions: Array[Vector3] = [
 	Vector3(-6.734573, -0.12096977, 25.73685),
 	Vector3(-6.734573, -0.12096977, 28.954723),
@@ -61,6 +68,7 @@ func _ready() -> void:
 	_timer_label.visible = false
 	_show_start_screen()
 
+	# Rocks will be launched in _process after start
 
 # no longer created dynamically; referenced from scene tree
 
@@ -138,6 +146,18 @@ func _process(delta: float) -> void:
 	_timer_label.text = "%.1fs" % _elapsed_time
 	# ====== TODO: _update_sunset()
 
+	# Launch rocks: wait 10s after start, then every 5s
+	if not _rock_started:
+		if _elapsed_time >= _rock_delay:
+			_rock_started = true
+			_rock_timer = 0.0
+			launch_rock($Player.global_position)
+	else:
+		_rock_timer += delta
+		if _rock_timer >= _rock_interval:
+			_rock_timer = 0.0
+			launch_rock($Player.global_position)
+
 	# Spawn enemies — count increases over time
 	_spawn_timer += delta
 	if _spawn_timer >= _current_interval:
@@ -153,6 +173,9 @@ func _process(delta: float) -> void:
 	# Check if any enemy reached L
 	_check_enemies_reached_l()
 
+	# Lover always faces the player
+	_update_lover_facing()
+
 
 func _check_player_knockback() -> void:
 	if _elapsed_time - _last_knockback_time < 1.0:
@@ -166,8 +189,7 @@ func _check_player_knockback() -> void:
 		if dist <= 2.5:  # knockback radius
 			_last_knockback_time = _elapsed_time
 			var dir = (player_pos - enemy.global_position).normalized()
-			dir.y = 0.0
-			$Player._target_position = player_pos + dir * 8.0  # knockback distance
+			$Player.bounce(dir)
 			enemy.get_node("Emoji").flash_emoji(4)
 			break  # only one knockback per frame
 
@@ -358,11 +380,76 @@ func _spawn_extra_tail() -> void:
 	_extra_tail.teleport_to_player()
 	_set_tail_collision(_extra_tail, true)
 
+func launch_rock(target_pos: Vector3) -> void:
+	# Spawn target indicator at landing position
+	var target: Sprite3D = target_scene.duplicate() as Sprite3D
+	add_child(target)
+	target.global_position = Vector3(target_pos.x, 0.05, target_pos.z)
+	target.global_rotation = Vector3(-PI / 2.0, 0.0, 0.0)
+	target.visible = true
+
+	# Blink the target indicator
+	var tw := create_tween()
+	for i in 6:
+		tw.tween_property(target, "modulate:a", 0.2, 0.15)
+		tw.tween_property(target, "modulate:a", 1.0, 0.15)
+	tw.tween_callback(func() -> void:
+		target.queue_free()
+		if _game_over:
+			return
+
+		# Launch rock with ballistic trajectory to land at target_pos
+		var rock_instance: RigidBody3D = rock_scene.duplicate() as RigidBody3D
+		rock_instance.freeze = true
+		add_child(rock_instance)
+		rock_instance.global_position = rock_launcher.global_position
+
+		var start: Vector3 = rock_instance.global_position
+		var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8) * rock_instance.gravity_scale
+		var land_pos: Vector3 = Vector3(target_pos.x, 0.0, target_pos.z)
+
+		# Calculate initial velocity for ballistic arc
+		var displacement: Vector3 = land_pos - start
+		var dx: Vector3 = Vector3(displacement.x, 0.0, displacement.z)
+		var horizontal_dist: float = dx.length()
+		var dy: float = displacement.y  # negative (falling down)
+
+		# Choose flight time based on a nice arc height
+		var peak_height: float = 10.0  # how high above launch point
+		# Time to rise to peak from launch: v_y = sqrt(2 * g * peak_height)
+		var vy: float = sqrt(2.0 * gravity * peak_height)
+		# Total flight time: solve dy = vy*t - 0.5*g*t^2
+		# t = (vy + sqrt(vy^2 + 2*g*abs(dy))) / g  (taking the positive root for falling below)
+		var flight_time: float = (vy + sqrt(vy * vy + 2.0 * gravity * absf(dy))) / gravity
+
+		var vx: Vector3 = dx / flight_time if flight_time > 0.0 else Vector3.ZERO
+		var launch_velocity: Vector3 = vx + Vector3.UP * vy
+
+		rock_instance.freeze = false
+		rock_instance.linear_velocity = launch_velocity
+
+		# Connect to detect landing
+		rock_instance.body_entered.connect(_on_rock_landed.bind(rock_instance))
+	)
+
+
+func _on_rock_landed(body: Node, rock: RigidBody3D) -> void:
+	print("Rock landed on: ", body.name)
+	if body == $Player:
+		_game_over = true
+		_on_game_over()
+	# Disconnect after first contact so the rock can't trigger game over later
+	if rock.body_entered.is_connected(_on_rock_landed):
+		rock.body_entered.disconnect(_on_rock_landed)
+
+
 func _setup_lover() -> void:
-	var lover: Node3D = $L
 	if Global.get_param("lover") == "F":
-		lover.visible = false
+		$L.visible = false
 		$F.visible = true
+		_lover_node = $F
+	else:
+		_lover_node = $L
 
 func _remove_extra_tail() -> void:
 	if _extra_tail:
@@ -370,8 +457,40 @@ func _remove_extra_tail() -> void:
 		_extra_tail = null
 
 
+func _update_lover_facing() -> void:
+	if not _lover_node or not is_instance_valid(_lover_node):
+		return
+	var player_pos: Vector3 = $Player.global_position
+	var lover_pos: Vector3 = _lover_node.global_position
+	var dir: Vector3 = player_pos - lover_pos
+	dir.y = 0.0
+	if dir.length_squared() > 0.01:
+		var target_y := atan2(dir.x, dir.z) + PI
+		_lover_node.global_rotation.y = target_y
+
+
+func _bounce_lover() -> void:
+	if not _lover_node or not is_instance_valid(_lover_node):
+		return
+	var base_y: float = _lover_node.global_position.y
+	var tw := create_tween().set_trans(Tween.TRANS_QUAD)
+	tw.tween_property(_lover_node, "global_position:y", base_y + 1.5, 0.2).set_ease(Tween.EASE_OUT)
+	tw.tween_property(_lover_node, "global_position:y", base_y, 0.2).set_ease(Tween.EASE_IN)
+	tw.tween_property(_lover_node, "global_position:y", base_y + 0.6, 0.15).set_ease(Tween.EASE_OUT)
+	tw.tween_property(_lover_node, "global_position:y", base_y, 0.15).set_ease(Tween.EASE_IN)
+
+
 func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
-	pass
+	if not _lover_node or not is_instance_valid(_lover_node):
+		return
+	var lover_emoji: Node = _lover_node.get_node_or_null("Emoji")
+	if not lover_emoji:
+		return
+	if signal_name == "heart":
+		lover_emoji.flash_emoji(1)  # heart emoji
+	elif signal_name == "circle":
+		lover_emoji.flash_emoji(0)  # note emoji
+		_bounce_lover()
 
 
 func _on_shape_recognized(shape_name: String, shape_type: String) -> void:
