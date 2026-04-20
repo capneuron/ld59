@@ -1045,6 +1045,7 @@ texture = ExtResource("34_rl6vq")
 
 [node name="Rock" parent="." unique_id=1026346721 instance=ExtResource("34_lyi3h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4962673, -0.025616407, 59.35381)
+mass = 50.0
 gravity_scale = 1.0
 freeze = false
 continuous_cd = true

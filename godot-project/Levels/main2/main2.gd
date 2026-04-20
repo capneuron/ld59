@@ -24,6 +24,7 @@ var rock_packed: PackedScene = preload("res://scene/rock.tscn")
 
 var _enemy_scene: PackedScene = preload("res://scene/ginnie2.tscn")
 var _swipeable_script: Script = preload("res://other_scripts/swipeable.gd")
+var _boom_scene: PackedScene = preload("res://scene/boom.tscn")
 
 var _game_started: bool = false
 var _game_over: bool = false
@@ -189,7 +190,7 @@ func _check_player_knockback() -> void:
 			continue
 		var enemy: RigidBody3D = node
 		var dist = enemy.global_position.distance_to(player_pos)
-		if dist <= 2.5:  # knockback radius
+		if dist <= 2:  # knockback radius
 			_last_knockback_time = _elapsed_time
 			var dir = (player_pos - enemy.global_position).normalized()
 			$Player.bounce(dir)
@@ -416,13 +417,20 @@ func launch_rock(target_pos: Vector3) -> void:
 		# Launch rock with ballistic trajectory to land at target_pos
 		var rock_instance: RigidBody3D = rock_packed.instantiate() as RigidBody3D
 		rock_instance.freeze = true
+		rock_instance.gravity_scale = 1.0
 		rock_instance.contact_monitor = true
 		rock_instance.max_contacts_reported = 3
+		# Add swipeable
+		var swipeable := Area3D.new()
+		swipeable.set_script(_swipeable_script)
+		swipeable.set("boom_on_swipe", true)
+		swipeable.set("destroy_delay", 2.0)
+		rock_instance.add_child(swipeable)
 		add_child(rock_instance)
 		rock_instance.global_position = rock_launcher.global_position
 
 		var start: Vector3 = rock_instance.global_position
-		var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8) * rock_instance.gravity_scale
+		var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity", 9.8)
 		var land_pos: Vector3 = Vector3(target_pos.x, 0.0, target_pos.z)
 
 		# Calculate initial velocity for ballistic arc
@@ -450,12 +458,19 @@ func _on_rock_landed(body: Node, rock: RigidBody3D) -> void:
 	# Always check distance to player on any collision
 	var dist: float = rock.global_position.distance_to($Player.global_position)
 	print("Rock dist to player: ", dist)
-	if dist <= 3.5:
+	if dist <= 1.5:
 		_game_over = true
 		_on_game_over()
 		return
-	# Only disconnect on ground hit, keep listening if hit something else
+	# Freeze rock in place until swipe unfreezes it
 	if body is StaticBody3D:
+		rock.freeze = true
+		rock.linear_velocity = Vector3.ZERO
+		rock.angular_velocity = Vector3.ZERO
+		# Spawn boom effect at landing position
+		var boom := _boom_scene.instantiate()
+		add_child(boom)
+		boom.global_position = rock.global_position
 		if rock.body_entered.is_connected(_on_rock_landed):
 			rock.body_entered.disconnect(_on_rock_landed)
 

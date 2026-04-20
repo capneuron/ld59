@@ -8,7 +8,7 @@ extends RigidBody3D
 @export var bounce_height: float = 0.4
 @export var bounce_count: int = 3
 @export var bounce_speed: float = 8.0
-@export var knockback_radius: float = 2.5
+@export var knockback_radius: float = 2
 @export var knockback_force: float = 8.0
 @export var knockback_cooldown: float = 1.0
 
