@@ -34,6 +34,8 @@ var _current_interval: float = 4.0
 var _l_node: Node3D
 var _lover_node: Node3D
 @onready var _timer_label: Label = $TimerCanvas/TimerLabel
+@onready var _heart_label: Label = $TimerCanvas/HeartLabel
+var _heart_count: int = 0
 var _last_knockback_time: float = 0.0
 var _rock_timer: float = 0.0
 var _rock_interval: float = 5.0
@@ -70,6 +72,7 @@ func _ready() -> void:
 	$Rock.queue_free()
 
 	_timer_label.visible = false
+	_heart_label.visible = false
 	_show_start_screen()
 
 	# Rocks will be launched in _process after start
@@ -138,6 +141,7 @@ func _on_start() -> void:
 	$PauseMenu.enable_exit("res://Levels/main2/main2.tscn")
 	_game_started = true
 	_timer_label.visible = true
+	_heart_label.visible = true
 
 	await get_tree().create_timer(0.5).timeout
 	_play_bgm("main")
@@ -514,6 +518,11 @@ func _bounce_lover() -> void:
 
 
 func _on_signal_triggered(vibe_name: String, signal_name: String) -> void:
+	# Track heart count
+	if signal_name == "heart":
+		_heart_count += 1
+		_heart_label.text = "heart shown:%d" % _heart_count
+
 	# Lover reaction
 	if _lover_node and is_instance_valid(_lover_node):
 		var lover_emoji: Node = _lover_node.get_node_or_null("Emoji")

@@ -263,6 +263,20 @@ text = "0.0s"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="HeartLabel" type="Label" parent="TimerCanvas"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 65.0
+offset_right = 100.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("3_1bee0")
+theme_override_font_sizes/font_size = 32
+text = "heart shown:0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=291897478]
 texture_filter = 1
 anchors_preset = 15
